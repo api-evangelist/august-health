@@ -1,0 +1,53 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.augusthealth.com/docs/authentication-tokens.md
+docs: https://developer.augusthealth.com/docs/authentication-tokens.md
+summary:
+  types: [http]
+  scheme: bearer
+  bearer_format: JWT
+  api_key_in: []
+  oauth2_flows: []
+  model: >-
+    Token-based bearer authentication. Clients obtain a short-lived JWT id token
+    from the token endpoint using API user credentials, then pass it as
+    `Authorization: Bearer {idToken}`. Access is governed by named permissions
+    granted to the API user (e.g. BILLING_PAYMENTS_CREATE), not OAuth scopes.
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearer_format: JWT
+  description: >-
+    JWT id token passed as `Authorization: Bearer {idToken}`. Tokens are scoped to
+    a specific API user and can be used across all endpoints for organizations the
+    user has access to.
+  sources: [https://developer.augusthealth.com/docs/authentication-tokens.md]
+token_endpoint:
+  operation: createTokenV1
+  path: /v1/token
+  method: POST
+  flows:
+  - name: credentials
+    request: '{ "credentials": { "username": "...", "password": "..." } }'
+  - name: refresh
+    request: '{ "refreshCredentials": { "idToken": "...", "refreshToken": "..." } }'
+  response_fields:
+  - idToken
+  - refreshToken
+  - tokenType (Bearer)
+  - expiresIn (seconds until id token expiry)
+  token_lifetimes:
+    id_token: short-lived; refresh at 80-90% of expiresIn
+    refresh_token: 24 hours
+permissions_model:
+  style: named-permissions
+  note: >-
+    Endpoints require specific named permissions on the API user. Documented
+    example: `BILLING_PAYMENTS_CREATE` is required for the Record deposit
+    operation. There is no OAuth2 authorization-server / scope flow; this is a
+    permission-gated bearer-JWT model, so no scopes/ artifact is emitted.
+  observed_permissions:
+  - name: BILLING_PAYMENTS_CREATE
+    required_by: recordDepositV1
+    source: https://developer.augusthealth.com/reference/recorddepositv1.md
