@@ -1,0 +1,18 @@
+generated: '2026-07-18'
+method: searched
+source: live probes of August Health hosts
+note: >-
+  No usable /.well-known/ discovery documents were found. The marketing host
+  (augusthealth.com) returns 404 for all probed paths. The application host
+  (app.augusthealth.com) is a single-page app that returns HTTP 200 with the app
+  HTML shell for every path, so security.txt / openid-configuration 200s there are
+  the SPA catch-all, not real documents (excluded).
+hosts:
+- host: https://augusthealth.com
+  documents:
+  - { path: /.well-known/security.txt, status: 404 }
+- host: https://app.augusthealth.com
+  documents:
+  - { path: /.well-known/security.txt, status: 200, valid: false, reason: SPA HTML catch-all }
+  - { path: /.well-known/openid-configuration, status: 200, valid: false, reason: SPA HTML catch-all }
+documents: []

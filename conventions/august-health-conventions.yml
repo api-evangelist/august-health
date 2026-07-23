@@ -1,0 +1,54 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.augusthealth.com/
+docs: https://developer.augusthealth.com/
+authentication:
+  style: bearer-jwt
+  header: 'Authorization: Bearer {idToken}'
+  detail: authentication/august-health-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  example: /v1/token
+idempotency:
+  supported: true
+  style: client-supplied-key
+  key_field: externalDepositId
+  scope: >-
+    Documented for the Record deposit operation: resubmitting the same
+    `externalDepositId` returns the existing deposit without creating duplicates.
+    The retry must contain the exact same set of payments (by
+    `externalTransactionId`); a mismatched set returns 400.
+  atomicity: >-
+    Deposit batches are all-or-nothing: if any personId is invalid the entire
+    batch is rejected.
+  source: https://developer.augusthealth.com/reference/recorddepositv1.md
+pagination:
+  style: paginated-lists
+  incremental_sync:
+    param: updatedAfter
+    detail: >-
+      List endpoints (e.g. billing transactions) accept `updatedAfter` to pull
+      only records created or modified since the last query; includes both active
+      and deleted records so consumers can reconcile deletes.
+  source: https://developer.augusthealth.com/reference/listresidentbillingtransactionsv1.md
+caching:
+  style: etag
+  detail: >-
+    Binary/photo endpoints support ETag-based caching via the If-None-Match
+    request header (e.g. resident profile photo returns a 168x168 image with ETag).
+  source: https://developer.augusthealth.com/reference/getpersonprofilephotov1.md
+rate_limiting:
+  detail: rate-limits/august-health-rate-limits.yml
+  summary: 10 requests/second globally; 429 on exceed; no rate-limit headers.
+error_envelope:
+  format: json
+  detail: errors/august-health-problem-types.yml
+webhooks:
+  supported: true
+  detail: asyncapi/august-health-events-asyncapi.yml
+  envelope_fields: [eventType, eventId, eventTimestamp, eventPayload]
+environments:
+  staging: Integration partners receive staging credentials before production.
+  production: Separate production credentials issued after staging validation.
+  source: https://developer.augusthealth.com/docs/getting-started.md

@@ -1,0 +1,33 @@
+generated: '2026-07-18'
+method: searched
+source: https://trust.augusthealth.com/
+standards:
+- id: hipaa
+  conforms: true
+  evidence: >-
+    August Health states it is HIPAA certified; the platform is a covered EHR for
+    senior living and requires mutual-customer data-sharing sign-off before API access.
+  source: https://www.augusthealth.com/
+- id: soc2
+  conforms: true
+  evidence: SOC 2 (AICPA) attestation published via the August Health Trust Center.
+  source: https://trust.augusthealth.com/
+- id: oauth2
+  conforms: false
+  evidence: Auth is bearer-JWT with a credentials token endpoint and named permissions, not OAuth2 flows.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No application/problem+json error envelope documented.
+- id: rest
+  conforms: true
+  evidence: Provider describes a RESTful JSON API with URI-path versioning (/v1).
+- id: webhooks
+  conforms: true
+  evidence: Publishes an event/webhook surface with 14 event types and a subscription portal.
+- id: rfc8594-sunset
+  conforms: false
+  evidence: No Sunset/Deprecation header policy located.
+compliance_program:
+  published: true
+  url: https://trust.augusthealth.com/
+  certifications: [SOC 2, HIPAA, AICPA]

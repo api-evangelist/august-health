@@ -1,0 +1,28 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.augusthealth.com/docs/rate-limiting.md
+docs: https://developer.augusthealth.com/docs/rate-limiting.md
+scope: >-
+  Applies across all endpoints and the integration as a whole (per integration,
+  not per endpoint).
+rate_limits:
+- name: global
+  limit_count: 10
+  window: 1s
+  unit: requests
+  description: 10 requests per second across all August Health API endpoints.
+enforcement:
+  status: 429
+  status_text: Too Many Requests
+  headers: none
+  note: >-
+    No rate-limit headers (X-RateLimit-*, Retry-After) and no response body
+    details are returned on a 429.
+guidance:
+  strategy: exponential-backoff
+  backoff_start: 1s
+  backoff_max: 16s
+  max_retries: 5
+  pacing: >-
+    Add 100-200ms between sequential requests to hold ~6-7 rps, safely below the
+    10 rps ceiling.

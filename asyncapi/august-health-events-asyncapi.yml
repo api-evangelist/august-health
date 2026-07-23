@@ -1,0 +1,120 @@
+asyncapi: 3.0.0
+info:
+  title: August Health Webhooks
+  version: '1.0'
+  description: >-
+    Event surface for the August Health EHR platform. Consumers subscribe via the
+    webhooks application portal and receive HTTP POST callbacks. Each delivery
+    carries the envelope { eventType, eventId, eventTimestamp, eventPayload }.
+    Derived from the published webhook documentation; message payload schemas
+    beyond the envelope are not publicly specified.
+  externalDocs:
+    description: August Health webhooks documentation
+    url: https://developer.augusthealth.com/docs/webhooks.md
+  x-provenance:
+    generated: '2026-07-18'
+    method: searched
+    source: https://developer.augusthealth.com/docs/webhooks-event-types.md
+defaultContentType: application/json
+channels:
+  webhooks:
+    address: '{subscriberEndpoint}'
+    title: Subscriber webhook endpoint
+    description: HTTPS endpoint registered by the integration partner in the webhooks portal.
+    messages:
+      billing.statement_issued: { $ref: '#/components/messages/billing.statement_issued' }
+      person.admission_created: { $ref: '#/components/messages/person.admission_created' }
+      person.admission_deleted: { $ref: '#/components/messages/person.admission_deleted' }
+      person.admission_updated: { $ref: '#/components/messages/person.admission_updated' }
+      person.admissions_agreement_completed: { $ref: '#/components/messages/person.admissions_agreement_completed' }
+      person.assessment_finalized: { $ref: '#/components/messages/person.assessment_finalized' }
+      person.away: { $ref: '#/components/messages/person.away' }
+      person.diet_changed: { $ref: '#/components/messages/person.diet_changed' }
+      person.discharge_created: { $ref: '#/components/messages/person.discharge_created' }
+      person.discharge_deleted: { $ref: '#/components/messages/person.discharge_deleted' }
+      person.discharge_updated: { $ref: '#/components/messages/person.discharge_updated' }
+      person.level_of_care_changed: { $ref: '#/components/messages/person.level_of_care_changed' }
+      person.return: { $ref: '#/components/messages/person.return' }
+      person.room_transfer: { $ref: '#/components/messages/person.room_transfer' }
+operations:
+  receiveEvents:
+    action: receive
+    channel: { $ref: '#/channels/webhooks' }
+    summary: Receive August Health EHR events on a subscribed endpoint.
+components:
+  schemas:
+    Envelope:
+      type: object
+      required: [eventType, eventId, eventTimestamp, eventPayload]
+      properties:
+        eventType:
+          type: string
+          description: The event type name (e.g. person.admission_created).
+        eventId:
+          type: string
+          format: uuid
+          description: Unique identifier for this event instance.
+        eventTimestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the event occurred.
+        eventPayload:
+          type: object
+          description: Resource identifiers and event-specific data.
+  messages:
+    billing.statement_issued:
+      name: billing.statement_issued
+      title: Billing statement issued
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.admission_created:
+      name: person.admission_created
+      title: Resident admission created
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.admission_deleted:
+      name: person.admission_deleted
+      title: Resident admission deleted
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.admission_updated:
+      name: person.admission_updated
+      title: Resident admission updated
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.admissions_agreement_completed:
+      name: person.admissions_agreement_completed
+      title: Admission agreement completed
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.assessment_finalized:
+      name: person.assessment_finalized
+      title: Assessment finalized
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.away:
+      name: person.away
+      title: Resident marked away
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.diet_changed:
+      name: person.diet_changed
+      title: Resident diet changed
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.discharge_created:
+      name: person.discharge_created
+      title: Resident discharge created
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.discharge_deleted:
+      name: person.discharge_deleted
+      title: Resident discharge deleted
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.discharge_updated:
+      name: person.discharge_updated
+      title: Resident discharge updated
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.level_of_care_changed:
+      name: person.level_of_care_changed
+      title: Resident level of care changed
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.return:
+      name: person.return
+      title: Resident returned
+      payload: { $ref: '#/components/schemas/Envelope' }
+    person.room_transfer:
+      name: person.room_transfer
+      title: Resident room transfer
+      payload: { $ref: '#/components/schemas/Envelope' }

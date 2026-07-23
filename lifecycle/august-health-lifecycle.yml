@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.augusthealth.com/
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://developer.augusthealth.com/docs/getting-started.md
+environments:
+  staging:
+    docs: https://developer.augusthealth.com/docs/production-configuration.md
+    note: Partners test with staging credentials before promotion.
+  production:
+    docs: https://developer.augusthealth.com/docs/production-configuration.md
+status_page: https://status.augusthealth.com/
+deprecation:
+  policy_url: null
+  sunset_header: null
+  note: No public deprecation/sunset policy located.
+sla:
+  url: null
+  note: No public SLA / uptime commitment located.
+deprecated_operations: []

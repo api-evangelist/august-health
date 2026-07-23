@@ -1,0 +1,72 @@
+generated: '2026-07-18'
+method: derived
+source: https://developer.augusthealth.com/llms.txt
+note: >-
+  Entity-relationship graph derived from the documented v1 API resource surface
+  (organizations, facilities, residents, and the clinical/billing records hung off
+  a resident). No public OpenAPI schema is available (Swagger UI is auth-gated), so
+  relationships are inferred from endpoint hierarchy and reference descriptions.
+entities:
+- name: Organization
+  description: Top-level tenant; owns facilities and staff users.
+- name: User
+  description: Staff member within an organization.
+- name: Facility
+  description: A senior-living community within an organization; owns rooms, shifts, and residents.
+- name: Room
+  description: Room configuration with beds and market rates in a facility.
+- name: Person
+  description: A resident or prospect within a facility (the central clinical entity).
+- name: Admission
+  description: Admission/discharge record and bed-assignment history for a resident.
+- name: Contact
+  description: Contact for a resident; may be flagged responsible person / payer.
+- name: Assessment
+  description: Care-level assessment snapshot for a resident.
+- name: ResidentBiography
+  description: Personal history/preferences snapshot for a resident.
+- name: Incident
+  description: Incident report or clinical note for a resident.
+- name: Task
+  description: Care task for a resident.
+- name: RoutineAdministration
+  description: Routine care administration record for a resident.
+- name: Vital
+  description: Vital measurement for a resident.
+- name: MedicationOrder
+  description: Medication order for a resident.
+- name: MedicationAdministration
+  description: Medication administration record (eMAR) for a resident.
+- name: BillingTransaction
+  description: Payment or charge on a resident ledger.
+- name: BillingStatement
+  description: Issued private-pay statement for a resident.
+- name: Deposit
+  description: Consolidated batch of collected payments (idempotent via externalDepositId).
+- name: AdmissionAgreement
+  description: Signed admission agreement snapshot for a resident.
+- name: VisitorLog
+  description: Visitor sign-in/sign-out entry for a resident.
+relationships:
+- { from: Organization, type: has_many, to: Facility }
+- { from: Organization, type: has_many, to: User }
+- { from: Facility, type: has_many, to: Room }
+- { from: Facility, type: has_many, to: Person }
+- { from: Facility, type: has_many, to: Shift }
+- { from: Person, type: belongs_to, to: Facility, via: facilityId }
+- { from: Person, type: has_many, to: Admission }
+- { from: Person, type: has_many, to: Contact }
+- { from: Person, type: has_many, to: Assessment }
+- { from: Person, type: has_one, to: ResidentBiography }
+- { from: Person, type: has_many, to: Incident }
+- { from: Person, type: has_many, to: Task }
+- { from: Person, type: has_many, to: RoutineAdministration }
+- { from: Person, type: has_many, to: Vital }
+- { from: Person, type: has_many, to: MedicationOrder }
+- { from: Person, type: has_many, to: MedicationAdministration }
+- { from: Person, type: has_many, to: BillingTransaction }
+- { from: Person, type: has_many, to: BillingStatement }
+- { from: Person, type: has_many, to: AdmissionAgreement }
+- { from: Person, type: has_many, to: VisitorLog }
+- { from: Contact, type: belongs_to, to: Person, via: personId }
+- { from: Deposit, type: has_many, to: BillingTransaction, via: externalTransactionId }

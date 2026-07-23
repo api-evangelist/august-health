@@ -1,0 +1,14 @@
+generated: '2026-07-18'
+method: searched
+source: https://trust.augusthealth.com/
+url: https://trust.augusthealth.com/
+certifications: [SOC 2, HIPAA, AICPA]
+evidence:
+- source: https://trust.augusthealth.com/
+  kind: trust-center
+- source: https://www.augusthealth.com/
+  keywords: [soc 2, aicpa, hipaa certified]
+note: >-
+  Trust center is a JavaScript-rendered (Vanta-style) portal that automated
+  probes cannot parse; certifications confirmed from the August Health website
+  and the trust-center subdomain.

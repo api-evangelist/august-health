@@ -1,0 +1,44 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.augusthealth.com/reference/
+format: http-status
+note: >-
+  August Health does not publish an application/problem+json (RFC 9457) error
+  registry. These problem types are captured from the documented error behavior
+  in the live API reference. Status codes and conditions are quoted from the
+  reference pages; enrich when a formal error catalog is published.
+problems:
+- status: 400
+  title: Bad Request
+  conditions:
+  - Deposit retry payment set does not match the original externalDepositId submission.
+  - cashAccountCode omitted when the facility has GL cash accounts configured, or sent when none are configured.
+  - Invalid personId in a deposit batch (entire batch rejected).
+  source_operation: recordDepositV1
+  source: https://developer.augusthealth.com/reference/recorddepositv1.md
+- status: 401
+  title: Unauthorized
+  conditions:
+  - Missing, expired, or invalid Bearer JWT id token.
+  source_operation: '*'
+  source: https://developer.augusthealth.com/docs/authentication-tokens.md
+- status: 403
+  title: Forbidden
+  conditions:
+  - API user lacks the required named permission for the operation (e.g. BILLING_PAYMENTS_CREATE).
+  source_operation: recordDepositV1
+  source: https://developer.augusthealth.com/reference/recorddepositv1.md
+- status: 404
+  title: Not Found
+  conditions:
+  - Snapshot id belongs to a different resident or is not of the requested data type (admission agreement / assessment endpoints).
+  - Requested resource does not exist.
+  source_operation: getAdmissionAgreementV1
+  source: https://developer.augusthealth.com/reference/getadmissionagreementv1.md
+- status: 429
+  title: Too Many Requests
+  conditions:
+  - More than 10 requests per second across the integration.
+  remediation: Exponential backoff 1s to 16s, max 5 retries; pace to ~6-7 rps.
+  source_operation: '*'
+  source: https://developer.augusthealth.com/docs/rate-limiting.md

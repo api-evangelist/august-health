@@ -1,0 +1,102 @@
+# August Health Documentation
+
+> Documentation for August Health
+
+## Guides
+- [Welcome](https://developer.augusthealth.com/docs/getting-started.md): This page will help you get started with reading and writing to the August Health EHR platform.
+- [Rate Limiting](https://developer.augusthealth.com/docs/rate-limiting.md): All August Health API endpoints are subject to rate limiting to ensure fair usage and system stability.
+- [Production Configuration](https://developer.augusthealth.com/docs/production-configuration.md): Transition your staging integration to production.
+- [Authentication Tokens](https://developer.augusthealth.com/docs/authentication-tokens.md): Obtain and manage authentication tokens for the August Health API.
+- [Intro to Webhooks](https://developer.augusthealth.com/docs/webhooks.md): Subscribe to key events in the August Health EHR.
+- [Architecture](https://developer.augusthealth.com/docs/webhooks-architecture.md)
+- [Event Types](https://developer.augusthealth.com/docs/webhooks-event-types.md)
+- [Payload Structure](https://developer.augusthealth.com/docs/webhooks-payload.md)
+- [Implementation Guide](https://developer.augusthealth.com/docs/webhooks-implementation.md)
+- [Best Practices](https://developer.augusthealth.com/docs/webhooks-best-practices.md)
+- [Testing & Debugging](https://developer.augusthealth.com/docs/webhooks-testing.md)
+- [Census Integration](https://developer.augusthealth.com/docs/census-integration.md): A guide to building a census integration with August Health, covering authentication, onboarding new communities, and strategies for keeping resident roster data in sync.
+- [Dining Integration](https://developer.augusthealth.com/docs/dining-integration.md): A guide to building a dining or point of sale integration with August Health, covering authentication, onboarding new communities, retrieving resident dietary information and photos, and keeping data in sync.
+- [External Provider Integration](https://developer.augusthealth.com/docs/external-provider-integration.md): A guide for external provider groups to match patients to residents, retrieve clinical and demographic data on demand, and write visit notes back to August Health.
+- [Organizations](https://developer.augusthealth.com/docs/organizations.md): Retrieve information about organizations accessible to the current user.
+- [Users](https://developer.augusthealth.com/docs/users.md): Retrieve information about staff members in an organization
+- [Visitor Logs](https://developer.augusthealth.com/docs/visitor-logs.md): Record and manage visitor sign-in and sign-out events for residents.
+- [Rooms](https://developer.augusthealth.com/docs/rooms.md): Retrieve room configuration, beds, and market rates for a facility.
+- [Facilities](https://developer.augusthealth.com/docs/facilities.md): Retrieve information about facilities in an organization.
+- [Census](https://developer.augusthealth.com/docs/census.md): Retrieve limited demographic information for residents in a facility.
+- [Residents](https://developer.augusthealth.com/docs/resident-demographics.md): Create and retrieve information about residents and prospects.
+- [Resident Profile Photo](https://developer.augusthealth.com/docs/resident-profile-photo.md): Retrieve a resident's profile photo with efficient caching.
+- [Occupancy](https://developer.augusthealth.com/docs/occupancy.md): Retrieve admission history and current, past, and scheduled future bed assignments for residents in a facility.
+- [Resident Biography](https://developer.augusthealth.com/docs/resident-biography.md): Retrieve, extract, and create Resident Biography data capturing a resident's personal history, preferences, and daily routines.
+- [Contacts](https://developer.augusthealth.com/docs/resident-contacts.md): Create, retrieve, and manage contact information for residents in a facility.
+- [Assessments](https://developer.augusthealth.com/docs/assessments.md): Retrieve assessment data including care levels, categories, and scores for residents.
+- [Data Model](https://developer.augusthealth.com/docs/incidents-notes-data-model.md): Understand the data model for incident reports and clinical notes, including types, locations, recording attribution, and alert functionality.
+- [Creating & Updating](https://developer.augusthealth.com/docs/incidents-notes-create-update.md): Create incident reports and clinical notes for residents, and update existing records with new information.
+- [Reading](https://developer.augusthealth.com/docs/incidents-notes-read.md): Retrieve individual incident reports and clinical notes, or list incidents and notes for a resident or entire facility.
+- [Billing Statements](https://developer.augusthealth.com/docs/billing-statements.md): Search billing statements and download statement PDFs for residents.
+- [Record Deposit](https://developer.augusthealth.com/docs/record-deposit.md): Submit batches of collected payments as consolidated deposits.
+- [Billing Transactions](https://developer.augusthealth.com/docs/billing-transactions.md): Retrieve a resident's payments and charges with incremental-sync support.
+- [Billing Summary](https://developer.augusthealth.com/docs/billing-summary.md): Retrieve billing information for residents in a facility.
+- [Admission Agreements](https://developer.augusthealth.com/docs/admission-agreements.md): Retrieve a resident's admission agreement data and signed PDF.
+- [Billing Statement PDF](https://developer.augusthealth.com/docs/billing-statement-pdf.md): Download billing statement PDFs for residents.
+- [Tasks](https://developer.augusthealth.com/docs/resident-tasks.md): Retrieve task information for residents in a facility.
+- [Routine Administrations](https://developer.augusthealth.com/docs/routine-administrations.md): Retrieve and chart routine care administrations for residents.
+- [Vitals](https://developer.augusthealth.com/docs/vitals.md): Record, retrieve, and update vital measurements for residents.
+- [Medication Orders](https://developer.augusthealth.com/docs/medication-orders.md): Retrieve medication order information for residents in a facility.
+- [Medication Administrations](https://developer.augusthealth.com/docs/medication-administrations.md): Retrieve medication administration records for residents in a facility.
+
+## API Reference
+- [List organizations](https://developer.augusthealth.com/reference/listorganizationsv1.md): List organizations visible to the current user.
+- [List facilities](https://developer.augusthealth.com/reference/listfacilitiesv1-1.md): List facilities visible to the current user in a given organization.
+- [List rooms for a facility](https://developer.augusthealth.com/reference/listroomsv1.md): Returns all active rooms for the specified facility, including configured beds and market rates. Optionally filter by effective date.
+- [Get admission history for a resident](https://developer.augusthealth.com/reference/getadmissionhistoryv1.md): Returns the complete admission and discharge history for a specific resident
+- [Get admission history for all residents in a facility](https://developer.augusthealth.com/reference/getfacilityadmissionhistoryv1.md): Returns paginated admission and discharge history for all residents in the specified facility
+- [Get bed assignment history for all residents in a facility](https://developer.augusthealth.com/reference/getfacilitybedassignmenthistoryv1.md): Returns paginated bed assignment history for all residents in the specified facility
+- [List bed assignment history for a resident](https://developer.augusthealth.com/reference/listbedassignmentsv1.md): Returns the complete bed assignment history for a specific resident
+- [Get statement PDF](https://developer.augusthealth.com/reference/getstatementpdfv1.md): Retrieve an issued statement PDF for a resident.
+- [Get resident billing summary](https://developer.augusthealth.com/reference/getbillingsummaryv1.md): Retrieve billing summary for a single resident including: - Resident identification and status - Physical and financial move-in/move-out dates - Latest issued statement details - Current balance - Payer contacts (contacts marked as "Payment of Care")
+- [List facility billing summaries](https://developer.augusthealth.com/reference/listfacilitybillingsummariesv1.md): Retrieve paginated billing summaries for all residents in a facility including: - Resident identification and status - Physical and financial move-in/move-out dates - Latest issued statement details - Current balance - Payer contacts (contacts marked as "Payment of Care")  Results can be filtered by resident status using the `residentStatus` query parameter.
+- [Record deposit](https://developer.augusthealth.com/reference/recorddepositv1.md): Integration partners submit collected payments as a consolidated deposit.  **Authentication**: Bearer token (JWT) required with `BILLING_PAYMENTS_CREATE` permission.  **Idempotency**: If the same `externalDepositId` is resubmitted, returns the existing deposit without creating duplicates. The retry must contain the exact same set of payments (by `externalTransactionId`); mismatched payments return a `400` error.  **Atomicity**: All payments in the batch succeed or none do. If any `personId` is invalid, the entire batch is rejected.  **Payment Types**: - `PAYMENT`: Standard payment (amount must be positive) - `PAYMENT_RETURN`: Returned payment, e.g., NSF (amount must be negative) - `REFUND`: Refunded payment (amount must be negative)  If `paymentType` is omitted, it defaults to `PAYMENT`.  **Cash Account Code**: The `cashAccountCode` field controls which GL cash account is assigned to the deposit for accounting export purposes. - If the facility has GL cash accounts configured: `cashAccountCode` is **required** and must match a configured code. - If no GL cash accounts are configured: `cashAccountCode` **must not** be sent.
+- [Search statements](https://developer.augusthealth.com/reference/searchstatementsv1.md): Search for issued private pay statements by billing period. Provide either `billingPeriod` (YYYY-MM) or both `startDate` and `endDate`, but not both.
+- [List resident billing transactions](https://developer.augusthealth.com/reference/listresidentbillingtransactionsv1.md): Retrieve paginated billing transactions (payments and charges) for a resident. Includes both active and deleted transactions.  Use the `updatedAfter` parameter to pull only transactions that have been created or modified since your last query.  Each transaction has an `idType` of either `PAYMENT` or `BILLING_CHARGE`. Payment-specific fields (`paymentMethod`, `paymentSource`, `merchantFeeCents`) are null for charges. Charge-specific fields (`invoiceId`, `feeName`, `rateCents`, `quantity`, `taxCents`, `medicaidProgramShortName`) are null for payments.
+- [Get Census Person](https://developer.augusthealth.com/reference/getcensuspersonv1.md): Get limited demographic information for a specific person within a facility
+- [List Census](https://developer.augusthealth.com/reference/listcensusv1.md): Lists limited demographic information for people within a facility
+- [Create an incident](https://developer.augusthealth.com/reference/createincidentv1.md)
+- [Get an incident](https://developer.augusthealth.com/reference/getincidentv1.md)
+- [List incidents and notes for a facility](https://developer.augusthealth.com/reference/listfacilityincidentsv1.md): Returns a paginated list of all incidents and notes for all residents at a facility. Results are sorted by alert status (alerts first), then by creation time (newest first).
+- [List incidents and notes for a person](https://developer.augusthealth.com/reference/listpersonincidentsv1.md): Returns a paginated list of incidents and notes for a specific person. Results are sorted by alert status (alerts first), then by creation time (newest first).
+- [Update an incident](https://developer.augusthealth.com/reference/updateincidentv1.md)
+- [List facility med passes](https://developer.augusthealth.com/reference/listmedpassesv1.md): List med passes in a given facility.
+- [List all medication administrations for all residents of a facility](https://developer.augusthealth.com/reference/listfacilitymedicationadministrationsv1.md): Returns a paginated list of all medication administrations for all residents at a facility.
+- [List all medication administrations for a person](https://developer.augusthealth.com/reference/listpersonmedicationadministrationsv1.md): Returns a paginated list of all medication administrations for a specific person.
+- [List all medication orders for all residents of a facility](https://developer.augusthealth.com/reference/listfacilitymedicationordersv1.md): Returns a paginated list of all medication orders for all residents at a facility. Results are sorted by order ID (ascending).
+- [List all medication orders for a person](https://developer.augusthealth.com/reference/listpersonmedicationordersv1.md): Returns a paginated list of all medication orders for a specific person. Results are sorted by order ID (ascending).
+- [Create Person](https://developer.augusthealth.com/reference/createpersonv1-1.md): Create a resident within a specific facility
+- [Get Person](https://developer.augusthealth.com/reference/getpersonv1-1.md): Get a specific resident within a facility
+- [Get Person Profile Photo](https://developer.augusthealth.com/reference/getpersonprofilephotov1.md): Returns the profile photo for a resident as a binary image (168x168). Supports ETag-based caching via the If-None-Match header.
+- [List People](https://developer.augusthealth.com/reference/listpeoplev1-1.md): Lists all residents within a facility
+- [Get latest Resident Biography](https://developer.augusthealth.com/reference/getlatestresidentbiographyv1.md)
+- [Extract structured resident biography from text](https://developer.augusthealth.com/reference/extractresidentbiographyv1.md)
+- [Create Resident Biography](https://developer.augusthealth.com/reference/createresidentbiographyv1.md)
+- [Get the latest admission agreement](https://developer.augusthealth.com/reference/getlatestadmissionagreementv1.md): Returns the resident's latest completed admission agreement, regardless of customType. Agreements in any other status are skipped, so a resident with a draft in progress still resolves to their current completed agreement. Archived agreements are only retrievable through the by-ID endpoint.
+- [Get an admission agreement by ID](https://developer.augusthealth.com/reference/getadmissionagreementv1.md): Returns a specific admission agreement by snapshot ID. The snapshot must belong to the specified resident and have the admission agreement data type; requests for snapshots of any other data type return 404.
+- [Download an admission agreement PDF](https://developer.augusthealth.com/reference/getadmissionagreementpdfv1.md): Returns the PDF for a specific admission agreement snapshot. The snapshot must belong to the specified resident and have the admission agreement data type; requests for snapshots of any other data type return 404.
+- [Get the latest assessment](https://developer.augusthealth.com/reference/getlatestassessmentv1.md): Returns the most recent completed/finalized internal assessment for a person. External/imported assessments are excluded from this endpoint.
+- [Get an assessment by ID](https://developer.augusthealth.com/reference/getassessmentv1.md): Returns a specific assessment by snapshot ID. The snapshot must belong to the specified person and be an assessment type.
+- [Create contact](https://developer.augusthealth.com/reference/createcontactv1-1.md): Create a new contact for a person.
+- [Get contact](https://developer.augusthealth.com/reference/getcontactv1-1.md): Get details for a specific contact.
+- [List contacts](https://developer.augusthealth.com/reference/listcontactsv1-1.md): List contacts for person.
+- [Sets the specified Contact as the Responsible Person for a given Person.](https://developer.augusthealth.com/reference/setresponsiblepersonv1-1.md)
+- [List routine administrations for a person](https://developer.augusthealth.com/reference/listroutineadministrationsv1.md)
+- [Bulk chart routine administrations for a person](https://developer.augusthealth.com/reference/bulkchartroutineadministrationsv1.md)
+- [List tasks](https://developer.augusthealth.com/reference/listtasksv1.md): List tasks for a specific person.
+- [List visitor log entries for a resident](https://developer.augusthealth.com/reference/listvisitorlogsv1.md): Returns a paginated list of non-deleted visitor log entries for the resident, sorted by sign-in time descending.
+- [Create a visitor log entry](https://developer.augusthealth.com/reference/createvisitorlogv1.md): Records a sign-in for a visitor of a resident. The request may optionally include sign-out information if the visit has already ended.
+- [Soft-delete a visitor log entry](https://developer.augusthealth.com/reference/deletevisitorlogv1.md): Marks a visitor log entry as deleted. Soft-deleted entries are excluded from list responses.
+- [Create a vital measurement](https://developer.augusthealth.com/reference/createvitalv1.md): Records a new vital measurement for a resident. The request must include at least one vital type in the panel (e.g., weight, temperature, blood pressure). This endpoint is intended for on-demand measurements from sensor devices and API partners.
+- [Get a vital measurement](https://developer.augusthealth.com/reference/getvitalv1.md): Retrieves a single vital measurement by ID for a resident.
+- [Update a vital measurement](https://developer.augusthealth.com/reference/updatevitalv1.md): Update selected fields of a vital measurement.
+- [List vital measurements](https://developer.augusthealth.com/reference/listvitalsv1.md): Returns a paginated list of vital measurements for a resident. Results are sorted by recorded time (newest first).
+- [List facility shifts](https://developer.augusthealth.com/reference/listshiftsv1.md): List shifts in a given facility.
+- [List users](https://developer.augusthealth.com/reference/listusersv1.md): Lists all users in an organization who are a staff member.
+- [Create an API token for programmatic access for August Health API](https://developer.augusthealth.com/reference/createtokenv1.md)
+- [Get access to the webhooks application portal (if one is configured)](https://developer.augusthealth.com/reference/createwebhooksportalaccessurlv1.md)

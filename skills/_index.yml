@@ -1,0 +1,24 @@
+generated: '2026-07-18'
+method: generated
+source: https://developer.augusthealth.com/
+note: >-
+  Packaged agent skills for the marquee August Health integration flows described
+  in the developer portal integration guides. Every operationId is verbatim from
+  the public API reference.
+skills:
+- file: august-health-census-sync.md
+  name: Keep a community's resident roster in sync
+  api: developer.augusthealth.com
+  operations: [createTokenV1, listOrganizationsV1, listFacilitiesV1, listCensusV1, listPeopleV1, getPersonV1, getAdmissionHistoryV1]
+- file: august-health-dining-integration.md
+  name: Build a dining / point-of-sale integration
+  api: developer.augusthealth.com
+  operations: [createTokenV1, listCensusV1, getCensusPersonV1, getPersonProfilePhotoV1]
+- file: august-health-record-deposit.md
+  name: Record a batch of collected payments as a deposit
+  api: developer.augusthealth.com
+  operations: [createTokenV1, listFacilityBillingSummariesV1, recordDepositV1]
+- file: august-health-external-provider.md
+  name: Retrieve clinical data and write visit notes as an external provider
+  api: developer.augusthealth.com
+  operations: [createTokenV1, listCensusV1, getLatestAssessmentV1, listPersonMedicationOrdersV1, createIncidentV1]
