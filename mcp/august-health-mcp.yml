@@ -2,67 +2,184 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: https://developer.augusthealth.com/llms.txt
-note: >-
-  No official hosted August Health MCP server was found. This is a candidate tool
-  surface derived one-to-one from the documented v1 API operations so an MCP
-  server could be forged. operationIds are verbatim from the public API reference.
+note: No official hosted August Health MCP server was found. This is a candidate tool surface derived
+  one-to-one from the documented v1 API operations so an MCP server could be forged. operationIds are
+  verbatim from the public API reference.
 server:
   name: august-health
   transport: http
   auth: bearer-jwt
 tools:
-- { name: list_organizations, source_operation: listOrganizationsV1, description: List organizations visible to the current user. }
-- { name: list_users, source_operation: listUsersV1, description: List staff users in an organization. }
-- { name: list_facilities, source_operation: listFacilitiesV1, description: List facilities in an organization. }
-- { name: list_rooms, source_operation: listRoomsV1, description: List active rooms, beds, and market rates for a facility. }
-- { name: list_shifts, source_operation: listShiftsV1, description: List shifts in a facility. }
-- { name: list_med_passes, source_operation: listMedPassesV1, description: List med passes in a facility. }
-- { name: list_census, source_operation: listCensusV1, description: List limited demographic info for people in a facility. }
-- { name: get_census_person, source_operation: getCensusPersonV1, description: Get limited demographic info for a person. }
-- { name: list_people, source_operation: listPeopleV1, description: List residents within a facility. }
-- { name: create_person, source_operation: createPersonV1, description: Create a resident within a facility. }
-- { name: get_person, source_operation: getPersonV1, description: Get a resident within a facility. }
-- { name: get_person_profile_photo, source_operation: getPersonProfilePhotoV1, description: Get a resident profile photo (ETag caching). }
-- { name: get_admission_history, source_operation: getAdmissionHistoryV1, description: Admission/discharge history for a resident. }
-- { name: get_facility_admission_history, source_operation: getFacilityAdmissionHistoryV1, description: Admission/discharge history for a facility. }
-- { name: get_facility_bed_assignment_history, source_operation: getFacilityBedAssignmentHistoryV1, description: Bed assignment history for a facility. }
-- { name: list_bed_assignments, source_operation: listBedAssignmentsV1, description: Bed assignment history for a resident. }
-- { name: get_latest_resident_biography, source_operation: getLatestResidentBiographyV1, description: Latest resident biography. }
-- { name: extract_resident_biography, source_operation: extractResidentBiographyV1, description: Extract structured biography from text. }
-- { name: create_resident_biography, source_operation: createResidentBiographyV1, description: Create resident biography. }
-- { name: list_contacts, source_operation: listContactsV1, description: List contacts for a person. }
-- { name: create_contact, source_operation: createContactV1, description: Create a contact for a person. }
-- { name: get_contact, source_operation: getContactV1, description: Get a contact. }
-- { name: set_responsible_person, source_operation: setResponsiblePersonV1, description: Set a contact as the responsible person. }
-- { name: get_latest_assessment, source_operation: getLatestAssessmentV1, description: Latest finalized internal assessment for a person. }
-- { name: get_assessment, source_operation: getAssessmentV1, description: Get an assessment by snapshot id. }
-- { name: create_incident, source_operation: createIncidentV1, description: Create an incident report or clinical note. }
-- { name: get_incident, source_operation: getIncidentV1, description: Get an incident. }
-- { name: update_incident, source_operation: updateIncidentV1, description: Update an incident. }
-- { name: list_facility_incidents, source_operation: listFacilityIncidentsV1, description: List incidents and notes for a facility. }
-- { name: list_person_incidents, source_operation: listPersonIncidentsV1, description: List incidents and notes for a person. }
-- { name: list_tasks, source_operation: listTasksV1, description: List tasks for a person. }
-- { name: list_routine_administrations, source_operation: listRoutineAdministrationsV1, description: List routine care administrations for a person. }
-- { name: bulk_chart_routine_administrations, source_operation: bulkChartRoutineAdministrationsV1, description: Bulk chart routine administrations for a person. }
-- { name: create_vital, source_operation: createVitalV1, description: Record a vital measurement for a resident. }
-- { name: get_vital, source_operation: getVitalV1, description: Get a vital measurement. }
-- { name: update_vital, source_operation: updateVitalV1, description: Update a vital measurement. }
-- { name: list_vitals, source_operation: listVitalsV1, description: List vital measurements for a resident. }
-- { name: list_facility_medication_orders, source_operation: listFacilityMedicationOrdersV1, description: Medication orders for all residents of a facility. }
-- { name: list_person_medication_orders, source_operation: listPersonMedicationOrdersV1, description: Medication orders for a person. }
-- { name: list_facility_medication_administrations, source_operation: listFacilityMedicationAdministrationsV1, description: Medication administrations for a facility. }
-- { name: list_person_medication_administrations, source_operation: listPersonMedicationAdministrationsV1, description: Medication administrations for a person. }
-- { name: get_billing_summary, source_operation: getBillingSummaryV1, description: Billing summary for a resident. }
-- { name: list_facility_billing_summaries, source_operation: listFacilityBillingSummariesV1, description: Billing summaries for all residents in a facility. }
-- { name: list_resident_billing_transactions, source_operation: listResidentBillingTransactionsV1, description: Billing transactions for a resident (updatedAfter incremental sync). }
-- { name: search_statements, source_operation: searchStatementsV1, description: Search issued private-pay statements by billing period. }
-- { name: get_statement_pdf, source_operation: getStatementPdfV1, description: Download an issued statement PDF. }
-- { name: record_deposit, source_operation: recordDepositV1, description: Submit collected payments as a consolidated deposit (idempotent via externalDepositId). }
-- { name: get_latest_admission_agreement, source_operation: getLatestAdmissionAgreementV1, description: Latest completed admission agreement. }
-- { name: get_admission_agreement, source_operation: getAdmissionAgreementV1, description: Get admission agreement by id. }
-- { name: get_admission_agreement_pdf, source_operation: getAdmissionAgreementPdfV1, description: Download an admission agreement PDF. }
-- { name: list_visitor_logs, source_operation: listVisitorLogsV1, description: List visitor log entries for a resident. }
-- { name: create_visitor_log, source_operation: createVisitorLogV1, description: Record a visitor sign-in for a resident. }
-- { name: delete_visitor_log, source_operation: deleteVisitorLogV1, description: Soft-delete a visitor log entry. }
-- { name: create_token, source_operation: createTokenV1, description: Create an API token for programmatic access. }
-- { name: create_webhooks_portal_access_url, source_operation: createWebhooksPortalAccessURLV1, description: Get access to the webhooks application portal. }
+- name: list_organizations
+  source_operation: listOrganizationsV1
+  description: List organizations visible to the current user.
+- name: list_users
+  source_operation: listUsersV1
+  description: List staff users in an organization.
+- name: list_facilities
+  source_operation: listFacilitiesV1
+  description: List facilities in an organization.
+- name: list_rooms
+  source_operation: listRoomsV1
+  description: List active rooms
+  beds: null
+  and market rates for a facility.: null
+- name: list_shifts
+  source_operation: listShiftsV1
+  description: List shifts in a facility.
+- name: list_med_passes
+  source_operation: listMedPassesV1
+  description: List med passes in a facility.
+- name: list_census
+  source_operation: listCensusV1
+  description: List limited demographic info for people in a facility.
+- name: get_census_person
+  source_operation: getCensusPersonV1
+  description: Get limited demographic info for a person.
+- name: list_people
+  source_operation: listPeopleV1
+  description: List residents within a facility.
+- name: create_person
+  source_operation: createPersonV1
+  description: Create a resident within a facility.
+- name: get_person
+  source_operation: getPersonV1
+  description: Get a resident within a facility.
+- name: get_person_profile_photo
+  source_operation: getPersonProfilePhotoV1
+  description: Get a resident profile photo (ETag caching).
+- name: get_admission_history
+  source_operation: getAdmissionHistoryV1
+  description: Admission/discharge history for a resident.
+- name: get_facility_admission_history
+  source_operation: getFacilityAdmissionHistoryV1
+  description: Admission/discharge history for a facility.
+- name: get_facility_bed_assignment_history
+  source_operation: getFacilityBedAssignmentHistoryV1
+  description: Bed assignment history for a facility.
+- name: list_bed_assignments
+  source_operation: listBedAssignmentsV1
+  description: Bed assignment history for a resident.
+- name: get_latest_resident_biography
+  source_operation: getLatestResidentBiographyV1
+  description: Latest resident biography.
+- name: extract_resident_biography
+  source_operation: extractResidentBiographyV1
+  description: Extract structured biography from text.
+- name: create_resident_biography
+  source_operation: createResidentBiographyV1
+  description: Create resident biography.
+- name: list_contacts
+  source_operation: listContactsV1
+  description: List contacts for a person.
+- name: create_contact
+  source_operation: createContactV1
+  description: Create a contact for a person.
+- name: get_contact
+  source_operation: getContactV1
+  description: Get a contact.
+- name: set_responsible_person
+  source_operation: setResponsiblePersonV1
+  description: Set a contact as the responsible person.
+- name: get_latest_assessment
+  source_operation: getLatestAssessmentV1
+  description: Latest finalized internal assessment for a person.
+- name: get_assessment
+  source_operation: getAssessmentV1
+  description: Get an assessment by snapshot id.
+- name: create_incident
+  source_operation: createIncidentV1
+  description: Create an incident report or clinical note.
+- name: get_incident
+  source_operation: getIncidentV1
+  description: Get an incident.
+- name: update_incident
+  source_operation: updateIncidentV1
+  description: Update an incident.
+- name: list_facility_incidents
+  source_operation: listFacilityIncidentsV1
+  description: List incidents and notes for a facility.
+- name: list_person_incidents
+  source_operation: listPersonIncidentsV1
+  description: List incidents and notes for a person.
+- name: list_tasks
+  source_operation: listTasksV1
+  description: List tasks for a person.
+- name: list_routine_administrations
+  source_operation: listRoutineAdministrationsV1
+  description: List routine care administrations for a person.
+- name: bulk_chart_routine_administrations
+  source_operation: bulkChartRoutineAdministrationsV1
+  description: Bulk chart routine administrations for a person.
+- name: create_vital
+  source_operation: createVitalV1
+  description: Record a vital measurement for a resident.
+- name: get_vital
+  source_operation: getVitalV1
+  description: Get a vital measurement.
+- name: update_vital
+  source_operation: updateVitalV1
+  description: Update a vital measurement.
+- name: list_vitals
+  source_operation: listVitalsV1
+  description: List vital measurements for a resident.
+- name: list_facility_medication_orders
+  source_operation: listFacilityMedicationOrdersV1
+  description: Medication orders for all residents of a facility.
+- name: list_person_medication_orders
+  source_operation: listPersonMedicationOrdersV1
+  description: Medication orders for a person.
+- name: list_facility_medication_administrations
+  source_operation: listFacilityMedicationAdministrationsV1
+  description: Medication administrations for a facility.
+- name: list_person_medication_administrations
+  source_operation: listPersonMedicationAdministrationsV1
+  description: Medication administrations for a person.
+- name: get_billing_summary
+  source_operation: getBillingSummaryV1
+  description: Billing summary for a resident.
+- name: list_facility_billing_summaries
+  source_operation: listFacilityBillingSummariesV1
+  description: Billing summaries for all residents in a facility.
+- name: list_resident_billing_transactions
+  source_operation: listResidentBillingTransactionsV1
+  description: Billing transactions for a resident (updatedAfter incremental sync).
+- name: search_statements
+  source_operation: searchStatementsV1
+  description: Search issued private-pay statements by billing period.
+- name: get_statement_pdf
+  source_operation: getStatementPdfV1
+  description: Download an issued statement PDF.
+- name: record_deposit
+  source_operation: recordDepositV1
+  description: Submit collected payments as a consolidated deposit (idempotent via externalDepositId).
+- name: get_latest_admission_agreement
+  source_operation: getLatestAdmissionAgreementV1
+  description: Latest completed admission agreement.
+- name: get_admission_agreement
+  source_operation: getAdmissionAgreementV1
+  description: Get admission agreement by id.
+- name: get_admission_agreement_pdf
+  source_operation: getAdmissionAgreementPdfV1
+  description: Download an admission agreement PDF.
+- name: list_visitor_logs
+  source_operation: listVisitorLogsV1
+  description: List visitor log entries for a resident.
+- name: create_visitor_log
+  source_operation: createVisitorLogV1
+  description: Record a visitor sign-in for a resident.
+- name: delete_visitor_log
+  source_operation: deleteVisitorLogV1
+  description: Soft-delete a visitor log entry.
+- name: create_token
+  source_operation: createTokenV1
+  description: Create an API token for programmatic access.
+- name: create_webhooks_portal_access_url
+  source_operation: createWebhooksPortalAccessURLV1
+  description: Get access to the webhooks application portal.
+deployment:
+  mode: none
+  verified: derived
+  tools: 55
+  checked: '2026-08-12'
+  source: catalog MCP census
