@@ -1,0 +1,27 @@
+# Front Door AI Index — august-health — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: august-health
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: augusthealth.com
+  final_host: www.augusthealth.com
+  ownership: own
+  owner: august-health
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 1
+  host_score: 1
+  density: 1.81
+  words: 554
+  tiers:
+    agentic: 0
+    core: 1
+    model: 0
+  ambiguous: 5
+  top_terms:
+    intelligence: 3
+    predictive: 2
+    AI: 1
