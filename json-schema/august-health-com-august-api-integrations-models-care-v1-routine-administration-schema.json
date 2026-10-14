@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/august-health/main/json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json",
+  "title": "com.august.api.integrations.models.care.v1.RoutineAdministration",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.care.v1.RoutineAdministration",
+  "properties": {
+    "adlCategoryKey": {
+      "$ref": "#/$defs/com.august.protos.service_plan.ServicePlan.PlanCategoryKey",
+      "description": "ADL category key. Omitted if not linked to a standard ADL category."
+    },
+    "adlCustomKey": {
+      "description": "Custom ADL key for facility-defined categories. Only present if adlCategoryKey is PLAN_CATEGORY_KEY_CUSTOM.",
+      "type": "string"
+    },
+    "beginAdministrationWindow": {
+      "description": "Start of the window when this can be charted, in facility local time",
+      "format": "date-time",
+      "type": "string"
+    },
+    "beginScheduledTime": {
+      "description": "Scheduled start time in facility local time. Equals endScheduledTime for time dependent routines. Omitted if unscheduled.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "effortLevel": {
+      "description": "Effort relative to normal: -1 for less, 0 for same, 1 for more. Omitted if not recorded.",
+      "format": "int32",
+      "type": "integer"
+    },
+    "endAdministrationWindow": {
+      "description": "End of the window when this can be charted, in facility local time",
+      "format": "date-time",
+      "type": "string"
+    },
+    "endScheduledTime": {
+      "description": "Scheduled end time in facility local time. Omitted if unscheduled.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "id": {
+      "description": "Unique identifier for this administration",
+      "type": "string"
+    },
+    "interventionEntries": {
+      "description": "Individual care tasks covered by this administration. Empty for single-task administrations; populated for grouped administrations.",
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.care.v1.InterventionEntryResponse",
+        "description": "Individual care tasks covered by this administration. Empty for single-task administrations; populated for grouped administrations."
+      },
+      "type": "array"
+    },
+    "isPrn": {
+      "description": "Whether this is unscheduled (PRN) care",
+      "type": "boolean"
+    },
+    "isTwoPerson": {
+      "description": "Whether this routine requires two-person assistance",
+      "type": "boolean"
+    },
+    "note": {
+      "description": "Free-text note documented by the caregiver when charting the administration",
+      "type": "string"
+    },
+    "occurredAt": {
+      "description": "When the administration took place. Omitted if not yet charted.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "orderName": {
+      "description": "Name of the routine. For PRN care, the care category name.",
+      "type": "string"
+    },
+    "personId": {
+      "description": "Person ID of the resident",
+      "type": "string"
+    },
+    "prnSubcategory": {
+      "$ref": "#/$defs/com.august.api.integrations.models.care.v1.PrnCareSubcategory",
+      "description": "Subcategory chosen for PRN care. Omitted for scheduled care and for PRN care without a subcategory."
+    },
+    "reasonForException": {
+      "$ref": "#/$defs/com.august.api.integrations.models.care.v1.RoutineAdministrationExceptionReason",
+      "description": "Why the routine was not administered. Present only when the status is ROUTINE_ADMINISTRATION_STATUS_EXCEPTION."
+    },
+    "routineName": {
+      "description": "Name of the routine category; may be used to group routines",
+      "type": "string"
+    },
+    "shiftId": {
+      "description": "The shift ID",
+      "type": "string"
+    },
+    "shiftOccurrenceDate": {
+      "format": "date",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/com.august.protos.routine_administration.RoutineAdministrationStatus",
+      "description": "Current administration status"
+    }
+  },
+  "required": [
+    "id",
+    "orderName",
+    "routineName",
+    "personId",
+    "status",
+    "shiftId",
+    "shiftOccurrenceDate",
+    "isTwoPerson",
+    "interventionEntries",
+    "isPrn"
+  ],
+  "$defs": {
+    "com.august.api.integrations.models.care.v1.InterventionEntryResponse": {
+      "properties": {
+        "categoryKey": {
+          "$ref": "#/$defs/com.august.protos.service_plan.ServicePlan.PlanCategoryKey"
+        },
+        "customKey": {
+          "type": "string"
+        },
+        "interventionKey": {
+          "type": "string"
+        },
+        "interventionName": {
+          "type": "string"
+        },
+        "interventionNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "interventionKey",
+        "interventionName"
+      ]
+    },
+    "com.august.api.integrations.models.care.v1.PrnCareSubcategory": {
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "com.august.api.integrations.models.care.v1.RoutineAdministrationExceptionReason": {
+      "oneOf": [
+        {
+          "enum": [
+            "ROUTINE_ADMINISTRATION_EXCEPTION_REASON_RESIDENT_UNAVAILABLE",
+            "ROUTINE_ADMINISTRATION_EXCEPTION_REASON_RESIDENT_REFUSED",
+            "ROUTINE_ADMINISTRATION_EXCEPTION_REASON_RESCHEDULE_REQUESTED",
+            "ROUTINE_ADMINISTRATION_EXCEPTION_REASON_AWAY",
+            "ROUTINE_ADMINISTRATION_EXCEPTION_REASON_WRONG_SCHEDULE",
+            "ROUTINE_ADMINISTRATION_EXCEPTION_REASON_OTHER"
+          ],
+          "title": "values",
+          "type": "string"
+        },
+        {
+          "deprecated": true,
+          "enum": [
+            "ROUTINE_ADMINISTRATION_EXCEPTION_REASON_NOT_ENOUGH_TIME"
+          ],
+          "title": "deprecated values",
+          "type": "string"
+        }
+      ]
+    },
+    "com.august.protos.routine_administration.RoutineAdministrationStatus": {
+      "enum": [
+        "ROUTINE_ADMINISTRATION_STATUS_ADMINISTERED",
+        "ROUTINE_ADMINISTRATION_STATUS_EXCEPTION",
+        "ROUTINE_ADMINISTRATION_STATUS_ENTERED_IN_ERROR",
+        "ROUTINE_ADMINISTRATION_STATUS_ON_HOLD",
+        "ROUTINE_ADMINISTRATION_STATUS_AWAY"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.service_plan.ServicePlan.PlanCategoryKey": {
+      "enum": [
+        "PLAN_CATEGORY_KEY_BATHING",
+        "PLAN_CATEGORY_KEY_CARE_COORDINATION",
+        "PLAN_CATEGORY_KEY_DRESSING",
+        "PLAN_CATEGORY_KEY_GROOMING",
+        "PLAN_CATEGORY_KEY_DENTAL",
+        "PLAN_CATEGORY_KEY_TOILETING",
+        "PLAN_CATEGORY_KEY_TRANSFER_AND_MOBILITY",
+        "PLAN_CATEGORY_KEY_HEARING",
+        "PLAN_CATEGORY_KEY_VISION",
+        "PLAN_CATEGORY_KEY_MEALS_AND_NUTRITION",
+        "PLAN_CATEGORY_KEY_SPECIAL_CARE_NEEDS",
+        "PLAN_CATEGORY_KEY_COGNITIVE",
+        "PLAN_CATEGORY_KEY_WANDERING_AND_ELOPEMENT",
+        "PLAN_CATEGORY_KEY_DISPOSITION_AND_BEHAVIORS",
+        "PLAN_CATEGORY_KEY_SLEEP",
+        "PLAN_CATEGORY_KEY_COMMUNICATION",
+        "PLAN_CATEGORY_KEY_PSYCHO_SOCIAL_ENGAGEMENT",
+        "PLAN_CATEGORY_KEY_MEDICATION_MANAGEMENT",
+        "PLAN_CATEGORY_KEY_TRANSFER",
+        "PLAN_CATEGORY_KEY_MOBILITY",
+        "PLAN_CATEGORY_KEY_ADDITIONAL_SERVICES",
+        "PLAN_CATEGORY_KEY_CUSTOM"
+      ],
+      "type": "string"
+    }
+  }
+}

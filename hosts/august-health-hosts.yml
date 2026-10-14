@@ -1,0 +1,100 @@
+generated: '2026-10-14'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 8
+  own: 7
+  other_domain: 0
+  platform: 1
+  roles:
+  - api
+  - identity
+  - marketing
+  - other
+  - portal
+  - source
+  - status
+  - website
+hosts:
+- host: api.augusthealth.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: augusthealth.com
+  role: api
+  relation: own
+- host: app.augusthealth.com
+  found_by:
+  - pointer
+  types:
+  - Login
+  serves: []
+  registrable_domain: augusthealth.com
+  role: identity
+  relation: own
+- host: augusthealth.com
+  found_by:
+  - pointer
+  types:
+  - Website
+  serves: []
+  registrable_domain: augusthealth.com
+  role: website
+  relation: own
+- host: developer.augusthealth.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - GettingStarted
+  serves:
+  - docs
+  registrable_domain: augusthealth.com
+  role: portal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: status.augusthealth.com
+  found_by:
+  - pointer
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: augusthealth.com
+  role: status
+  relation: own
+- host: trust.augusthealth.com
+  found_by:
+  - pointer
+  types:
+  - TrustCenter
+  - Compliance
+  serves: []
+  registrable_domain: augusthealth.com
+  role: other
+  relation: own
+- host: www.augusthealth.com
+  found_by:
+  - pointer
+  types:
+  - Blog
+  - TermsOfService
+  - PrivacyPolicy
+  - Integrations
+  serves: []
+  registrable_domain: augusthealth.com
+  role: marketing
+  relation: own

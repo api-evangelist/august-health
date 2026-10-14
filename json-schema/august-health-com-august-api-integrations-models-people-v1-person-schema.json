@@ -1,0 +1,1835 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/august-health/main/json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json",
+  "title": "com.august.api.integrations.models.people.v1.Person",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.people.v1.Person",
+  "properties": {
+    "additionalScores": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.people.v1.ScoreLevel"
+      },
+      "type": "array"
+    },
+    "address": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.common_metadata.v1.Address"
+      },
+      "type": "array"
+    },
+    "admissionsInformation": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.AdmissionsInformation"
+    },
+    "allergiesAndIntolerances": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.AllergiesAndIntolerances"
+    },
+    "ambulatoryStatus": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.AmbulatoryStatus"
+    },
+    "assessmentFinalizedAt": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "assessments": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.assessments.v1.AssessmentReference"
+      },
+      "type": "array"
+    },
+    "birthdate": {
+      "format": "date",
+      "type": "string"
+    },
+    "communication": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Communication"
+      },
+      "type": "array"
+    },
+    "conditions": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Condition"
+      },
+      "type": "array"
+    },
+    "contact": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.contacts.v1.Contact"
+      },
+      "type": "array"
+    },
+    "coverage": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Coverage"
+      },
+      "type": "array"
+    },
+    "cprCode": {
+      "$ref": "#/$defs/com.august.protos.snapshot.Polst.CPR"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "diagnosticResults": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.people.v1.DiagnosticReport"
+      },
+      "type": "array"
+    },
+    "dischargeInformation": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.DischargeDetails"
+    },
+    "externalFields": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.ExternalFields"
+    },
+    "facilityId": {
+      "type": "string"
+    },
+    "functionalStatus": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.FunctionalStatus"
+    },
+    "futureBedAssignment": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.FutureBedAssignment"
+    },
+    "gender": {
+      "$ref": "#/$defs/com.august.protos.gender.Gender"
+    },
+    "healthQuestionnaire": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.HealthQuestionnaire"
+    },
+    "hospiceStatus": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.HospiceStatus"
+    },
+    "hospital": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.HealthcareService"
+    },
+    "id": {
+      "type": "string"
+    },
+    "isOnAlert": {
+      "type": "boolean"
+    },
+    "isOutOfFacility": {
+      "type": "boolean"
+    },
+    "levelOfCare": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.LevelOfCare"
+    },
+    "maritalStatus": {
+      "$ref": "#/$defs/com.august.protos.person.Person.MaritalStatus"
+    },
+    "medGroupDetails": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.MedGroupDetails"
+    },
+    "name": {
+      "$ref": "#/$defs/com.august.api.integrations.models.common_metadata.v1.HumanName"
+    },
+    "orgId": {
+      "type": "string"
+    },
+    "outOfFacilityDetail": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.OutOfFacilityDetail"
+    },
+    "outOfFacilityHistory": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.people.v1.OutOfFacilityDetail"
+      },
+      "type": "array"
+    },
+    "profilePhotoUrl": {
+      "format": "uri",
+      "type": "string"
+    },
+    "religiousPreference": {
+      "type": "string"
+    },
+    "residentStatus": {
+      "$ref": "#/$defs/com.august.protos.person.ResidentStatus"
+    },
+    "respiteStatus": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.RespiteStatus"
+    },
+    "shiftCareGroups": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.people.v1.ShiftCareGroupDetails"
+      },
+      "type": "array"
+    },
+    "socialHistory": {
+      "$ref": "#/$defs/com.august.api.integrations.models.people.v1.SocialHistory"
+    },
+    "telecom": {
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.contacts.v1.ContactPoint"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "orgId",
+    "facilityId",
+    "additionalScores",
+    "address",
+    "assessments",
+    "communication",
+    "conditions",
+    "contact",
+    "coverage",
+    "diagnosticResults",
+    "hospiceStatus",
+    "isOnAlert",
+    "isOutOfFacility",
+    "outOfFacilityHistory",
+    "name",
+    "residentStatus",
+    "respiteStatus",
+    "shiftCareGroups",
+    "telecom"
+  ],
+  "$defs": {
+    "com.august.api.integrations.models.assessments.v1.AssessmentReference": {
+      "properties": {
+        "completedAt": {
+          "description": "When the assessment was finalized",
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "description": "The snapshot ID",
+          "type": "string"
+        },
+        "url": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "completedAt",
+        "url"
+      ]
+    },
+    "com.august.api.integrations.models.common.currency.CurrencyAmount": {
+      "properties": {
+        "amount": {
+          "format": "double",
+          "type": "number"
+        },
+        "currency": {
+          "$ref": "#/$defs/com.august.protos.currency_amount.Currency"
+        }
+      },
+      "required": [
+        "amount",
+        "currency"
+      ]
+    },
+    "com.august.api.integrations.models.common.date.DatePeriod": {
+      "properties": {
+        "endDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "startDate": {
+          "format": "date",
+          "type": "string"
+        }
+      }
+    },
+    "com.august.api.integrations.models.common_metadata.v1.Address": {
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "line": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "use": {
+          "$ref": "#/$defs/com.august.protos.address.Address.AddressUse"
+        }
+      },
+      "required": [
+        "line"
+      ]
+    },
+    "com.august.api.integrations.models.common_metadata.v1.HumanName": {
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "given": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "maiden": {
+          "type": "string"
+        },
+        "preferredName": {
+          "type": "string"
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "pronouns": {
+          "$ref": "#/$defs/com.august.protos.human_name.HumanName.Pronouns"
+        },
+        "suffix": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "given"
+      ]
+    },
+    "com.august.api.integrations.models.common_metadata.v1.Language": {
+      "enum": [
+        "Afrikaans",
+        "Albanian",
+        "Arabic",
+        "Armenian",
+        "Basque",
+        "Bengali",
+        "Bulgarian",
+        "Catalan",
+        "Cambodian",
+        "Chinese",
+        "Croatian",
+        "Czech",
+        "Danish",
+        "Dutch",
+        "English",
+        "Estonian",
+        "Fiji",
+        "Finnish",
+        "French",
+        "Georgian",
+        "German",
+        "Greek",
+        "Gujarati",
+        "Hebrew",
+        "Hindi",
+        "Hungarian",
+        "Icelandic",
+        "Indonesian",
+        "Irish",
+        "Italian",
+        "Japanese",
+        "Javanese",
+        "Korean",
+        "Latin",
+        "Latvian",
+        "Lithuanian",
+        "Macedonian",
+        "Malay",
+        "Malayalam",
+        "Maltese",
+        "Maori",
+        "Marathi",
+        "Mongolian",
+        "Nepali",
+        "Norwegian",
+        "Persian",
+        "Polish",
+        "Portuguese",
+        "Punjabi",
+        "Quechua",
+        "Romanian",
+        "Russian",
+        "Samoan",
+        "Serbian",
+        "Slovak",
+        "Slovenian",
+        "Spanish",
+        "Swahili",
+        "Swedish",
+        "Tamil",
+        "Tatar",
+        "Tagalog",
+        "Telugu",
+        "Thai",
+        "Tibetan",
+        "Tonga",
+        "Turkish",
+        "Ukrainian",
+        "Urdu",
+        "Uzbek",
+        "Vietnamese",
+        "Welsh",
+        "Xhosa"
+      ],
+      "type": "string"
+    },
+    "com.august.api.integrations.models.contacts.v1.Contact": {
+      "properties": {
+        "address": {
+          "$ref": "#/$defs/com.august.api.integrations.models.common_metadata.v1.Address"
+        },
+        "clinicalSpecialty": {
+          "type": "string"
+        },
+        "externalFields": {
+          "$ref": "#/$defs/com.august.api.integrations.models.contacts.v1.ExternalFields"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "$ref": "#/$defs/com.august.api.integrations.models.common_metadata.v1.HumanName"
+        },
+        "note": {
+          "type": "string"
+        },
+        "organization": {
+          "$ref": "#/$defs/com.august.api.integrations.models.contacts.v1.GenericOrganization"
+        },
+        "relationship": {
+          "items": {
+            "$ref": "#/$defs/com.august.protos.contact.Contact.ContactRelationship"
+          },
+          "type": "array"
+        },
+        "telecom": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.contacts.v1.ContactPoint"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "relationship",
+        "name",
+        "telecom"
+      ]
+    },
+    "com.august.api.integrations.models.contacts.v1.ContactPoint": {
+      "properties": {
+        "rank": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "system": {
+          "$ref": "#/$defs/com.august.protos.contact_point.ContactPoint.ContactPointSystem"
+        },
+        "use": {
+          "$ref": "#/$defs/com.august.protos.contact_point.ContactPoint.ContactPointUse"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "system",
+        "use"
+      ]
+    },
+    "com.august.api.integrations.models.contacts.v1.ExternalFields": {
+      "properties": {
+        "yardi": {
+          "$ref": "#/$defs/com.august.api.integrations.models.contacts.v1.YardiFields"
+        }
+      }
+    },
+    "com.august.api.integrations.models.contacts.v1.GenericOrganization": {
+      "properties": {
+        "address": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.common_metadata.v1.Address"
+          },
+          "type": "array"
+        },
+        "contact": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.contacts.v1.GenericOrganizationContact"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "telecom": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.contacts.v1.ContactPoint"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "telecom",
+        "address",
+        "contact"
+      ]
+    },
+    "com.august.api.integrations.models.contacts.v1.GenericOrganizationContact": {
+      "properties": {
+        "address": {
+          "$ref": "#/$defs/com.august.api.integrations.models.common_metadata.v1.Address"
+        },
+        "name": {
+          "$ref": "#/$defs/com.august.api.integrations.models.common_metadata.v1.HumanName"
+        },
+        "telecom": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.contacts.v1.ContactPoint"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "telecom"
+      ]
+    },
+    "com.august.api.integrations.models.contacts.v1.YardiFields": {
+      "properties": {
+        "extRefId": {
+          "type": "string"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.AdmissionsInformation": {
+      "properties": {
+        "admissionType": {
+          "$ref": "#/$defs/com.august.protos.admissions.AdmissionsInformation.AdmissionType"
+        },
+        "bedDetails": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Bed"
+        },
+        "bedId": {
+          "type": "string"
+        },
+        "financialStartDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "moveInStartDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "roomDetails": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Room"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.AllergiesAndIntolerances": {
+      "properties": {
+        "allergies": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.AllergyIntolerance"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "allergies"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.AllergyIntolerance": {
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/com.august.protos.allergy_intolerance.AllergyIntolerance.AllergyIntoleranceCategory"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "category"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.AmbulatoryBedStatus": {
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/com.august.protos.ambulatory_status.AmbulatoryStatus.BedStatus.Code"
+        },
+        "comment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.AmbulatoryStatus": {
+      "properties": {
+        "ambulatoryResult": {
+          "$ref": "#/$defs/com.august.protos.ambulatory_status.AmbulatoryStatus.AmbulatoryResult"
+        },
+        "bedStatus": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.AmbulatoryBedStatus"
+        },
+        "code": {
+          "$ref": "#/$defs/com.august.protos.ambulatory_status.AmbulatoryStatus.AmbulatoryCode"
+        },
+        "evacuation": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.AmbulatoryStatusEvacuationAbilities"
+        },
+        "safeToLeaveWithoutSupervision": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "ambulatoryResult"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.AmbulatoryStatusEvacuationAbilities": {
+      "properties": {
+        "ableToEvacuateReasonablyQuickly": {
+          "type": "boolean"
+        },
+        "ableToFollowInstructions": {
+          "type": "boolean"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.Bed": {
+      "properties": {
+        "endDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "externalId": {
+          "type": "string"
+        },
+        "facilityId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "orgId": {
+          "type": "string"
+        },
+        "roomId": {
+          "type": "string"
+        },
+        "startDate": {
+          "format": "date",
+          "type": "string"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeBathing": {
+      "properties": {
+        "capabilityCode": {
+          "$ref": "#/$defs/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeBathing"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capabilityCode"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeCommunication": {
+      "properties": {
+        "capabilityCode": {
+          "$ref": "#/$defs/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeCommunication"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capabilityCode"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeDressing": {
+      "properties": {
+        "capabilityCode": {
+          "$ref": "#/$defs/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeDressing"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capabilityCode"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeEating": {
+      "properties": {
+        "capabilityCode": {
+          "$ref": "#/$defs/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeEating"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capabilityCode"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeGrooming": {
+      "properties": {
+        "capabilityCode": {
+          "$ref": "#/$defs/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeGrooming"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capabilityCode"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMedication": {
+      "properties": {
+        "capabilityCode": {
+          "$ref": "#/$defs/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMedication"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capabilityCode"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMobility": {
+      "properties": {
+        "capabilityCode": {
+          "$ref": "#/$defs/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMobility"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capabilityCode"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMoneyMgmt": {
+      "properties": {
+        "capabilityCode": {
+          "$ref": "#/$defs/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMoneyMgmt"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capabilityCode"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeToileting": {
+      "properties": {
+        "capabilityCode": {
+          "$ref": "#/$defs/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeToileting"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capabilityCode"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeTransferring": {
+      "properties": {
+        "capabilityCode": {
+          "$ref": "#/$defs/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeTransferring"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capabilityCode"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.CodeableConcept": {
+      "properties": {
+        "coding": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Coding"
+          },
+          "type": "array"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "coding",
+        "text"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Coding": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        },
+        "systemEnum": {
+          "$ref": "#/$defs/com.august.protos.codeable_concept.SystemUrl"
+        }
+      },
+      "required": [
+        "systemEnum"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Communication": {
+      "properties": {
+        "languageStr": {
+          "$ref": "#/$defs/com.august.api.integrations.models.common_metadata.v1.Language"
+        },
+        "preferred": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "preferred"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Condition": {
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.CodeableConcept"
+        },
+        "isPrimary": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Coverage": {
+      "properties": {
+        "groupId": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.CoverageClass"
+        },
+        "name": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/$defs/com.august.api.integrations.models.common.date.DatePeriod"
+        },
+        "rxbin": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.CoverageClass"
+        },
+        "rxpcn": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.CoverageClass"
+        },
+        "subscriberId": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/com.august.protos.coverage.Coverage.CoverageType"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.CoverageClass": {
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.DiagnosticReport": {
+      "properties": {
+        "actionTaken": {
+          "type": "string"
+        },
+        "additionalDetails": {
+          "type": "string"
+        },
+        "code": {
+          "$ref": "#/$defs/com.august.protos.diagnostic_report.DiagnosticReport.DiagnosticReportCode"
+        },
+        "conclusionCode": {
+          "$ref": "#/$defs/com.august.protos.diagnostic_report.DiagnosticReport.ConclusionCode"
+        },
+        "effectiveDate": {
+          "format": "date",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.DischargeDetails": {
+      "properties": {
+        "financialMoveOutDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "motivation": {
+          "$ref": "#/$defs/com.august.protos.discharge_details.DischargeDetails.DischargeMotivation",
+          "description": "The underlying reason the resident left (e.g., financial, dissatisfaction, level of care)"
+        },
+        "moveOutDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "notes": {
+          "description": "Free-text notes about the discharge",
+          "type": "string"
+        },
+        "reason": {
+          "$ref": "#/$defs/com.august.protos.discharge_details.DischargeDetails.DischargeReason",
+          "description": "The discharge destination (e.g., skilled nursing, other assisted living). Despite its name, this field represents where the resident moved to, not why they left."
+        }
+      },
+      "required": [
+        "reason"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.ExternalFields": {
+      "properties": {
+        "caregroveResidentId": {
+          "description": "The person's resident ID in CareGrove",
+          "type": "string"
+        },
+        "eldermarkResidentId": {
+          "description": "The person's resident ID in Eldermark",
+          "type": "string"
+        },
+        "realpageResidentId": {
+          "description": "The person's resident ID in RealPage",
+          "type": "string"
+        },
+        "welcomeHomeResidentId": {
+          "description": "The person's resident ID in WelcomeHome",
+          "type": "string"
+        },
+        "yardiResidentId": {
+          "description": "The person's resident ID in Yardi",
+          "type": "string"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.FunctionalStatus": {
+      "properties": {
+        "bathing": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeBathing"
+          },
+          "type": "array"
+        },
+        "communication": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeCommunication"
+          },
+          "type": "array"
+        },
+        "dressing": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeDressing"
+          },
+          "type": "array"
+        },
+        "eating": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeEating"
+          },
+          "type": "array"
+        },
+        "grooming": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeGrooming"
+          },
+          "type": "array"
+        },
+        "medication": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMedication"
+          },
+          "type": "array"
+        },
+        "mobility": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMobility"
+          },
+          "type": "array"
+        },
+        "money": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMoneyMgmt"
+          },
+          "type": "array"
+        },
+        "toileting": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeToileting"
+          },
+          "type": "array"
+        },
+        "transferring": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeTransferring"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "bathing",
+        "dressing",
+        "grooming",
+        "toileting",
+        "transferring",
+        "mobility",
+        "eating",
+        "communication",
+        "medication",
+        "money"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.FutureBedAssignment": {
+      "properties": {
+        "bed": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Bed",
+          "description": "The bed the resident will move to"
+        },
+        "effectiveDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "id": {
+          "description": "The scheduled bed assignment's ID",
+          "type": "string"
+        },
+        "occupancyType": {
+          "description": "Whether the destination bed is private or shared",
+          "enum": [
+            "PRIVATE",
+            "SHARED",
+            "SECOND_OCCUPANT"
+          ],
+          "type": "string"
+        },
+        "room": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Room",
+          "description": "The room the resident will move to"
+        }
+      },
+      "required": [
+        "id",
+        "effectiveDate",
+        "occupancyType",
+        "room",
+        "bed"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.HealthQuestionnaire": {
+      "properties": {
+        "admissionSuitabilitySummary": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.QuestionResponse"
+        },
+        "hospitalizations": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Hospitalizations"
+        },
+        "medications": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.UnstructuredMedication"
+          },
+          "type": "array"
+        },
+        "mentalHealth": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.QuestionnaireCondition"
+          },
+          "type": "array"
+        },
+        "overallConditionCode": {
+          "$ref": "#/$defs/com.august.protos.health_questionnaire.HealthQuestionnaire.OverallCondition"
+        },
+        "overallConditionSummary": {
+          "type": "string"
+        },
+        "physicalDisabilities": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.QuestionnaireCondition"
+          },
+          "type": "array"
+        },
+        "servicesNeeded": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.ServiceNeeded"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "overallConditionCode",
+        "physicalDisabilities",
+        "mentalHealth",
+        "servicesNeeded",
+        "medications"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.HealthcareService": {
+      "properties": {
+        "category": {
+          "items": {
+            "$ref": "#/$defs/com.august.protos.healthcare_service.HealthcareService.ServiceCategory"
+          },
+          "type": "array"
+        },
+        "location": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.people.v1.Location"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "telecom": {
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.contacts.v1.ContactPoint"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "category",
+        "telecom",
+        "location"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.HospiceStatus": {
+      "properties": {
+        "dateStarted": {
+          "format": "date",
+          "type": "string"
+        },
+        "onHospice": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "onHospice"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Hospitalizations": {
+      "properties": {
+        "inThePastFiveYears": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.LevelOfCare": {
+      "properties": {
+        "assessmentType": {
+          "$ref": "#/$defs/com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentType"
+        },
+        "careRate": {
+          "$ref": "#/$defs/com.august.api.integrations.models.common.currency.CurrencyAmount"
+        },
+        "levelName": {
+          "type": "string"
+        },
+        "score": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "value": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.Location": {
+      "properties": {
+        "address": {
+          "$ref": "#/$defs/com.august.api.integrations.models.common_metadata.v1.Address"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.MedGroupDetails": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.ObservationWithBoolean": {
+      "properties": {
+        "effectiveDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "value": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.ObservationWithCode": {
+      "properties": {
+        "effectiveDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/com.august.protos.observation.Observation.ValueCode"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.OutOfFacilityDetail": {
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "reasonType": {
+          "$ref": "#/$defs/com.august.protos.person.OutOfFacilityReason"
+        },
+        "start": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "reasonType"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.QuestionResponse": {
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/com.august.protos.health_questionnaire.HealthQuestionnaire.QuestionResponse.ResponseCode"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.QuestionnaireCondition": {
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/com.august.protos.condition.ConditionCode"
+        },
+        "severity": {
+          "$ref": "#/$defs/com.august.protos.health_questionnaire.HealthQuestionnaire.Severity"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "severity",
+        "code"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.RespiteStatus": {
+      "properties": {
+        "isRespite": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "isRespite"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.Room": {
+      "properties": {
+        "externalId": {
+          "type": "string"
+        },
+        "facilityId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "orgId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "facilityId",
+        "orgId"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.ScoreLevel": {
+      "properties": {
+        "level": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "levelName": {
+          "type": "string"
+        },
+        "score": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "scoreTypeId": {
+          "type": "string"
+        },
+        "scoreTypeName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "scoreTypeId",
+        "scoreTypeName",
+        "score",
+        "level",
+        "levelName"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.ServiceNeeded": {
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/com.august.protos.health_questionnaire.HealthQuestionnaire.ServiceNeeded.ServiceCode"
+        },
+        "response": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.QuestionResponse"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.ShiftCareGroupDetails": {
+      "properties": {
+        "careGroupId": {
+          "type": "string"
+        },
+        "shiftId": {
+          "type": "string"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.SocialHistory": {
+      "properties": {
+        "alcoholUse": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.ObservationWithCode"
+        },
+        "diet": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.SocialHistoryDiet"
+        },
+        "dislikesAndHardshipsSummary": {
+          "type": "string"
+        },
+        "educationSummary": {
+          "type": "string"
+        },
+        "interestsAndActivitiesSummary": {
+          "type": "string"
+        },
+        "occupationSummary": {
+          "type": "string"
+        },
+        "other": {
+          "type": "string"
+        },
+        "recentTbExposure": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.ObservationWithBoolean"
+        },
+        "tobaccoUse": {
+          "$ref": "#/$defs/com.august.api.integrations.models.people.v1.ObservationWithCode"
+        }
+      }
+    },
+    "com.august.api.integrations.models.people.v1.SocialHistoryDiet": {
+      "properties": {
+        "dietTypeValue": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "dietTypeValue"
+      ]
+    },
+    "com.august.api.integrations.models.people.v1.UnstructuredMedication": {
+      "properties": {
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+    "com.august.protos.address.Address.AddressUse": {
+      "enum": [
+        "ADDRESS_USE_HOME",
+        "ADDRESS_USE_WORK",
+        "ADDRESS_USE_TEMP",
+        "ADDRESS_USE_OLD",
+        "ADDRESS_USE_BILLING"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.admissions.AdmissionsInformation.AdmissionType": {
+      "enum": [
+        "ADMISSION_TYPE_ASSISTED_LIVING",
+        "ADMISSION_TYPE_MEMORY_CARE",
+        "ADMISSION_TYPE_INDEPENDENT_LIVING"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.allergy_intolerance.AllergyIntolerance.AllergyIntoleranceCategory": {
+      "enum": [
+        "ALLERGY_INTOLERANCE_CATEGORY_FOOD",
+        "ALLERGY_INTOLERANCE_CATEGORY_MEDICATION"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.ambulatory_status.AmbulatoryStatus.AmbulatoryCode": {
+      "enum": [
+        "AMBULATORY_CODE_WALKS_WITHOUT_SUPPORT",
+        "AMBULATORY_CODE_WALKS_WITH_CANE",
+        "AMBULATORY_CODE_WALKS_WITH_WALKER_OR_OTHER_SUPPORT",
+        "AMBULATORY_CODE_USES_WHEELCHAIR",
+        "AMBULATORY_CODE_BEDRIDDEN_ABLE_TO_TURN",
+        "AMBULATORY_CODE_BEDRIDDEN_UNABLE_TO_TURN"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.ambulatory_status.AmbulatoryStatus.AmbulatoryResult": {
+      "enum": [
+        "AMBULATORY_RESULT_AMBULATORY",
+        "AMBULATORY_RESULT_BEDRIDDEN",
+        "AMBULATORY_RESULT_NON_AMBULATORY",
+        "AMBULATORY_RESULT_SEMI_AMBULATORY"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.ambulatory_status.AmbulatoryStatus.BedStatus.Code": {
+      "enum": [
+        "CODE_OUT_OF_BED_ALL_DAY",
+        "CODE_IN_BED_PART_OF_DAY",
+        "CODE_IN_BED_ALL_OR_MOST_OF_DAY"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.codeable_concept.SystemUrl": {
+      "enum": [
+        "SYSTEM_URL_RXNORM",
+        "SYSTEM_URL_SNOMED_CT",
+        "SYSTEM_URL_NDC",
+        "SYSTEM_URL_ICD_10",
+        "SYSTEM_URL_DEA",
+        "SYSTEM_URL_EDQM",
+        "SYSTEM_URL_GPI",
+        "SYSTEM_URL_NPI",
+        "SYSTEM_URL_UPC"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.condition.ConditionCode": {
+      "enum": [
+        "CONDITION_CODE_TB",
+        "CONDITION_CODE_VISION_IMPAIRED",
+        "CONDITION_CODE_HEARING_IMPAIRED",
+        "CONDITION_CODE_SPEECH_IMPAIRED",
+        "CONDITION_CODE_MOBILITY_IMPAIRED",
+        "CONDITION_CODE_BOWEL_IMPAIRED",
+        "CONDITION_CODE_BLADDER_IMPAIRED",
+        "CONDITION_CODE_PROSTHESIS",
+        "CONDITION_CODE_OTHER_PHYSICAL",
+        "CONDITION_CODE_CONFUSED_OR_FORGETFUL",
+        "CONDITION_CODE_DEPRESSED_OR_HOPELESS",
+        "CONDITION_CODE_NERVOUS_OR_ANXIOUS",
+        "CONDITION_CODE_WITHDRAWN_FROM_ACTIVITIES",
+        "CONDITION_CODE_SOCIAL_ISOLATION",
+        "CONDITION_CODE_AGGRESSIVE_BEHAVIOR",
+        "CONDITION_CODE_ADDICTION",
+        "CONDITION_CODE_OTHER_MENTAL"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.contact.Contact.ContactRelationship": {
+      "enum": [
+        "CONTACT_RELATIONSHIP_PERSONAL",
+        "CONTACT_RELATIONSHIP_FAMMEMB",
+        "CONTACT_RELATIONSHIP_CHILD",
+        "CONTACT_RELATIONSHIP_GRNDCHILD",
+        "CONTACT_RELATIONSHIP_SPS",
+        "CONTACT_RELATIONSHIP_SIB",
+        "CONTACT_RELATIONSHIP_NIENEPH",
+        "CONTACT_RELATIONSHIP_GRNIENEPH",
+        "CONTACT_RELATIONSHIP_COUSN",
+        "CONTACT_RELATIONSHIP_FRND",
+        "CONTACT_RELATIONSHIP_CHILD_INLAW",
+        "CONTACT_RELATIONSHIP_CLINICIAN",
+        "CONTACT_RELATIONSHIP_PHYSICIAN",
+        "CONTACT_RELATIONSHIP_NURSE_PRACTITIONER",
+        "CONTACT_RELATIONSHIP_PHYSICIAN_ASSISTANT",
+        "CONTACT_RELATIONSHIP_PHARMACIST",
+        "CONTACT_RELATIONSHIP_NURSE",
+        "CONTACT_RELATIONSHIP_SKILLED_THERAPIST",
+        "CONTACT_RELATIONSHIP_PSYCHOLOGIST",
+        "CONTACT_RELATIONSHIP_DIETICIAN",
+        "CONTACT_RELATIONSHIP_SOCIAL_WORKER",
+        "CONTACT_RELATIONSHIP_DENTIST",
+        "CONTACT_RELATIONSHIP_PODIATRIST",
+        "CONTACT_RELATIONSHIP_PROFESSIONAL",
+        "CONTACT_RELATIONSHIP_REFERRAL_AGENT",
+        "CONTACT_RELATIONSHIP_PLACEMENT_AGENT",
+        "CONTACT_RELATIONSHIP_CONSERVATOR",
+        "CONTACT_RELATIONSHIP_LEGALLY_RESPONSIBLE",
+        "CONTACT_RELATIONSHIP_CASE_MANAGER",
+        "CONTACT_RELATIONSHIP_RELIGIOUS_ADVISOR",
+        "CONTACT_RELATIONSHIP_THIRD_PARTY_PAYER",
+        "CONTACT_RELATIONSHIP_FIDUCIARY",
+        "CONTACT_RELATIONSHIP_FUNERAL_HOME",
+        "CONTACT_RELATIONSHIP_VETERINARIAN",
+        "CONTACT_RELATIONSHIP_GENERAL_PRACTITIONER",
+        "CONTACT_RELATIONSHIP_MENTAL_HEALTH_PROVIDER",
+        "CONTACT_RELATIONSHIP_HOSPICE_PROVIDER",
+        "CONTACT_RELATIONSHIP_RESPONSIBLE_PERSON",
+        "CONTACT_RELATIONSHIP_FINANCIAL_PAYMENT_OF_CARE",
+        "CONTACT_RELATIONSHIP_FINANCIAL_POWER_OF_ATTORNEY",
+        "CONTACT_RELATIONSHIP_MEDICAL_POWER_OF_ATTORNEY",
+        "CONTACT_RELATIONSHIP_C",
+        "CONTACT_RELATIONSHIP_FORM_CONTRIBUTOR",
+        "CONTACT_RELATIONSHIP_RELEASE_OF_INFORMATION",
+        "CONTACT_RELATIONSHIP_PERSONAL_PROPERTY",
+        "CONTACT_RELATIONSHIP_OTHER",
+        "CONTACT_RELATIONSHIP_SELF",
+        "CONTACT_RELATIONSHIP_N"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.contact_point.ContactPoint.ContactPointSystem": {
+      "enum": [
+        "CONTACT_POINT_SYSTEM_PHONE",
+        "CONTACT_POINT_SYSTEM_FAX",
+        "CONTACT_POINT_SYSTEM_EMAIL"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.contact_point.ContactPoint.ContactPointUse": {
+      "enum": [
+        "CONTACT_POINT_USE_HOME",
+        "CONTACT_POINT_USE_WORK",
+        "CONTACT_POINT_USE_MOBILE",
+        "CONTACT_POINT_USE_PAGER",
+        "CONTACT_POINT_USE_EMERGENCY"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.coverage.Coverage.CoverageType": {
+      "enum": [
+        "COVERAGE_TYPE_MEDICAL",
+        "COVERAGE_TYPE_DENTAL",
+        "COVERAGE_TYPE_PHARMACY",
+        "COVERAGE_TYPE_MEDICARE",
+        "COVERAGE_TYPE_PUBLIC_POLICY",
+        "COVERAGE_TYPE_MEDICAID"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.currency_amount.Currency": {
+      "enum": [
+        "CURRENCY_USD"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.diagnostic_report.DiagnosticReport.ConclusionCode": {
+      "enum": [
+        "CONCLUSION_CODE_POSITIVE",
+        "CONCLUSION_CODE_NEGATIVE"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.diagnostic_report.DiagnosticReport.DiagnosticReportCode": {
+      "enum": [
+        "DIAGNOSTIC_REPORT_CODE_TB_SKIN_TEST",
+        "DIAGNOSTIC_REPORT_CODE_TB_BLOOD_TEST",
+        "DIAGNOSTIC_REPORT_CODE_TB_UNSPECIFIED_TEST"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.discharge_details.DischargeDetails.DischargeMotivation": {
+      "enum": [
+        "DISCHARGE_MOTIVATION_DISSATISFACTION",
+        "DISCHARGE_MOTIVATION_FINANCIAL",
+        "DISCHARGE_MOTIVATION_IMPROVED_HEALTH",
+        "DISCHARGE_MOTIVATION_LEVEL_OF_CARE",
+        "DISCHARGE_MOTIVATION_RELOCATED",
+        "DISCHARGE_MOTIVATION_RETREAT_STAY",
+        "DISCHARGE_MOTIVATION_OTHER",
+        "DISCHARGE_MOTIVATION_DEATH",
+        "DISCHARGE_MOTIVATION_CANCELLED_MOVE_IN"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.discharge_details.DischargeDetails.DischargeReason": {
+      "enum": [
+        "DISCHARGE_REASON_DECEASED",
+        "DISCHARGE_REASON_MOVE_TO_PRIVATE",
+        "DISCHARGE_REASON_MOVE_TO_INDEPENDENT_LIVING",
+        "DISCHARGE_REASON_MOVE_TO_OTHER_ASSISTED_LIVING",
+        "DISCHARGE_REASON_MOVE_TO_SKILLED_NURSING",
+        "DISCHARGE_REASON_OTHER"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.functional_status.FunctionalStatus.CapabilityCodeBathing": {
+      "enum": [
+        "CAPABILITY_CODE_BATHING_FULLY_DEPENDENT",
+        "CAPABILITY_CODE_BATHING_PARTIALLY_DEPENDENT",
+        "CAPABILITY_CODE_BATHING_INDEPENDENT_USES_GRAB_BARS",
+        "CAPABILITY_CODE_BATHING_INDEPENDENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.functional_status.FunctionalStatus.CapabilityCodeCommunication": {
+      "enum": [
+        "CAPABILITY_CODE_COMMUNICATION_UNABLE",
+        "CAPABILITY_CODE_COMMUNICATION_PRIMARILY_NON_VERBAL",
+        "CAPABILITY_CODE_COMMUNICATION_VERBAL_WITH_DIFFICULTY",
+        "CAPABILITY_CODE_COMMUNICATION_NO_DIFFICULTY"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.functional_status.FunctionalStatus.CapabilityCodeDressing": {
+      "enum": [
+        "CAPABILITY_CODE_DRESSING_FULLY_DEPENDENT",
+        "CAPABILITY_CODE_DRESSING_PARTIALLY_DEPENDENT",
+        "CAPABILITY_CODE_DRESSING_INDEPENDENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.functional_status.FunctionalStatus.CapabilityCodeEating": {
+      "enum": [
+        "CAPABILITY_CODE_EATING_FULLY_DEPENDENT",
+        "CAPABILITY_CODE_EATING_PARTIALLY_DEPENDENT_ON_PERSON",
+        "CAPABILITY_CODE_EATING_PARTIALLY_DEPENDENT_ON_DEVICE",
+        "CAPABILITY_CODE_EATING_INDEPENDENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.functional_status.FunctionalStatus.CapabilityCodeGrooming": {
+      "enum": [
+        "CAPABILITY_CODE_GROOMING_FULLY_DEPENDENT",
+        "CAPABILITY_CODE_GROOMING_PARTIALLY_DEPENDENT",
+        "CAPABILITY_CODE_GROOMING_INDEPENDENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMedication": {
+      "enum": [
+        "CAPABILITY_CODE_MEDICATION_DEPENDENT",
+        "CAPABILITY_CODE_MEDICATION_INDEPENDENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMobility": {
+      "enum": [
+        "CAPABILITY_CODE_MOBILITY_ROOM_FULLY_DEPENDENT",
+        "CAPABILITY_CODE_MOBILITY_ROOM_INDEPENDENT",
+        "CAPABILITY_CODE_MOBILITY_FACILITY_INDEPENDENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMoneyMgmt": {
+      "enum": [
+        "CAPABILITY_CODE_MONEY_MGMT_DEPENDENT",
+        "CAPABILITY_CODE_MONEY_MGMT_INDEPENDENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.functional_status.FunctionalStatus.CapabilityCodeToileting": {
+      "enum": [
+        "CAPABILITY_CODE_TOILETING_FULLY_DEPENDENT",
+        "CAPABILITY_CODE_TOILETING_PARTIALLY_DEPENDENT",
+        "CAPABILITY_CODE_TOILETING_INDEPENDENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.functional_status.FunctionalStatus.CapabilityCodeTransferring": {
+      "enum": [
+        "CAPABILITY_CODE_TRANSFERRING_FULLY_DEPENDENT",
+        "CAPABILITY_CODE_TRANSFERRING_PARTIALLY_DEPENDENT",
+        "CAPABILITY_CODE_TRANSFERRING_INDEPENDENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.gender.Gender": {
+      "enum": [
+        "GENDER_NON_BINARY",
+        "GENDER_FEMALE",
+        "GENDER_MALE"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.health_questionnaire.HealthQuestionnaire.OverallCondition": {
+      "enum": [
+        "OVERALL_CONDITION_POOR",
+        "OVERALL_CONDITION_FAIR",
+        "OVERALL_CONDITION_GOOD"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.health_questionnaire.HealthQuestionnaire.QuestionResponse.ResponseCode": {
+      "enum": [
+        "RESPONSE_CODE_YES",
+        "RESPONSE_CODE_NO"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.health_questionnaire.HealthQuestionnaire.ServiceNeeded.ServiceCode": {
+      "enum": [
+        "SERVICE_CODE_OBSERVATION_DUE_TO_CONFUSION",
+        "SERVICE_CODE_OBSERVATION_DUE_TO_HARM",
+        "SERVICE_CODE_SPECIAL_MEDICAL_ATTENTION",
+        "SERVICE_CODE_OTHER"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.health_questionnaire.HealthQuestionnaire.Severity": {
+      "enum": [
+        "SEVERITY_MILD",
+        "SEVERITY_MODERATE",
+        "SEVERITY_SEVERE",
+        "SEVERITY_ABSENT",
+        "SEVERITY_PRESENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.healthcare_service.HealthcareService.ServiceCategory": {
+      "enum": [
+        "SERVICE_CATEGORY_HOSPITAL",
+        "SERVICE_CATEGORY_DENTAL"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.human_name.HumanName.Pronouns": {
+      "enum": [
+        "PRONOUNS_SHE_HER",
+        "PRONOUNS_HE_HIM",
+        "PRONOUNS_THEY_THEM",
+        "PRONOUNS_SHE_THEY",
+        "PRONOUNS_HE_THEY",
+        "PRONOUNS_ZE_HIR"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.observation.Observation.ValueCode": {
+      "enum": [
+        "VALUE_CODE_TOBACCO_USE_NEVER",
+        "VALUE_CODE_TOBACCO_USE_CURRENT_LIGHT",
+        "VALUE_CODE_TOBACCO_USE_CURRENT_HEAVY",
+        "VALUE_CODE_TOBACCO_USE_FORMER",
+        "VALUE_CODE_ALCOHOL_USE_NEVER",
+        "VALUE_CODE_ALCOHOL_USE_CURRENT_LIGHT",
+        "VALUE_CODE_ALCOHOL_USE_CURRENT_HEAVY",
+        "VALUE_CODE_ALCOHOL_USE_FORMER"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.person.OutOfFacilityReason": {
+      "enum": [
+        "OUT_OF_FACILITY_REASON_HOSPITALIZATION",
+        "OUT_OF_FACILITY_REASON_EMERGENCY_ROOM",
+        "OUT_OF_FACILITY_REASON_AWAY_WITH_FAMILY_FRIENDS",
+        "OUT_OF_FACILITY_REASON_REHAB",
+        "OUT_OF_FACILITY_REASON_OTHER"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.person.Person.MaritalStatus": {
+      "enum": [
+        "MARITAL_STATUS_MARRIED",
+        "MARITAL_STATUS_DIVORCED",
+        "MARITAL_STATUS_WIDOWED",
+        "MARITAL_STATUS_SINGLE",
+        "MARITAL_STATUS_SEPARATED",
+        "MARITAL_STATUS_DOMESTIC_PARTNER"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.person.ResidentStatus": {
+      "enum": [
+        "RESIDENT_STATUS_PROSPECT",
+        "RESIDENT_STATUS_CURRENT_RESIDENT",
+        "RESIDENT_STATUS_CLOSED",
+        "RESIDENT_STATUS_DISCHARGED",
+        "RESIDENT_STATUS_ENTERED_IN_ERROR"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentType": {
+      "enum": [
+        "ASSESSMENT_TYPE_SUPERVISORY_CARE",
+        "ASSESSMENT_TYPE_PERSONAL_CARE",
+        "ASSESSMENT_TYPE_DIRECTED_CARE",
+        "ASSESSMENT_TYPE_DIRECTED_CARE_MEMORY_SERVICES",
+        "ASSESSMENT_TYPE_SPECIAL_CARE_RESIDENT",
+        "ASSESSMENT_TYPE_TRADITIONAL_RESIDENT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.snapshot.Polst.CPR": {
+      "enum": [
+        "CPR_ATTEMPT_RESUSCITATION",
+        "CPR_DO_NOT_ATTEMPT_RESUSCITATION"
+      ],
+      "type": "string"
+    }
+  }
+}

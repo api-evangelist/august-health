@@ -1,0 +1,443 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/august-health/main/json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json",
+  "title": "com.august.api.integrations.models.medication_orders.v1.MedicationOrder",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.medication_orders.v1.MedicationOrder",
+  "properties": {
+    "additionalInstructions": {
+      "description": "Additional administration instructions (e.g., take with food)",
+      "items": {
+        "$ref": "#/$defs/com.august.protos.medication_statement.AdditionalInstructions",
+        "description": "Additional administration instructions (e.g., take with food)"
+      },
+      "type": "array"
+    },
+    "approvedAt": {
+      "description": "When the order was approved by a physician",
+      "format": "date-time",
+      "type": "string"
+    },
+    "discontinuedAt": {
+      "description": "When the order was discontinued, if applicable",
+      "format": "date-time",
+      "type": "string"
+    },
+    "dosageInstruction": {
+      "description": "Structured dosage and timing instructions",
+      "items": {
+        "$ref": "#/$defs/com.august.api.integrations.models.medication_orders.v1.DosageInstruction",
+        "description": "Structured dosage and timing instructions"
+      },
+      "type": "array"
+    },
+    "dosageType": {
+      "$ref": "#/$defs/com.august.protos.medication_statement.DosageType",
+      "description": "The type of dosage (e.g., scheduled, PRN)"
+    },
+    "effectivePeriod": {
+      "$ref": "#/$defs/com.august.api.integrations.models.common.date.DateTimePeriod",
+      "description": "When this order starts and ends. Times are in the facility's local time zone"
+    },
+    "id": {
+      "description": "The medication order's ID",
+      "type": "string"
+    },
+    "isOutsideProviderAdministered": {
+      "description": "Whether an outside provider administers this medication",
+      "type": "boolean"
+    },
+    "isTreatment": {
+      "description": "Whether this order is a treatment (as opposed to a standing medication)",
+      "type": "boolean"
+    },
+    "medication": {
+      "$ref": "#/$defs/com.august.api.integrations.models.medication_orders.v1.Medication",
+      "description": "Drug information including name, strength, and coding identifiers"
+    },
+    "note": {
+      "description": "Free-text notes about this order",
+      "type": "string"
+    },
+    "orderGroupId": {
+      "description": "Groups related orders together (e.g., original and renewal)",
+      "type": "string"
+    },
+    "personId": {
+      "description": "The resident this order belongs to",
+      "type": "string"
+    },
+    "pharmacy": {
+      "description": "Name of the dispensing pharmacy",
+      "type": "string"
+    },
+    "prescriber": {
+      "description": "Name of the prescribing physician",
+      "type": "string"
+    },
+    "providerDosageInstructions": {
+      "description": "Free-text dosage instructions from the provider",
+      "type": "string"
+    },
+    "requiredVitals": {
+      "description": "Vitals that must be recorded before administering this medication",
+      "items": {
+        "$ref": "#/$defs/com.august.protos.vital.VitalType",
+        "description": "Vitals that must be recorded before administering this medication"
+      },
+      "type": "array"
+    },
+    "requiresControlledCount": {
+      "description": "Whether this medication requires a controlled substance count",
+      "type": "boolean"
+    },
+    "rxNumber": {
+      "description": "The prescription number assigned by the pharmacy",
+      "type": "string"
+    },
+    "selfAdministered": {
+      "description": "Whether the resident self-administers this medication",
+      "type": "boolean"
+    },
+    "status": {
+      "$ref": "#/$defs/com.august.api.integrations.models.medication_orders.v1.MedicationOrderStatus",
+      "description": "Computed status based on the effective period and hold periods"
+    }
+  },
+  "required": [
+    "id",
+    "personId",
+    "orderGroupId",
+    "status",
+    "requiresControlledCount",
+    "selfAdministered",
+    "isOutsideProviderAdministered",
+    "isTreatment",
+    "dosageType"
+  ],
+  "$defs": {
+    "com.august.api.integrations.models.common.date.DateTimePeriod": {
+      "properties": {
+        "endDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "endTime": {
+          "format": "time-local",
+          "type": "string"
+        },
+        "startDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "startTime": {
+          "format": "time-local",
+          "type": "string"
+        }
+      }
+    },
+    "com.august.api.integrations.models.medication_orders.v1.CodeableConcept": {
+      "properties": {
+        "coding": {
+          "description": "Structured identifiers from coding systems (e.g., NDC, RxNorm, SNOMED CT)",
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.medication_orders.v1.Coding",
+            "description": "Structured identifiers from coding systems (e.g., NDC, RxNorm, SNOMED CT)"
+          },
+          "type": "array"
+        },
+        "text": {
+          "description": "Human-readable display name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "coding",
+        "text"
+      ]
+    },
+    "com.august.api.integrations.models.medication_orders.v1.Coding": {
+      "properties": {
+        "code": {
+          "description": "The code value within the system",
+          "type": "string"
+        },
+        "display": {
+          "description": "Human-readable description of the code",
+          "type": "string"
+        },
+        "system": {
+          "$ref": "#/$defs/com.august.protos.codeable_concept.SystemUrl",
+          "description": "The coding system (e.g., RXNORM, NDC, SNOMED_CT)"
+        }
+      },
+      "required": [
+        "system",
+        "code",
+        "display"
+      ]
+    },
+    "com.august.api.integrations.models.medication_orders.v1.DosageInstruction": {
+      "properties": {
+        "asNeededBoolean": {
+          "description": "Whether this medication is administered as needed (PRN)",
+          "type": "boolean"
+        },
+        "doseAndRate": {
+          "$ref": "#/$defs/com.august.api.integrations.models.medication_orders.v1.DoseAndRate",
+          "description": "The dose quantity for each administration"
+        },
+        "route": {
+          "description": "The route of administration (e.g., \"oral\", \"topical\")",
+          "type": "string"
+        },
+        "site": {
+          "description": "The body site for administration (e.g., \"left arm\")",
+          "type": "string"
+        },
+        "text": {
+          "description": "Human-readable dosage instructions",
+          "type": "string"
+        },
+        "timing": {
+          "$ref": "#/$defs/com.august.api.integrations.models.medication_orders.v1.TimingInfo",
+          "description": "When the medication should be administered"
+        }
+      },
+      "required": [
+        "asNeededBoolean"
+      ]
+    },
+    "com.august.api.integrations.models.medication_orders.v1.DoseAndRate": {
+      "properties": {
+        "doseQuantity": {
+          "$ref": "#/$defs/com.august.api.integrations.models.medication_orders.v1.SimpleQuantity",
+          "description": "The amount to administer (value and unit)"
+        }
+      }
+    },
+    "com.august.api.integrations.models.medication_orders.v1.Medication": {
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/com.august.api.integrations.models.medication_orders.v1.CodeableConcept",
+          "description": "Codeable concept identifying this medication (e.g., NDC, RxNorm)"
+        },
+        "drugName": {
+          "description": "The name of the drug",
+          "type": "string"
+        },
+        "medicationClass": {
+          "description": "The therapeutic classification(s) of this medication",
+          "items": {
+            "$ref": "#/$defs/com.august.protos.medication.MedicationClass",
+            "description": "The therapeutic classification(s) of this medication"
+          },
+          "type": "array"
+        },
+        "schedule": {
+          "description": "The DEA controlled substance schedule, if applicable",
+          "type": "string"
+        },
+        "strengthAndForm": {
+          "description": "The drug's strength and form (e.g., \"500mg tablet\")",
+          "type": "string"
+        }
+      },
+      "required": [
+        "drugName",
+        "code"
+      ]
+    },
+    "com.august.api.integrations.models.medication_orders.v1.MedicationOrderStatus": {
+      "enum": [
+        "ACTIVE",
+        "FUTURE",
+        "ON_HOLD",
+        "DISCONTINUED"
+      ],
+      "type": "string"
+    },
+    "com.august.api.integrations.models.medication_orders.v1.SimpleQuantity": {
+      "properties": {
+        "unit": {
+          "description": "The unit of measurement (e.g., \"mg\", \"mL\", \"tablet\")",
+          "type": "string"
+        },
+        "value": {
+          "description": "The numeric value of the quantity",
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "com.august.api.integrations.models.medication_orders.v1.TimeOfDay": {
+      "properties": {
+        "time": {
+          "$ref": "#/$defs/com.august.api.integrations.models.medication_orders.v1.TimeOfDay.TimeParts",
+          "description": "The exact time (hour and minute)"
+        },
+        "when": {
+          "$ref": "#/$defs/com.august.protos.timing.EventTiming",
+          "description": "A named timing event (e.g., morning, evening, before meals)"
+        }
+      }
+    },
+    "com.august.api.integrations.models.medication_orders.v1.TimeOfDay.TimeParts": {
+      "properties": {
+        "hour": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minute": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "hour",
+        "minute"
+      ]
+    },
+    "com.august.api.integrations.models.medication_orders.v1.TimingInfo": {
+      "properties": {
+        "dayOfMonth": {
+          "description": "Which days of the month to administer",
+          "items": {
+            "description": "Which days of the month to administer",
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "dayOfWeek": {
+          "description": "Which days of the week to administer",
+          "items": {
+            "$ref": "#/$defs/com.august.protos.timing.DayOfWeek",
+            "description": "Which days of the week to administer"
+          },
+          "type": "array"
+        },
+        "frequency": {
+          "description": "How many administrations occur within each period",
+          "format": "int32",
+          "type": "integer"
+        },
+        "oneTimeOnly": {
+          "description": "Whether this is a one-time administration",
+          "type": "boolean"
+        },
+        "period": {
+          "description": "How many periodUnits each period spans",
+          "format": "int32",
+          "type": "integer"
+        },
+        "periodUnit": {
+          "$ref": "#/$defs/com.august.protos.timing.UnitOfTime",
+          "description": "The unit the period is measured in"
+        },
+        "timeOfDay": {
+          "description": "Specific times of day for administration",
+          "items": {
+            "$ref": "#/$defs/com.august.api.integrations.models.medication_orders.v1.TimeOfDay",
+            "description": "Specific times of day for administration"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "timeOfDay",
+        "dayOfWeek",
+        "dayOfMonth",
+        "oneTimeOnly"
+      ]
+    },
+    "com.august.protos.codeable_concept.SystemUrl": {
+      "enum": [
+        "SYSTEM_URL_RXNORM",
+        "SYSTEM_URL_SNOMED_CT",
+        "SYSTEM_URL_NDC",
+        "SYSTEM_URL_ICD_10",
+        "SYSTEM_URL_DEA",
+        "SYSTEM_URL_EDQM",
+        "SYSTEM_URL_GPI",
+        "SYSTEM_URL_NPI",
+        "SYSTEM_URL_UPC"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.medication.MedicationClass": {
+      "enum": [
+        "MEDICATION_CLASS_NARCOTIC",
+        "MEDICATION_CLASS_PSYCHOTROPIC"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.medication_statement.AdditionalInstructions": {
+      "enum": [
+        "ADDITIONAL_INSTRUCTIONS_BEFORE_MEALS",
+        "ADDITIONAL_INSTRUCTIONS_AFTER_MEALS"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.medication_statement.DosageType": {
+      "enum": [
+        "DOSAGE_TYPE_ROUTINE",
+        "DOSAGE_TYPE_PRN",
+        "DOSAGE_TYPE_SPLIT",
+        "DOSAGE_TYPE_TAPER",
+        "DOSAGE_TYPE_SLIDING_SCALE",
+        "DOSAGE_TYPE_VITAL"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.timing.DayOfWeek": {
+      "enum": [
+        "DAY_OF_WEEK_MONDAY",
+        "DAY_OF_WEEK_TUESDAY",
+        "DAY_OF_WEEK_WEDNESDAY",
+        "DAY_OF_WEEK_THURSDAY",
+        "DAY_OF_WEEK_FRIDAY",
+        "DAY_OF_WEEK_SATURDAY",
+        "DAY_OF_WEEK_SUNDAY"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.timing.EventTiming": {
+      "enum": [
+        "EVENT_TIMING_MORN",
+        "EVENT_TIMING_AFT",
+        "EVENT_TIMING_EVE",
+        "EVENT_TIMING_NIGHT"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.timing.UnitOfTime": {
+      "enum": [
+        "UNIT_OF_TIME_SECOND",
+        "UNIT_OF_TIME_MINUTE",
+        "UNIT_OF_TIME_HOUR",
+        "UNIT_OF_TIME_DAY",
+        "UNIT_OF_TIME_WEEK",
+        "UNIT_OF_TIME_MONTH",
+        "UNIT_OF_TIME_YEAR"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.vital.VitalType": {
+      "enum": [
+        "VITAL_TYPE_WEIGHT",
+        "VITAL_TYPE_TEMPERATURE",
+        "VITAL_TYPE_BLOOD_PRESSURE",
+        "VITAL_TYPE_HEART_RATE",
+        "VITAL_TYPE_RESPIRATORY_RATE",
+        "VITAL_TYPE_BLOOD_SUGAR",
+        "VITAL_TYPE_OXYGEN_SATURATION",
+        "VITAL_TYPE_PAIN",
+        "VITAL_TYPE_HEIGHT"
+      ],
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+generated: '2026-10-14'
+method: none
+source:
+- https://zapier.com/apps/august-health/integrations
+- https://n8n.io/integrations/august-health/
+- https://composio.dev/toolkits/august-health
+- https://monid.ai/tools/august-health
+checked:
+- https://composio.dev/toolkits/august-health
+- https://monid.ai/tools/august-health
+- https://n8n.io/integrations/august-health/
+- https://zapier.com/apps/august-health/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

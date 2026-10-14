@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/august-health/main/json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json",
+  "title": "com.august.api.integrations.models.medication_administrations.v1.MedicationAdministration",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.medication_administrations.v1.MedicationAdministration",
+  "properties": {
+    "administeredDosage": {
+      "$ref": "#/$defs/com.august.api.integrations.models.medication_administrations.v1.AdministeredDosage",
+      "description": "The dosage that was actually administered"
+    },
+    "beginScheduledTime": {
+      "description": "Start of the scheduled administration window",
+      "format": "date-time",
+      "type": "string"
+    },
+    "dosageType": {
+      "$ref": "#/$defs/com.august.protos.medication_statement.DosageType",
+      "description": "The type of dosage for the associated order (e.g. standing, PRN)"
+    },
+    "endScheduledTime": {
+      "description": "End of the scheduled administration window",
+      "format": "date-time",
+      "type": "string"
+    },
+    "id": {
+      "description": "Unique identifier for this administration record",
+      "type": "string"
+    },
+    "isOutsideProviderAdministered": {
+      "description": "Whether the medication was administered by an outside provider",
+      "type": "boolean"
+    },
+    "medPassDate": {
+      "format": "date",
+      "type": "string"
+    },
+    "medPassId": {
+      "description": "The med pass this administration is part of",
+      "type": "string"
+    },
+    "medicationOrderId": {
+      "description": "The medication order this administration is associated with",
+      "type": "string"
+    },
+    "note": {
+      "description": "Additional notes about the administration",
+      "type": "string"
+    },
+    "occurredAt": {
+      "description": "When the administration actually occurred",
+      "format": "date-time",
+      "type": "string"
+    },
+    "orderGroupId": {
+      "description": "The order group this administration belongs to",
+      "type": "string"
+    },
+    "performer": {
+      "$ref": "#/$defs/com.august.api.integrations.models.medication_administrations.v1.Performer",
+      "description": "The person who performed the administration"
+    },
+    "personId": {
+      "description": "The resident receiving the medication",
+      "type": "string"
+    },
+    "reasonForException": {
+      "$ref": "#/$defs/com.august.protos.medication_administration.ReasonForException",
+      "description": "Reason the medication was not administered, if applicable"
+    },
+    "reasonForOutOfSchedule": {
+      "$ref": "#/$defs/com.august.protos.medication_administration.ReasonForOutOfSchedule",
+      "description": "Reason for out-of-schedule administration, if applicable"
+    },
+    "recordedAt": {
+      "description": "When the administration was recorded in the system",
+      "format": "date-time",
+      "type": "string"
+    },
+    "selfAdministered": {
+      "description": "Whether the resident self-administered the medication",
+      "type": "boolean"
+    },
+    "status": {
+      "$ref": "#/$defs/com.august.api.integrations.models.medication_administrations.v1.AdministrationStatus",
+      "description": "Current status of the administration"
+    },
+    "wasAdministeredOutOfSchedule": {
+      "description": "Whether this administration occurred outside the scheduled time",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "medicationOrderId",
+    "personId",
+    "orderGroupId",
+    "status",
+    "dosageType",
+    "wasAdministeredOutOfSchedule",
+    "selfAdministered",
+    "isOutsideProviderAdministered"
+  ],
+  "$defs": {
+    "com.august.api.integrations.models.medication_administrations.v1.AdministeredDosage": {
+      "properties": {
+        "quantity": {
+          "$ref": "#/$defs/com.august.api.integrations.models.medication_administrations.v1.SimpleQuantity",
+          "description": "The measured dose quantity that was administered"
+        },
+        "text": {
+          "description": "Free-text dosage instructions or description",
+          "type": "string"
+        }
+      }
+    },
+    "com.august.api.integrations.models.medication_administrations.v1.AdministrationStatus": {
+      "enum": [
+        "SCHEDULED",
+        "ADMINISTERED",
+        "NOT_ADMINISTERED",
+        "ON_HOLD"
+      ],
+      "type": "string"
+    },
+    "com.august.api.integrations.models.medication_administrations.v1.Performer": {
+      "properties": {
+        "name": {
+          "description": "Full name of the performer",
+          "type": "string"
+        },
+        "userId": {
+          "description": "The user account ID of the performer",
+          "type": "string"
+        }
+      },
+      "required": [
+        "userId",
+        "name"
+      ]
+    },
+    "com.august.api.integrations.models.medication_administrations.v1.SimpleQuantity": {
+      "properties": {
+        "unit": {
+          "description": "Unit of measurement (e.g. \"mg\", \"mL\", \"tablets\")",
+          "type": "string"
+        },
+        "value": {
+          "description": "Numeric value of the quantity",
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "com.august.protos.medication_administration.ReasonForException": {
+      "oneOf": [
+        {
+          "enum": [
+            "REASON_FOR_EXCEPTION_OUT_OF_FACILITY",
+            "REASON_FOR_EXCEPTION_RESIDENT_REFUSED",
+            "REASON_FOR_EXCEPTION_MEDICATION_NOT_AVAILABLE",
+            "REASON_FOR_EXCEPTION_WITHHELD_PER_DOCTORS_REQUEST",
+            "REASON_FOR_EXCEPTION_CHANGING_SCHEDULE",
+            "REASON_FOR_EXCEPTION_HELD_FOR_CONDITIONAL_PARAMETERS",
+            "REASON_FOR_EXCEPTION_HELD_BY_SLIDING_SCALE",
+            "REASON_FOR_EXCEPTION_INVALID_ORDER",
+            "REASON_FOR_EXCEPTION_RESIDENT_UNABLE_TO_SWALLOW_NON_DEDUCTING",
+            "REASON_FOR_EXCEPTION_GIVEN_BY_HOME_HEALTH_NON_DEDUCTING",
+            "REASON_FOR_EXCEPTION_GIVEN_TO_FAMILY_TO_GIVE_LATER_NON_DEDUCTING",
+            "REASON_FOR_EXCEPTION_OTHER"
+          ],
+          "title": "values",
+          "type": "string"
+        },
+        {
+          "deprecated": true,
+          "enum": [
+            "REASON_FOR_EXCEPTION_GIVEN_BY_HOME_HEALTH",
+            "REASON_FOR_EXCEPTION_GIVEN_TO_FAMILY_TO_GIVE_LATER",
+            "REASON_FOR_EXCEPTION_RESIDENT_UNABLE_TO_SWALLOW"
+          ],
+          "title": "deprecated values",
+          "type": "string"
+        }
+      ]
+    },
+    "com.august.protos.medication_administration.ReasonForOutOfSchedule": {
+      "enum": [
+        "REASON_FOR_OUT_OF_SCHEDULE_LATE_ENTRY",
+        "REASON_FOR_OUT_OF_SCHEDULE_RESIDENT_APPOINTMENT",
+        "REASON_FOR_OUT_OF_SCHEDULE_WIFI_NOT_WORKING",
+        "REASON_FOR_OUT_OF_SCHEDULE_CHARTING_SYSTEM_NOT_WORKING"
+      ],
+      "type": "string"
+    },
+    "com.august.protos.medication_statement.DosageType": {
+      "enum": [
+        "DOSAGE_TYPE_ROUTINE",
+        "DOSAGE_TYPE_PRN",
+        "DOSAGE_TYPE_SPLIT",
+        "DOSAGE_TYPE_TAPER",
+        "DOSAGE_TYPE_SLIDING_SCALE",
+        "DOSAGE_TYPE_VITAL"
+      ],
+      "type": "string"
+    }
+  }
+}

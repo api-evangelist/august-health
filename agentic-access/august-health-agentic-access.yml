@@ -1,0 +1,727 @@
+generated: '2026-10-14'
+method: generated
+source: openapi/august-health-integrations-api-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 61
+  by_action_class:
+    connected: 45
+    acting: 16
+  by_consequence:
+    read: 45
+    physical: 2
+    write: 14
+  human_in_the_loop_required: 0
+operations:
+- path: /v1/organizations
+  method: get
+  operationId: listOrganizationsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities
+  method: get
+  operationId: listFacilitiesV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/admissions
+  method: get
+  operationId: getFacilityAdmissionHistoryV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/bedAssignments
+  method: get
+  operationId: getFacilityBedAssignmentHistoryV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/billing/charges
+  method: post
+  operationId: recordChargesV1
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/billing/deposits
+  method: post
+  operationId: recordDepositV1
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/billing/summaries
+  method: get
+  operationId: listFacilityBillingSummariesV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/census
+  method: get
+  operationId: listCensusV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/census/{personId}
+  method: get
+  operationId: getCensusPersonV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/incidents
+  method: get
+  operationId: listFacilityIncidentsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/medPasses
+  method: get
+  operationId: listMedPassesV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/medicationAdministrations
+  method: get
+  operationId: listFacilityMedicationAdministrationsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/medicationOrders
+  method: get
+  operationId: listFacilityMedicationOrdersV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people
+  method: post
+  operationId: createPersonV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people
+  method: get
+  operationId: listPeopleV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}
+  method: get
+  operationId: getPersonV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}
+  method: patch
+  operationId: patchPersonV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/admissionAgreements/latest
+  method: get
+  operationId: getLatestAdmissionAgreementV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/admissionAgreements/{snapshotId}
+  method: get
+  operationId: getAdmissionAgreementV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/admissionAgreements/{snapshotId}.pdf
+  method: get
+  operationId: getAdmissionAgreementPdfV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/admissions
+  method: get
+  operationId: getAdmissionHistoryV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/assessments/latest
+  method: get
+  operationId: getLatestAssessmentV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/assessments/{snapshotId}
+  method: get
+  operationId: getAssessmentV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/bedAssignments
+  method: get
+  operationId: listBedAssignmentsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/billing/statements
+  method: get
+  operationId: searchStatementsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/billing/statements/{statementId}.pdf
+  method: get
+  operationId: getStatementPdfV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/billing/summary
+  method: get
+  operationId: getBillingSummaryV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/billing/transactions
+  method: get
+  operationId: listResidentBillingTransactionsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/contacts
+  method: post
+  operationId: createContactV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/contacts
+  method: get
+  operationId: listContactsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/contacts/{contactId}
+  method: get
+  operationId: getContactV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/contacts/{contactId}/responsiblePerson
+  method: put
+  operationId: setResponsiblePersonV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/immunizations
+  method: get
+  operationId: listImmunizationsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/immunizations/{id}
+  method: get
+  operationId: getImmunizationV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/incidents
+  method: post
+  operationId: createIncidentV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/incidents
+  method: get
+  operationId: listPersonIncidentsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/incidents/{id}
+  method: get
+  operationId: getIncidentV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/incidents/{id}
+  method: patch
+  operationId: updateIncidentV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/medicationAdministrations
+  method: get
+  operationId: listPersonMedicationAdministrationsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/medicationOrders
+  method: get
+  operationId: listPersonMedicationOrdersV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/profilePhoto
+  method: get
+  operationId: getPersonProfilePhotoV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/residentBiography
+  method: post
+  operationId: createResidentBiographyV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/residentBiography/extract
+  method: post
+  operationId: extractResidentBiographyV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/residentBiography/latest
+  method: get
+  operationId: getLatestResidentBiographyV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/routineAdministrations
+  method: get
+  operationId: listRoutineAdministrationsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/routineAdministrations/bulkChart
+  method: post
+  operationId: bulkChartRoutineAdministrationsV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/tasks
+  method: get
+  operationId: listTasksV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/visitorLogs
+  method: get
+  operationId: listVisitorLogsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/visitorLogs
+  method: post
+  operationId: createVisitorLogV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/visitorLogs/{id}
+  method: delete
+  operationId: deleteVisitorLogV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/vitals
+  method: post
+  operationId: createVitalV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/vitals
+  method: get
+  operationId: listVitalsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/vitals/{id}
+  method: get
+  operationId: getVitalV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/vitals/{id}
+  method: patch
+  operationId: updateVitalV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/prnCareCategories
+  method: get
+  operationId: listPrnCareCategoriesV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/rooms
+  method: get
+  operationId: listRoomsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/routineAdministrations
+  method: get
+  operationId: listFacilityRoutineAdministrationsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/facilities/{facilityId}/shifts
+  method: get
+  operationId: listShiftsV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{orgId}/users
+  method: get
+  operationId: listUsersV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/token
+  method: post
+  operationId: createTokenV1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/webhooks/portalAccessUrl
+  method: post
+  operationId: createWebhooksPortalAccessUrlV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

@@ -1,0 +1,434 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/august-health-integrations-api-openapi.yml
+vocabulary:
+  name: August Health Domain Vocabulary
+  description: 'Terms declared by August Health''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-14'
+  terms:
+  - term: com.august.api.integrations.models.common.ApiResponseMetadata
+    definition: 'Object declared by the contract with fields: limit, offset, total.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.common.ApiResponseMetadata
+  - term: com.august.api.integrations.models.organizations.v1.Organization
+    definition: 'Object declared by the contract with fields: id, name.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.organizations.v1.Organization
+  - term: com.august.api.integrations.models.facilities.v1.Facility
+    definition: 'Object declared by the contract with fields: id, name.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.facilities.v1.Facility
+  - term: com.august.api.integrations.models.common.Bed
+    definition: 'Object declared by the contract with fields: externalId, id, name.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.common.Bed
+  - term: com.august.api.integrations.models.common.Measurement
+    definition: 'Object declared by the contract with fields: unit, value.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.common.Measurement
+  - term: com.august.api.integrations.models.rooms.v1.Room
+    definition: 'Object declared by the contract with fields: admissionType, area, beds, description, externalId, marketRates, roomId, roomName.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.rooms.v1.Room
+  - term: com.august.api.integrations.models.rooms.v1.RoomMarketRate
+    definition: 'Object declared by the contract with fields: admissionType, endDate, occupancyType, rateCents, startDate.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.rooms.v1.RoomMarketRate
+  - term: com.august.protos.admissions.AdmissionsInformation.AdmissionType
+    definition: 'Enumeration declared by the contract with values: ADMISSION_TYPE_ASSISTED_LIVING, ADMISSION_TYPE_MEMORY_CARE, ADMISSION_TYPE_INDEPENDENT_LIVING.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.admissions.AdmissionsInformation.AdmissionType
+  - term: com.august.api.integrations.models.admissions.v1.AdmissionRecord
+    definition: 'Object declared by the contract with fields: admittedByUserId, createdAt, dischargeDetails, dischargedByUserId, financialMoveInDate,
+      isCurrentAdmission, modifiedAt, moveInDate, moveOutDate.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.admissions.v1.AdmissionRecord
+  - term: com.august.api.integrations.models.admissions.v1.GetAdmissionHistoryResponse
+    definition: 'Object declared by the contract with fields: admissions, personId.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.admissions.v1.GetAdmissionHistoryResponse
+  - term: com.august.api.integrations.models.people.v1.DischargeDetails
+    definition: 'Object declared by the contract with fields: financialMoveOutDate, motivation, moveOutDate, notes, reason.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.people.v1.DischargeDetails
+  - term: com.august.protos.discharge_details.DischargeDetails.DischargeMotivation
+    definition: 'Enumeration declared by the contract with values: DISCHARGE_MOTIVATION_DISSATISFACTION, DISCHARGE_MOTIVATION_FINANCIAL, DISCHARGE_MOTIVATION_IMPROVED_HEALTH,
+      DISCHARGE_MOTIVATION_LEVEL_OF_CARE, DISCHARGE_MOTIVATION_RELOCATED, DISCHARGE_MOTIVATION_RETREAT_STAY, DISCHARGE_MOTIVATION_OTHER, DISCHARGE_MOTIVATION_DEATH,
+      DISCHARGE_MOTIVATION_CANCELLED_MOVE_IN.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.discharge_details.DischargeDetails.DischargeMotivation
+  - term: com.august.protos.discharge_details.DischargeDetails.DischargeReason
+    definition: 'Enumeration declared by the contract with values: DISCHARGE_REASON_DECEASED, DISCHARGE_REASON_MOVE_TO_PRIVATE, DISCHARGE_REASON_MOVE_TO_INDEPENDENT_LIVING,
+      DISCHARGE_REASON_MOVE_TO_OTHER_ASSISTED_LIVING, DISCHARGE_REASON_MOVE_TO_SKILLED_NURSING, DISCHARGE_REASON_OTHER.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.discharge_details.DischargeDetails.DischargeReason
+  - term: com.august.api.integrations.models.bed_assignments.v1.BedAssignmentItem
+    definition: 'Object declared by the contract with fields: bed, createdAt, endDate, id, isCurrentAssignment, modifiedAt, occupancyType, replacesAssignmentId,
+      room, startDate.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.bed_assignments.v1.BedAssignmentItem
+  - term: com.august.api.integrations.models.bed_assignments.v1.BedInfo
+    definition: 'Object declared by the contract with fields: externalId, id, isPrimary, name.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.bed_assignments.v1.BedInfo
+  - term: com.august.api.integrations.models.bed_assignments.v1.ListBedAssignmentsResponse
+    definition: 'Object declared by the contract with fields: assignments, personId.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.bed_assignments.v1.ListBedAssignmentsResponse
+  - term: com.august.api.integrations.models.bed_assignments.v1.RoomInfo
+    definition: 'Object declared by the contract with fields: externalId, id, name.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.bed_assignments.v1.RoomInfo
+  - term: com.august.api.integrations.models.billing_summary.v1.ExternalBillingSummary
+    definition: 'Object declared by the contract with fields: contacts, currentBalanceCents, financialMoveInDate, financialMoveOutDate, firstName,
+      lastName, latestStatement, physicalMoveInDate, physicalMoveOutDate, residentId, residentStatus.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_summary.v1.ExternalBillingSummary
+  - term: com.august.api.integrations.models.billing_summary.v1.ExternalContact
+    definition: 'Object declared by the contract with fields: email, firstName, id, isPayer, isResponsibleParty, isSelf, lastName, phone.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_summary.v1.ExternalContact
+  - term: com.august.api.integrations.models.billing_summary.v1.LatestStatement
+    definition: 'Object declared by the contract with fields: balanceCents, dueDate, id, issueDate.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_summary.v1.LatestStatement
+  - term: com.august.protos.person.ResidentStatus
+    definition: 'Enumeration declared by the contract with values: RESIDENT_STATUS_PROSPECT, RESIDENT_STATUS_CURRENT_RESIDENT, RESIDENT_STATUS_CLOSED,
+      RESIDENT_STATUS_DISCHARGED, RESIDENT_STATUS_ENTERED_IN_ERROR.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.person.ResidentStatus
+  - term: com.august.api.integrations.models.billing_callback.v1.ExternalPaymentItem
+    definition: 'Object declared by the contract with fields: amountCents, externalTransactionId, linkedExternalTransactionId, notes, paymentDate,
+      paymentMethod, paymentType, personId.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_callback.v1.ExternalPaymentItem
+  - term: com.august.api.integrations.models.billing_callback.v1.ExternalPaymentMethod
+    definition: 'Enumeration declared by the contract with values: ACH, CASH, CHECK, CREDIT_CARD, DEBIT_CARD, WIRE.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_callback.v1.ExternalPaymentMethod
+  - term: com.august.api.integrations.models.billing_callback.v1.RecordDepositRequest
+    definition: 'Object declared by the contract with fields: bankAccountId, cashAccountCode, depositDate, externalDepositId, payments, totalAmountCents.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_callback.v1.RecordDepositRequest
+  - term: com.august.api.integrations.models.billing_callback.v1.RecordDepositResponse
+    definition: 'Object declared by the contract with fields: depositId, externalDepositId, payments.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_callback.v1.RecordDepositResponse
+  - term: com.august.api.integrations.models.billing_callback.v1.RecordPaymentResult
+    definition: 'Object declared by the contract with fields: externalTransactionId, paymentId.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_callback.v1.RecordPaymentResult
+  - term: com.august.api.integrations.models.statements.v1.StatementSearchResult
+    definition: 'Object declared by the contract with fields: billingPeriod, dueDate, endDate, id, issueDate, startDate, status, totalAmountCents.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.statements.v1.StatementSearchResult
+  - term: com.august.api.integrations.models.statements.v1.StatementStatus
+    definition: 'Enumeration declared by the contract with values: DUE, PAID.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.statements.v1.StatementStatus
+  - term: com.august.api.integrations.models.billing_transactions.v1.ExternalBillingTransaction
+    definition: 'Object declared by the contract with fields: accountCode, amountCents, chargeSource, createdAt, deleted, effectiveTime, externalTransactionId,
+      feeName, id, idType, invoiceId, medicaidProgramShortName. (14 more)'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_transactions.v1.ExternalBillingTransaction
+  - term: com.august.api.integrations.models.billing_transactions.v1.TransactionIdType
+    definition: 'Enumeration declared by the contract with values: PAYMENT, BILLING_CHARGE.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_transactions.v1.TransactionIdType
+  - term: com.august.api.integrations.models.billing_transactions.v1.TransactionPaymentMethod
+    definition: 'Enumeration declared by the contract with values: CASH, CHECK, ACH, CREDIT_CARD, WIRE, DEBIT_CARD, PREPAID_CARD.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_transactions.v1.TransactionPaymentMethod
+  - term: com.august.api.integrations.models.billing_transactions.v1.TransactionType
+    definition: 'Enumeration declared by the contract with values: PAYMENT, PAYMENT_RETURN, PAYMENT_CANCELED, PAYMENT_FAILED, REFUND, REFUND_RETURN,
+      REFUND_CANCELED, REFUND_FAILED, PAYMENT_ENTERED_IN_ERROR, CHARGEBACK_DISPUTE_STARTED, CHARGEBACK_WON, CHARGEBACK_INQUIRY_STARTED. (5 more)'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_transactions.v1.TransactionType
+  - term: com.august.api.integrations.models.billing_charges.v1.ExternalChargeItem
+    definition: 'Object declared by the contract with fields: description, externalChargeId, feeName, personId, quantity, rateCents, transactionDate.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_charges.v1.ExternalChargeItem
+  - term: com.august.api.integrations.models.billing_charges.v1.RecordChargeResult
+    definition: 'Object declared by the contract with fields: amountCents, chargeSource, createdAt, externalTransactionId, feeName, id, isNew,
+      personId, quantity, rateCents, serviceStartDate, taxCents. (1 more)'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_charges.v1.RecordChargeResult
+  - term: com.august.api.integrations.models.billing_charges.v1.RecordChargesRequest
+    definition: 'Object declared by the contract with fields: charges.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_charges.v1.RecordChargesRequest
+  - term: com.august.api.integrations.models.billing_charges.v1.RecordChargesResponse
+    definition: 'Object declared by the contract with fields: charges.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.billing_charges.v1.RecordChargesResponse
+  - term: com.august.api.integrations.models.census.v1.CensusLevelOfCare
+    definition: 'Object declared by the contract with fields: assessmentType, levelName, score, value.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.census.v1.CensusLevelOfCare
+  - term: com.august.api.integrations.models.census.v1.CensusOutOfFacility
+    definition: 'Object declared by the contract with fields: start.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.census.v1.CensusOutOfFacility
+  - term: com.august.api.integrations.models.census.v1.CensusPerson
+    definition: 'Object declared by the contract with fields: address, admissionType, bed, birthdate, cprCode, email, externalFields, facilityId,
+      financialMoveOutDate, financialStartDate, futureBedAssignment, gender. (12 more)'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.census.v1.CensusPerson
+  - term: com.august.api.integrations.models.census.v1.CensusRoom
+    definition: 'Object declared by the contract with fields: externalId, id, name.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.census.v1.CensusRoom
+  - term: com.august.api.integrations.models.census.v1.FutureBedAssignment
+    definition: 'Object declared by the contract with fields: bed, effectiveDate, room.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.census.v1.FutureBedAssignment
+  - term: com.august.api.integrations.models.common_metadata.v1.Address
+    definition: 'Object declared by the contract with fields: city, line, postalCode, state, text, use.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.common_metadata.v1.Address
+  - term: com.august.api.integrations.models.common_metadata.v1.HumanName
+    definition: 'Object declared by the contract with fields: family, given, maiden, preferredName, prefix, pronouns, suffix.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.common_metadata.v1.HumanName
+  - term: com.august.api.integrations.models.people.v1.ExternalFields
+    definition: 'Object declared by the contract with fields: caregroveResidentId, eldermarkResidentId, realpageResidentId, welcomeHomeResidentId,
+      yardiResidentId.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.people.v1.ExternalFields
+  - term: com.august.protos.address.Address.AddressUse
+    definition: 'Enumeration declared by the contract with values: ADDRESS_USE_HOME, ADDRESS_USE_WORK, ADDRESS_USE_TEMP, ADDRESS_USE_OLD, ADDRESS_USE_BILLING.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.address.Address.AddressUse
+  - term: com.august.protos.gender.Gender
+    definition: 'Enumeration declared by the contract with values: GENDER_NON_BINARY, GENDER_FEMALE, GENDER_MALE.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.gender.Gender
+  - term: com.august.protos.human_name.HumanName.Pronouns
+    definition: 'Enumeration declared by the contract with values: PRONOUNS_SHE_HER, PRONOUNS_HE_HIM, PRONOUNS_THEY_THEM, PRONOUNS_SHE_THEY, PRONOUNS_HE_THEY,
+      PRONOUNS_ZE_HIR.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.human_name.HumanName.Pronouns
+  - term: com.august.protos.person.Person.MaritalStatus
+    definition: 'Enumeration declared by the contract with values: MARITAL_STATUS_MARRIED, MARITAL_STATUS_DIVORCED, MARITAL_STATUS_WIDOWED, MARITAL_STATUS_SINGLE,
+      MARITAL_STATUS_SEPARATED, MARITAL_STATUS_DOMESTIC_PARTNER.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.person.Person.MaritalStatus
+  - term: com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentType
+    definition: 'Enumeration declared by the contract with values: ASSESSMENT_TYPE_SUPERVISORY_CARE, ASSESSMENT_TYPE_PERSONAL_CARE, ASSESSMENT_TYPE_DIRECTED_CARE,
+      ASSESSMENT_TYPE_DIRECTED_CARE_MEMORY_SERVICES, ASSESSMENT_TYPE_SPECIAL_CARE_RESIDENT, ASSESSMENT_TYPE_TRADITIONAL_RESIDENT.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentType
+  - term: com.august.protos.snapshot.Polst.CPR
+    definition: 'Enumeration declared by the contract with values: CPR_ATTEMPT_RESUSCITATION, CPR_DO_NOT_ATTEMPT_RESUSCITATION.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.snapshot.Polst.CPR
+  - term: com.august.api.integrations.models.incidents.v1.CreateIncidentDetails
+    definition: 'Object declared by the contract with fields: injuries, location, occurrenceDate, occurrenceTime, status, tags.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.CreateIncidentDetails
+  - term: com.august.api.integrations.models.incidents.v1.CreateIncidentOrNoteRequest.CreateIncidentRequest
+    definition: 'Object declared by the contract with fields: body, externalMetadata, incident, onAlert, recorder, type.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.CreateIncidentOrNoteRequest.CreateIncidentRequest
+  - term: com.august.api.integrations.models.incidents.v1.CreateIncidentOrNoteRequest.CreateNoteRequest
+    definition: 'Object declared by the contract with fields: body, externalMetadata, note, onAlert, recorder, type.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.CreateIncidentOrNoteRequest.CreateNoteRequest
+  - term: com.august.api.integrations.models.incidents.v1.CreateNoteDetails
+    definition: 'Object declared by the contract with fields: serviceDate, serviceTime, tags.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.CreateNoteDetails
+  - term: com.august.api.integrations.models.incidents.v1.CreateOnAlert
+    definition: 'Object declared by the contract with fields: alertFrequency, alertFrequencyInMinutes, endedAt, note, startedAt.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.CreateOnAlert
+  - term: com.august.api.integrations.models.incidents.v1.ExternalMetadata
+    definition: 'Object declared by the contract with fields: url.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.ExternalMetadata
+  - term: com.august.api.integrations.models.incidents.v1.IncidentDetails
+    definition: 'Object declared by the contract with fields: injuries, location, occurrenceDate, occurrenceTime, status, tags.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.IncidentDetails
+  - term: com.august.api.integrations.models.incidents.v1.IncidentOrNote
+    definition: 'Object declared by the contract with fields: body, externalMetadata, id, incident, note, onAlert, personId, recorder, type.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.IncidentOrNote
+  - term: com.august.api.integrations.models.incidents.v1.NoteDetails
+    definition: 'Object declared by the contract with fields: serviceDate, serviceTime, tags.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.NoteDetails
+  - term: com.august.api.integrations.models.incidents.v1.OnAlert
+    definition: 'Object declared by the contract with fields: alertFrequency, alertFrequencyInMinutes, endedAt, note, startedAt.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.OnAlert
+  - term: com.august.api.integrations.models.incidents.v1.Recorder.ExternalEntityStringRecorder
+    definition: 'Object declared by the contract with fields: externalEntity.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.Recorder.ExternalEntityStringRecorder
+  - term: com.august.api.integrations.models.incidents.v1.Recorder.UserAccountRecorder
+    definition: 'Object declared by the contract with fields: userAccountId.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.Recorder.UserAccountRecorder
+  - term: com.august.protos.incidents.AlertFrequency
+    definition: 'Enumeration declared by the contract with values: ALERT_FREQUENCY_1X_PER_SHIFT, ALERT_FREQUENCY_2X_PER_SHIFT, ALERT_FREQUENCY_3X_PER_SHIFT,
+      ALERT_FREQUENCY_4X_PER_SHIFT, ALERT_FREQUENCY_1X_PER_DAY, ALERT_FREQUENCY_2X_PER_DAY.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.incidents.AlertFrequency
+  - term: com.august.protos.incidents.IncidentLocation
+    definition: 'Enumeration declared by the contract with values: INCIDENT_LOCATION_OTHER, INCIDENT_LOCATION_ROOM, INCIDENT_LOCATION_BATHROOM,
+      INCIDENT_LOCATION_SHOWER_BATHTUB, INCIDENT_LOCATION_COMMON_AREA, INCIDENT_LOCATION_DINING_ROOM, INCIDENT_LOCATION_ACTIVITY_ROOM, INCIDENT_LOCATION_BEAUTY_SALON,
+      INCIDENT_LOCATION_LOBBY, INCIDENT_LOCATION_HALLWAY.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.incidents.IncidentLocation
+  - term: com.august.protos.incidents.IncidentStatus
+    definition: 'Enumeration declared by the contract with values: INCIDENT_STATUS_OPEN, INCIDENT_STATUS_COMPLETED.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.incidents.IncidentStatus
+  - term: com.august.protos.incidents.IncidentType
+    definition: 'Enumeration declared by the contract with values: INCIDENT_TYPE_OTHER, INCIDENT_TYPE_FALL, INCIDENT_TYPE_MED_ERROR, INCIDENT_TYPE_ELOPEMENT,
+      INCIDENT_TYPE_HOSPITALIZATION, INCIDENT_TYPE_SKIN, INCIDENT_TYPE_MEDICAL_EMERGENCY, INCIDENT_TYPE_INJURY, INCIDENT_TYPE_ILLNESS, INCIDENT_TYPE_ABUSE,
+      INCIDENT_TYPE_BEHAVIORAL, INCIDENT_TYPE_COVID. (2 more)'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.incidents.IncidentType
+  - term: com.august.api.integrations.models.incidents.v1.PatchIncidentDetails
+    definition: 'Object declared by the contract with fields: injuries, location, occurrenceDate, occurrenceTime, status, tags.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.PatchIncidentDetails
+  - term: com.august.api.integrations.models.incidents.v1.PatchIncidentOrNoteRequest.PatchIncidentRequest
+    definition: 'Object declared by the contract with fields: body, externalMetadata, incident, onAlert, recorder, type.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.PatchIncidentOrNoteRequest.PatchIncidentRequest
+  - term: com.august.api.integrations.models.incidents.v1.PatchIncidentOrNoteRequest.PatchNoteRequest
+    definition: 'Object declared by the contract with fields: body, externalMetadata, note, onAlert, recorder, type.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.PatchIncidentOrNoteRequest.PatchNoteRequest
+  - term: com.august.api.integrations.models.incidents.v1.PatchNoteDetails
+    definition: 'Object declared by the contract with fields: serviceDate, serviceTime, tags.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.PatchNoteDetails
+  - term: com.august.api.integrations.models.incidents.v1.PatchOnAlert
+    definition: 'Object declared by the contract with fields: alertFrequency, alertFrequencyInMinutes, endedAt, note, startedAt.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.incidents.v1.PatchOnAlert
+  - term: com.august.api.integrations.models.med_passes.v1.MedPass
+    definition: 'Object declared by the contract with fields: endTime, id, name, startTime.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.med_passes.v1.MedPass
+  - term: com.august.api.integrations.models.medication_administrations.v1.AdministeredDosage
+    definition: 'Object declared by the contract with fields: quantity, text.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.medication_administrations.v1.AdministeredDosage
+  - term: com.august.api.integrations.models.medication_administrations.v1.AdministrationStatus
+    definition: 'Enumeration declared by the contract with values: SCHEDULED, ADMINISTERED, NOT_ADMINISTERED, ON_HOLD.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.medication_administrations.v1.AdministrationStatus
+  - term: com.august.api.integrations.models.medication_administrations.v1.MedicationAdministration
+    definition: 'Object declared by the contract with fields: administeredDosage, beginScheduledTime, dosageType, endScheduledTime, id, isOutsideProviderAdministered,
+      medPassDate, medPassId, medicationOrderId, note, occurredAt, orderGroupId. (8 more)'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.medication_administrations.v1.MedicationAdministration
+  - term: com.august.api.integrations.models.medication_administrations.v1.Performer
+    definition: 'Object declared by the contract with fields: name, userId.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.medication_administrations.v1.Performer
+  - term: com.august.api.integrations.models.medication_administrations.v1.SimpleQuantity
+    definition: 'Object declared by the contract with fields: unit, value.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.medication_administrations.v1.SimpleQuantity
+  - term: com.august.protos.medication_administration.ReasonForOutOfSchedule
+    definition: 'Enumeration declared by the contract with values: REASON_FOR_OUT_OF_SCHEDULE_LATE_ENTRY, REASON_FOR_OUT_OF_SCHEDULE_RESIDENT_APPOINTMENT,
+      REASON_FOR_OUT_OF_SCHEDULE_WIFI_NOT_WORKING, REASON_FOR_OUT_OF_SCHEDULE_CHARTING_SYSTEM_NOT_WORKING.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.medication_administration.ReasonForOutOfSchedule
+  - term: com.august.protos.medication_statement.DosageType
+    definition: 'Enumeration declared by the contract with values: DOSAGE_TYPE_ROUTINE, DOSAGE_TYPE_PRN, DOSAGE_TYPE_SPLIT, DOSAGE_TYPE_TAPER,
+      DOSAGE_TYPE_SLIDING_SCALE, DOSAGE_TYPE_VITAL.'
+    tags:
+    - Enumeration
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.protos.medication_statement.DosageType
+  - term: com.august.api.integrations.models.common.date.DateTimePeriod
+    definition: 'Object declared by the contract with fields: endDate, endTime, startDate, startTime.'
+    tags:
+    - Object
+    source: openapi/august-health-integrations-api-openapi.yml#/components/schemas/com.august.api.integrations.models.common.date.DateTimePeriod

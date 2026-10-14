@@ -1,22 +1,27 @@
 aid: august-health
+
 name: August Health
-description: >-
-  August Health is an AI-enabled electronic health record (EHR) platform purpose-built for
-  senior living and eldercare communities, spanning Move-Ins, EHR, eMAR, Care Track, Billing
-  & Payments, and Insights. It publishes a RESTful v1 API and a developer portal
-  (developer.augusthealth.com) that lets integration partners read and write resident,
-  clinical, medication, billing, and census data, plus a webhook event surface for
-  resident-lifecycle and billing events. Auth is bearer-JWT with named permissions; the
-  platform is SOC 2 (AICPA) and HIPAA certified. August Health is backed by General Catalyst
-  and Matrix Partners.
+
+description: August Health is an AI-enabled electronic health record (EHR) platform purpose-built for senior living and eldercare communities,
+  spanning Move-Ins, EHR, eMAR, Care Track, Billing & Payments, and Insights. It publishes a RESTful v1 API and a developer portal (developer.augusthealth.com)
+  that lets integration partners read and write resident, clinical, medication, billing, and census data, plus a webhook event surface for resident-lifecycle
+  and billing events. Auth is bearer-JWT with named permissions; the platform is SOC 2 (AICPA) and HIPAA certified. August Health is backed by
+  General Catalyst and Matrix Partners.
+
 url: https://raw.githubusercontent.com/api-evangelist/august-health/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: vc-portfolio
+
 x-backed-by:
 - general-catalyst
 - matrix-partners
+
 x-tier: enriched
+
 x-tier-reason: public-developer-api
+
 deliveryModel:
   model: saas
   open_source: false
@@ -28,6 +33,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -42,13 +48,21 @@ accessModel:
   - security
   generated: '2026-09-03'
   method: derived
+
 specificationVersion: '0.23'
+
 created: '2026-07-17'
+
 modified: '2026-07-18'
+
 image: https://files.readme.io/1aa624066285820f9957c79e0fe44d8330186bc54681b372c14ed43fc2b25b60-small-AugustHealth_-_PrimaryLogoMark_-_RGB_-_FullColorAlt.png
+
 x-docs-platform: readme
+
 x-docs-platform-confidence: high
+
 x-docs-platform-checked: 2026-09-19
+
 tags:
 - Company
 - Healthcare
@@ -59,6 +73,7 @@ tags:
 - eMAR
 - Billing
 - Webhook
+
 tags_raw:
 - Company
 - Healthcare
@@ -70,40 +85,30 @@ tags_raw:
 - Billing
 - Webhooks
 - API
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
-apis:
-- name: August Health API
-  description: >-
-    RESTful v1 API for the August Health EHR platform covering organizations, facilities,
-    rooms, census, residents, contacts, assessments, incidents & notes, medications (orders
-    and administrations), vitals, tasks, billing (statements, transactions, summaries,
-    deposits), admission agreements, visitor logs, and webhooks.
-  humanURL: https://developer.augusthealth.com
-  baseURL: https://api.augusthealth.com
-  tags:
-  - Healthcare
-  - EHR
-  - Senior Living
-  properties:
-  - type: Documentation
-    url: https://developer.augusthealth.com
-  - type: APIReference
-    url: https://developer.augusthealth.com/reference
-  - type: GettingStarted
-    url: https://developer.augusthealth.com/docs/getting-started
-  - type: Authentication
-    url: authentication/august-health-authentication.yml
-  - type: RateLimits
-    url: rate-limits/august-health-rate-limits.yml
-  - type: Webhooks
-    url: asyncapi/august-health-events-asyncapi.yml
-  - type: LLMsTxt
-    url: llms/august-health-llms.txt
+
 common:
+- type: AgenticAccess
+  url: agentic-access/august-health-agentic-access.yml
+- type: Spectral
+  url: rules/august-health-rules.yml
+- type: JSONLD
+  url: json-ld/august-health-context.jsonld
+- type: Vocabulary
+  url: vocabulary/august-health-vocabulary.yml
+- type: TrustCenter
+  url: security/august-health-trust-center.yml
+- type: Hosts
+  url: hosts/august-health-hosts.yml
+- type: Vendors
+  url: vendors/august-health-vendors.yml
+- type: Newsroom
+  url: https://www.augusthealth.com/category/news
 - type: Website
   url: https://augusthealth.com
 - type: DeveloperPortal
@@ -154,7 +159,9 @@ common:
   url: asyncapi/august-health-events-asyncapi.yml
 - type: X-MCPServerCandidate
   url: mcp/august-health-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published
+    API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting
+    the artifact-type surfaces with a server that does not exist.'
 - type: AgentSkill
   url: skills/_index.yml
 - type: DataModel
@@ -163,8 +170,57 @@ common:
   url: llms/august-health-llms.txt
 - type: DomainSecurity
   url: security/august-health-domain-security.yml
+
+apis:
+- name: August Health API
+  description: RESTful v1 API for the August Health EHR platform covering organizations, facilities, rooms, census, residents, contacts, assessments,
+    incidents & notes, medications (orders and administrations), vitals, tasks, billing (statements, transactions, summaries, deposits), admission
+    agreements, visitor logs, and webhooks.
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Healthcare
+  - EHR
+  - Senior Living
+  properties:
+  - url: openapi/august-health-integrations-api-openapi.yml
+    type: OpenAPI
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+  aid: august-health:august-health-api
+
 x-enrichment:
   date: '2026-07-19'
   status: backfilled
   pass: local-v1
   note: backfilled from .gitignore signal + verified work evidence
+
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 61
+  tool: harvest-readme-openapi.py
+  portal: https://developer.augusthealth.com

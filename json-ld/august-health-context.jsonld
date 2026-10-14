@@ -1,0 +1,1079 @@
+{
+  "@context": {
+    "@vocab": "https://augusthealth.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "august": "https://augusthealth.com/schema#",
+    "com.august.api.integrations.models.common.ApiResponseMetadata": "august:com.august.api.integrations.models.common.ApiResponseMetadata",
+    "limit": {
+      "@id": "august:limit",
+      "@type": "xsd:integer"
+    },
+    "offset": {
+      "@id": "august:offset",
+      "@type": "xsd:integer"
+    },
+    "total": {
+      "@id": "august:total",
+      "@type": "xsd:integer"
+    },
+    "com.august.api.integrations.models.organizations.v1.Organization": "august:com.august.api.integrations.models.organizations.v1.Organization",
+    "id": {
+      "@id": "august:id",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "august:name",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.facilities.v1.Facility": "august:com.august.api.integrations.models.facilities.v1.Facility",
+    "com.august.api.integrations.models.common.Bed": "august:com.august.api.integrations.models.common.Bed",
+    "externalId": {
+      "@id": "august:externalId",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.common.Measurement": "august:com.august.api.integrations.models.common.Measurement",
+    "unit": {
+      "@id": "august:unit",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "august:value",
+      "@type": "xsd:decimal"
+    },
+    "com.august.api.integrations.models.rooms.v1.Room": "august:com.august.api.integrations.models.rooms.v1.Room",
+    "admissionType": {
+      "@id": "august:admissionType",
+      "@type": "@id"
+    },
+    "area": {
+      "@id": "august:area",
+      "@type": "@id"
+    },
+    "beds": {
+      "@id": "august:beds",
+      "@container": "@list"
+    },
+    "description": {
+      "@id": "august:description",
+      "@type": "xsd:string"
+    },
+    "marketRates": {
+      "@id": "august:marketRates",
+      "@container": "@list"
+    },
+    "roomId": {
+      "@id": "august:roomId",
+      "@type": "xsd:string"
+    },
+    "roomName": {
+      "@id": "august:roomName",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.rooms.v1.RoomMarketRate": "august:com.august.api.integrations.models.rooms.v1.RoomMarketRate",
+    "endDate": {
+      "@id": "august:endDate",
+      "@type": "xsd:date"
+    },
+    "occupancyType": {
+      "@id": "august:occupancyType",
+      "@type": "xsd:string"
+    },
+    "rateCents": {
+      "@id": "august:rateCents",
+      "@type": "xsd:integer"
+    },
+    "startDate": {
+      "@id": "august:startDate",
+      "@type": "xsd:date"
+    },
+    "com.august.protos.admissions.AdmissionsInformation.AdmissionType": "august:com.august.protos.admissions.AdmissionsInformation.AdmissionType",
+    "com.august.api.integrations.models.admissions.v1.AdmissionRecord": "august:com.august.api.integrations.models.admissions.v1.AdmissionRecord",
+    "admittedByUserId": {
+      "@id": "august:admittedByUserId",
+      "@type": "xsd:string"
+    },
+    "createdAt": {
+      "@id": "august:createdAt",
+      "@type": "xsd:dateTime"
+    },
+    "dischargeDetails": {
+      "@id": "august:dischargeDetails",
+      "@type": "@id"
+    },
+    "dischargedByUserId": {
+      "@id": "august:dischargedByUserId",
+      "@type": "xsd:string"
+    },
+    "financialMoveInDate": {
+      "@id": "august:financialMoveInDate",
+      "@type": "xsd:date"
+    },
+    "isCurrentAdmission": {
+      "@id": "august:isCurrentAdmission",
+      "@type": "xsd:boolean"
+    },
+    "modifiedAt": {
+      "@id": "august:modifiedAt",
+      "@type": "xsd:dateTime"
+    },
+    "moveInDate": {
+      "@id": "august:moveInDate",
+      "@type": "xsd:date"
+    },
+    "moveOutDate": {
+      "@id": "august:moveOutDate",
+      "@type": "xsd:date"
+    },
+    "com.august.api.integrations.models.admissions.v1.GetAdmissionHistoryResponse": "august:com.august.api.integrations.models.admissions.v1.GetAdmissionHistoryResponse",
+    "admissions": {
+      "@id": "august:admissions",
+      "@container": "@list"
+    },
+    "personId": {
+      "@id": "august:personId",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.people.v1.DischargeDetails": "august:com.august.api.integrations.models.people.v1.DischargeDetails",
+    "financialMoveOutDate": {
+      "@id": "august:financialMoveOutDate",
+      "@type": "xsd:date"
+    },
+    "motivation": {
+      "@id": "august:motivation",
+      "@type": "@id"
+    },
+    "notes": {
+      "@id": "august:notes",
+      "@type": "xsd:string"
+    },
+    "reason": {
+      "@id": "august:reason",
+      "@type": "@id"
+    },
+    "com.august.protos.discharge_details.DischargeDetails.DischargeMotivation": "august:com.august.protos.discharge_details.DischargeDetails.DischargeMotivation",
+    "com.august.protos.discharge_details.DischargeDetails.DischargeReason": "august:com.august.protos.discharge_details.DischargeDetails.DischargeReason",
+    "com.august.api.integrations.models.bed_assignments.v1.BedAssignmentItem": "august:com.august.api.integrations.models.bed_assignments.v1.BedAssignmentItem",
+    "bed": {
+      "@id": "august:bed",
+      "@type": "@id"
+    },
+    "isCurrentAssignment": {
+      "@id": "august:isCurrentAssignment",
+      "@type": "xsd:boolean"
+    },
+    "replacesAssignmentId": {
+      "@id": "august:replacesAssignmentId",
+      "@type": "xsd:string"
+    },
+    "room": {
+      "@id": "august:room",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.bed_assignments.v1.BedInfo": "august:com.august.api.integrations.models.bed_assignments.v1.BedInfo",
+    "isPrimary": {
+      "@id": "august:isPrimary",
+      "@type": "xsd:boolean"
+    },
+    "com.august.api.integrations.models.bed_assignments.v1.ListBedAssignmentsResponse": "august:com.august.api.integrations.models.bed_assignments.v1.ListBedAssignmentsResponse",
+    "assignments": {
+      "@id": "august:assignments",
+      "@container": "@list"
+    },
+    "com.august.api.integrations.models.bed_assignments.v1.RoomInfo": "august:com.august.api.integrations.models.bed_assignments.v1.RoomInfo",
+    "com.august.api.integrations.models.billing_summary.v1.ExternalBillingSummary": "august:com.august.api.integrations.models.billing_summary.v1.ExternalBillingSummary",
+    "contacts": {
+      "@id": "august:contacts",
+      "@container": "@list"
+    },
+    "currentBalanceCents": {
+      "@id": "august:currentBalanceCents",
+      "@type": "xsd:integer"
+    },
+    "firstName": {
+      "@id": "august:firstName",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "august:lastName",
+      "@type": "xsd:string"
+    },
+    "latestStatement": {
+      "@id": "august:latestStatement",
+      "@type": "@id"
+    },
+    "physicalMoveInDate": {
+      "@id": "august:physicalMoveInDate",
+      "@type": "xsd:date"
+    },
+    "physicalMoveOutDate": {
+      "@id": "august:physicalMoveOutDate",
+      "@type": "xsd:date"
+    },
+    "residentId": {
+      "@id": "august:residentId",
+      "@type": "xsd:string"
+    },
+    "residentStatus": {
+      "@id": "august:residentStatus",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.billing_summary.v1.ExternalContact": "august:com.august.api.integrations.models.billing_summary.v1.ExternalContact",
+    "email": {
+      "@id": "august:email",
+      "@type": "xsd:string"
+    },
+    "isPayer": {
+      "@id": "august:isPayer",
+      "@type": "xsd:boolean"
+    },
+    "isResponsibleParty": {
+      "@id": "august:isResponsibleParty",
+      "@type": "xsd:boolean"
+    },
+    "isSelf": {
+      "@id": "august:isSelf",
+      "@type": "xsd:boolean"
+    },
+    "phone": {
+      "@id": "august:phone",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.billing_summary.v1.LatestStatement": "august:com.august.api.integrations.models.billing_summary.v1.LatestStatement",
+    "balanceCents": {
+      "@id": "august:balanceCents",
+      "@type": "xsd:integer"
+    },
+    "dueDate": {
+      "@id": "august:dueDate",
+      "@type": "xsd:date"
+    },
+    "issueDate": {
+      "@id": "august:issueDate",
+      "@type": "xsd:date"
+    },
+    "com.august.protos.person.ResidentStatus": "august:com.august.protos.person.ResidentStatus",
+    "com.august.api.integrations.models.billing_callback.v1.ExternalPaymentItem": "august:com.august.api.integrations.models.billing_callback.v1.ExternalPaymentItem",
+    "amountCents": {
+      "@id": "august:amountCents",
+      "@type": "xsd:integer"
+    },
+    "externalTransactionId": {
+      "@id": "august:externalTransactionId",
+      "@type": "xsd:string"
+    },
+    "linkedExternalTransactionId": {
+      "@id": "august:linkedExternalTransactionId",
+      "@type": "xsd:string"
+    },
+    "paymentDate": {
+      "@id": "august:paymentDate",
+      "@type": "xsd:date"
+    },
+    "paymentMethod": {
+      "@id": "august:paymentMethod",
+      "@type": "@id"
+    },
+    "paymentType": {
+      "@id": "august:paymentType",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.billing_callback.v1.ExternalPaymentMethod": "august:com.august.api.integrations.models.billing_callback.v1.ExternalPaymentMethod",
+    "com.august.api.integrations.models.billing_callback.v1.RecordDepositRequest": "august:com.august.api.integrations.models.billing_callback.v1.RecordDepositRequest",
+    "bankAccountId": {
+      "@id": "august:bankAccountId",
+      "@type": "xsd:string"
+    },
+    "cashAccountCode": {
+      "@id": "august:cashAccountCode",
+      "@type": "xsd:string"
+    },
+    "depositDate": {
+      "@id": "august:depositDate",
+      "@type": "xsd:date"
+    },
+    "externalDepositId": {
+      "@id": "august:externalDepositId",
+      "@type": "xsd:string"
+    },
+    "payments": {
+      "@id": "august:payments",
+      "@container": "@list"
+    },
+    "totalAmountCents": {
+      "@id": "august:totalAmountCents",
+      "@type": "xsd:integer"
+    },
+    "com.august.api.integrations.models.billing_callback.v1.RecordDepositResponse": "august:com.august.api.integrations.models.billing_callback.v1.RecordDepositResponse",
+    "depositId": {
+      "@id": "august:depositId",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.billing_callback.v1.RecordPaymentResult": "august:com.august.api.integrations.models.billing_callback.v1.RecordPaymentResult",
+    "paymentId": {
+      "@id": "august:paymentId",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.statements.v1.StatementSearchResult": "august:com.august.api.integrations.models.statements.v1.StatementSearchResult",
+    "billingPeriod": {
+      "@id": "august:billingPeriod",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "august:status",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.statements.v1.StatementStatus": "august:com.august.api.integrations.models.statements.v1.StatementStatus",
+    "com.august.api.integrations.models.billing_transactions.v1.ExternalBillingTransaction": "august:com.august.api.integrations.models.billing_transactions.v1.ExternalBillingTransaction",
+    "accountCode": {
+      "@id": "august:accountCode",
+      "@type": "xsd:string"
+    },
+    "chargeSource": {
+      "@id": "august:chargeSource",
+      "@type": "xsd:string"
+    },
+    "deleted": {
+      "@id": "august:deleted",
+      "@type": "xsd:boolean"
+    },
+    "effectiveTime": {
+      "@id": "august:effectiveTime",
+      "@type": "xsd:dateTime"
+    },
+    "feeName": {
+      "@id": "august:feeName",
+      "@type": "xsd:string"
+    },
+    "idType": {
+      "@id": "august:idType",
+      "@type": "@id"
+    },
+    "invoiceId": {
+      "@id": "august:invoiceId",
+      "@type": "xsd:string"
+    },
+    "medicaidProgramShortName": {
+      "@id": "august:medicaidProgramShortName",
+      "@type": "xsd:string"
+    },
+    "merchantFeeCents": {
+      "@id": "august:merchantFeeCents",
+      "@type": "xsd:integer"
+    },
+    "note": {
+      "@id": "august:note",
+      "@type": "xsd:string"
+    },
+    "paymentSource": {
+      "@id": "august:paymentSource",
+      "@type": "xsd:string"
+    },
+    "pending": {
+      "@id": "august:pending",
+      "@type": "xsd:boolean"
+    },
+    "postMonth": {
+      "@id": "august:postMonth",
+      "@type": "xsd:date"
+    },
+    "quantity": {
+      "@id": "august:quantity",
+      "@type": "xsd:integer"
+    },
+    "serviceEndDate": {
+      "@id": "august:serviceEndDate",
+      "@type": "xsd:date"
+    },
+    "serviceStartDate": {
+      "@id": "august:serviceStartDate",
+      "@type": "xsd:date"
+    },
+    "surchargeCents": {
+      "@id": "august:surchargeCents",
+      "@type": "xsd:integer"
+    },
+    "taxCents": {
+      "@id": "august:taxCents",
+      "@type": "xsd:integer"
+    },
+    "transactionType": {
+      "@id": "august:transactionType",
+      "@type": "@id"
+    },
+    "updatedAt": {
+      "@id": "august:updatedAt",
+      "@type": "xsd:dateTime"
+    },
+    "com.august.api.integrations.models.billing_transactions.v1.TransactionIdType": "august:com.august.api.integrations.models.billing_transactions.v1.TransactionIdType",
+    "com.august.api.integrations.models.billing_transactions.v1.TransactionPaymentMethod": "august:com.august.api.integrations.models.billing_transactions.v1.TransactionPaymentMethod",
+    "com.august.api.integrations.models.billing_transactions.v1.TransactionType": "august:com.august.api.integrations.models.billing_transactions.v1.TransactionType",
+    "com.august.api.integrations.models.billing_charges.v1.ExternalChargeItem": "august:com.august.api.integrations.models.billing_charges.v1.ExternalChargeItem",
+    "externalChargeId": {
+      "@id": "august:externalChargeId",
+      "@type": "xsd:string"
+    },
+    "transactionDate": {
+      "@id": "august:transactionDate",
+      "@type": "xsd:date"
+    },
+    "com.august.api.integrations.models.billing_charges.v1.RecordChargeResult": "august:com.august.api.integrations.models.billing_charges.v1.RecordChargeResult",
+    "isNew": {
+      "@id": "august:isNew",
+      "@type": "xsd:boolean"
+    },
+    "com.august.api.integrations.models.billing_charges.v1.RecordChargesRequest": "august:com.august.api.integrations.models.billing_charges.v1.RecordChargesRequest",
+    "charges": {
+      "@id": "august:charges",
+      "@container": "@list"
+    },
+    "com.august.api.integrations.models.billing_charges.v1.RecordChargesResponse": "august:com.august.api.integrations.models.billing_charges.v1.RecordChargesResponse",
+    "com.august.api.integrations.models.census.v1.CensusLevelOfCare": "august:com.august.api.integrations.models.census.v1.CensusLevelOfCare",
+    "assessmentType": {
+      "@id": "august:assessmentType",
+      "@type": "@id"
+    },
+    "levelName": {
+      "@id": "august:levelName",
+      "@type": "xsd:string"
+    },
+    "score": {
+      "@id": "august:score",
+      "@type": "xsd:integer"
+    },
+    "com.august.api.integrations.models.census.v1.CensusOutOfFacility": "august:com.august.api.integrations.models.census.v1.CensusOutOfFacility",
+    "start": {
+      "@id": "august:start",
+      "@type": "xsd:dateTime"
+    },
+    "com.august.api.integrations.models.census.v1.CensusPerson": "august:com.august.api.integrations.models.census.v1.CensusPerson",
+    "address": {
+      "@id": "august:address",
+      "@type": "@id"
+    },
+    "birthdate": {
+      "@id": "august:birthdate",
+      "@type": "xsd:date"
+    },
+    "cprCode": {
+      "@id": "august:cprCode",
+      "@type": "@id"
+    },
+    "externalFields": {
+      "@id": "august:externalFields",
+      "@type": "@id"
+    },
+    "facilityId": {
+      "@id": "august:facilityId",
+      "@type": "xsd:string"
+    },
+    "financialStartDate": {
+      "@id": "august:financialStartDate",
+      "@type": "xsd:date"
+    },
+    "futureBedAssignment": {
+      "@id": "august:futureBedAssignment",
+      "@type": "@id"
+    },
+    "gender": {
+      "@id": "august:gender",
+      "@type": "@id"
+    },
+    "levelOfCare": {
+      "@id": "august:levelOfCare",
+      "@type": "@id"
+    },
+    "maritalStatus": {
+      "@id": "august:maritalStatus",
+      "@type": "@id"
+    },
+    "moveInStartDate": {
+      "@id": "august:moveInStartDate",
+      "@type": "xsd:date"
+    },
+    "orgId": {
+      "@id": "august:orgId",
+      "@type": "xsd:string"
+    },
+    "outOfFacility": {
+      "@id": "august:outOfFacility",
+      "@type": "@id"
+    },
+    "religiousPreference": {
+      "@id": "august:religiousPreference",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.census.v1.CensusRoom": "august:com.august.api.integrations.models.census.v1.CensusRoom",
+    "com.august.api.integrations.models.census.v1.FutureBedAssignment": "august:com.august.api.integrations.models.census.v1.FutureBedAssignment",
+    "effectiveDate": {
+      "@id": "august:effectiveDate",
+      "@type": "xsd:date"
+    },
+    "com.august.api.integrations.models.common_metadata.v1.Address": "august:com.august.api.integrations.models.common_metadata.v1.Address",
+    "city": {
+      "@id": "august:city",
+      "@type": "xsd:string"
+    },
+    "line": {
+      "@id": "august:line",
+      "@container": "@list"
+    },
+    "postalCode": {
+      "@id": "august:postalCode",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "august:state",
+      "@type": "xsd:string"
+    },
+    "text": {
+      "@id": "august:text",
+      "@type": "xsd:string"
+    },
+    "use": {
+      "@id": "august:use",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.common_metadata.v1.HumanName": "august:com.august.api.integrations.models.common_metadata.v1.HumanName",
+    "family": {
+      "@id": "august:family",
+      "@type": "xsd:string"
+    },
+    "given": {
+      "@id": "august:given",
+      "@container": "@list"
+    },
+    "maiden": {
+      "@id": "august:maiden",
+      "@type": "xsd:string"
+    },
+    "preferredName": {
+      "@id": "august:preferredName",
+      "@type": "xsd:string"
+    },
+    "prefix": {
+      "@id": "august:prefix",
+      "@type": "xsd:string"
+    },
+    "pronouns": {
+      "@id": "august:pronouns",
+      "@type": "@id"
+    },
+    "suffix": {
+      "@id": "august:suffix",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.people.v1.ExternalFields": "august:com.august.api.integrations.models.people.v1.ExternalFields",
+    "caregroveResidentId": {
+      "@id": "august:caregroveResidentId",
+      "@type": "xsd:string"
+    },
+    "eldermarkResidentId": {
+      "@id": "august:eldermarkResidentId",
+      "@type": "xsd:string"
+    },
+    "realpageResidentId": {
+      "@id": "august:realpageResidentId",
+      "@type": "xsd:string"
+    },
+    "welcomeHomeResidentId": {
+      "@id": "august:welcomeHomeResidentId",
+      "@type": "xsd:string"
+    },
+    "yardiResidentId": {
+      "@id": "august:yardiResidentId",
+      "@type": "xsd:string"
+    },
+    "com.august.protos.address.Address.AddressUse": "august:com.august.protos.address.Address.AddressUse",
+    "com.august.protos.gender.Gender": "august:com.august.protos.gender.Gender",
+    "com.august.protos.human_name.HumanName.Pronouns": "august:com.august.protos.human_name.HumanName.Pronouns",
+    "com.august.protos.person.Person.MaritalStatus": "august:com.august.protos.person.Person.MaritalStatus",
+    "com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentType": "august:com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentType",
+    "com.august.protos.snapshot.Polst.CPR": "august:com.august.protos.snapshot.Polst.CPR",
+    "com.august.api.integrations.models.incidents.v1.CreateIncidentDetails": "august:com.august.api.integrations.models.incidents.v1.CreateIncidentDetails",
+    "injuries": {
+      "@id": "august:injuries",
+      "@type": "xsd:string"
+    },
+    "location": {
+      "@id": "august:location",
+      "@type": "@id"
+    },
+    "occurrenceDate": {
+      "@id": "august:occurrenceDate",
+      "@type": "xsd:date"
+    },
+    "occurrenceTime": {
+      "@id": "august:occurrenceTime",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "august:tags",
+      "@container": "@list"
+    },
+    "com.august.api.integrations.models.incidents.v1.CreateIncidentOrNoteRequest.CreateIncidentRequest": "august:com.august.api.integrations.models.incidents.v1.CreateIncidentOrNoteRequest.CreateIncidentRequest",
+    "body": {
+      "@id": "august:body",
+      "@type": "xsd:string"
+    },
+    "externalMetadata": {
+      "@id": "august:externalMetadata",
+      "@type": "@id"
+    },
+    "incident": {
+      "@id": "august:incident",
+      "@type": "@id"
+    },
+    "onAlert": {
+      "@id": "august:onAlert",
+      "@type": "@id"
+    },
+    "recorder": {
+      "@id": "august:recorder"
+    },
+    "type": {
+      "@id": "august:type",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.incidents.v1.CreateIncidentOrNoteRequest.CreateNoteRequest": "august:com.august.api.integrations.models.incidents.v1.CreateIncidentOrNoteRequest.CreateNoteRequest",
+    "com.august.api.integrations.models.incidents.v1.CreateNoteDetails": "august:com.august.api.integrations.models.incidents.v1.CreateNoteDetails",
+    "serviceDate": {
+      "@id": "august:serviceDate",
+      "@type": "xsd:date"
+    },
+    "serviceTime": {
+      "@id": "august:serviceTime",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.incidents.v1.CreateOnAlert": "august:com.august.api.integrations.models.incidents.v1.CreateOnAlert",
+    "alertFrequency": {
+      "@id": "august:alertFrequency",
+      "@type": "@id"
+    },
+    "alertFrequencyInMinutes": {
+      "@id": "august:alertFrequencyInMinutes",
+      "@type": "xsd:integer"
+    },
+    "endedAt": {
+      "@id": "august:endedAt",
+      "@type": "xsd:dateTime"
+    },
+    "startedAt": {
+      "@id": "august:startedAt",
+      "@type": "xsd:dateTime"
+    },
+    "com.august.api.integrations.models.incidents.v1.ExternalMetadata": "august:com.august.api.integrations.models.incidents.v1.ExternalMetadata",
+    "url": {
+      "@id": "august:url",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.incidents.v1.IncidentDetails": "august:com.august.api.integrations.models.incidents.v1.IncidentDetails",
+    "com.august.api.integrations.models.incidents.v1.IncidentOrNote": "august:com.august.api.integrations.models.incidents.v1.IncidentOrNote",
+    "com.august.api.integrations.models.incidents.v1.NoteDetails": "august:com.august.api.integrations.models.incidents.v1.NoteDetails",
+    "com.august.api.integrations.models.incidents.v1.OnAlert": "august:com.august.api.integrations.models.incidents.v1.OnAlert",
+    "com.august.api.integrations.models.incidents.v1.Recorder.ExternalEntityStringRecorder": "august:com.august.api.integrations.models.incidents.v1.Recorder.ExternalEntityStringRecorder",
+    "externalEntity": {
+      "@id": "august:externalEntity",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.incidents.v1.Recorder.UserAccountRecorder": "august:com.august.api.integrations.models.incidents.v1.Recorder.UserAccountRecorder",
+    "userAccountId": {
+      "@id": "august:userAccountId",
+      "@type": "xsd:string"
+    },
+    "com.august.protos.incidents.AlertFrequency": "august:com.august.protos.incidents.AlertFrequency",
+    "com.august.protos.incidents.IncidentLocation": "august:com.august.protos.incidents.IncidentLocation",
+    "com.august.protos.incidents.IncidentStatus": "august:com.august.protos.incidents.IncidentStatus",
+    "com.august.protos.incidents.IncidentType": "august:com.august.protos.incidents.IncidentType",
+    "com.august.api.integrations.models.incidents.v1.PatchIncidentDetails": "august:com.august.api.integrations.models.incidents.v1.PatchIncidentDetails",
+    "com.august.api.integrations.models.incidents.v1.PatchIncidentOrNoteRequest.PatchIncidentRequest": "august:com.august.api.integrations.models.incidents.v1.PatchIncidentOrNoteRequest.PatchIncidentRequest",
+    "com.august.api.integrations.models.incidents.v1.PatchIncidentOrNoteRequest.PatchNoteRequest": "august:com.august.api.integrations.models.incidents.v1.PatchIncidentOrNoteRequest.PatchNoteRequest",
+    "com.august.api.integrations.models.incidents.v1.PatchNoteDetails": "august:com.august.api.integrations.models.incidents.v1.PatchNoteDetails",
+    "com.august.api.integrations.models.incidents.v1.PatchOnAlert": "august:com.august.api.integrations.models.incidents.v1.PatchOnAlert",
+    "com.august.api.integrations.models.med_passes.v1.MedPass": "august:com.august.api.integrations.models.med_passes.v1.MedPass",
+    "endTime": {
+      "@id": "august:endTime",
+      "@type": "xsd:string"
+    },
+    "startTime": {
+      "@id": "august:startTime",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.medication_administrations.v1.AdministeredDosage": "august:com.august.api.integrations.models.medication_administrations.v1.AdministeredDosage",
+    "com.august.api.integrations.models.medication_administrations.v1.AdministrationStatus": "august:com.august.api.integrations.models.medication_administrations.v1.AdministrationStatus",
+    "com.august.api.integrations.models.medication_administrations.v1.MedicationAdministration": "august:com.august.api.integrations.models.medication_administrations.v1.MedicationAdministration",
+    "administeredDosage": {
+      "@id": "august:administeredDosage",
+      "@type": "@id"
+    },
+    "beginScheduledTime": {
+      "@id": "august:beginScheduledTime",
+      "@type": "xsd:dateTime"
+    },
+    "dosageType": {
+      "@id": "august:dosageType",
+      "@type": "@id"
+    },
+    "endScheduledTime": {
+      "@id": "august:endScheduledTime",
+      "@type": "xsd:dateTime"
+    },
+    "isOutsideProviderAdministered": {
+      "@id": "august:isOutsideProviderAdministered",
+      "@type": "xsd:boolean"
+    },
+    "medPassDate": {
+      "@id": "august:medPassDate",
+      "@type": "xsd:date"
+    },
+    "medPassId": {
+      "@id": "august:medPassId",
+      "@type": "xsd:string"
+    },
+    "medicationOrderId": {
+      "@id": "august:medicationOrderId",
+      "@type": "xsd:string"
+    },
+    "occurredAt": {
+      "@id": "august:occurredAt",
+      "@type": "xsd:dateTime"
+    },
+    "orderGroupId": {
+      "@id": "august:orderGroupId",
+      "@type": "xsd:string"
+    },
+    "performer": {
+      "@id": "august:performer",
+      "@type": "@id"
+    },
+    "reasonForException": {
+      "@id": "august:reasonForException",
+      "@type": "@id"
+    },
+    "reasonForOutOfSchedule": {
+      "@id": "august:reasonForOutOfSchedule",
+      "@type": "@id"
+    },
+    "recordedAt": {
+      "@id": "august:recordedAt",
+      "@type": "xsd:dateTime"
+    },
+    "selfAdministered": {
+      "@id": "august:selfAdministered",
+      "@type": "xsd:boolean"
+    },
+    "wasAdministeredOutOfSchedule": {
+      "@id": "august:wasAdministeredOutOfSchedule",
+      "@type": "xsd:boolean"
+    },
+    "com.august.api.integrations.models.medication_administrations.v1.Performer": "august:com.august.api.integrations.models.medication_administrations.v1.Performer",
+    "userId": {
+      "@id": "august:userId",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.medication_administrations.v1.SimpleQuantity": "august:com.august.api.integrations.models.medication_administrations.v1.SimpleQuantity",
+    "com.august.protos.medication_administration.ReasonForOutOfSchedule": "august:com.august.protos.medication_administration.ReasonForOutOfSchedule",
+    "com.august.protos.medication_statement.DosageType": "august:com.august.protos.medication_statement.DosageType",
+    "com.august.api.integrations.models.common.date.DateTimePeriod": "august:com.august.api.integrations.models.common.date.DateTimePeriod",
+    "com.august.api.integrations.models.medication_orders.v1.CodeableConcept": "august:com.august.api.integrations.models.medication_orders.v1.CodeableConcept",
+    "coding": {
+      "@id": "august:coding",
+      "@container": "@list"
+    },
+    "com.august.api.integrations.models.medication_orders.v1.Coding": "august:com.august.api.integrations.models.medication_orders.v1.Coding",
+    "code": {
+      "@id": "august:code",
+      "@type": "xsd:string"
+    },
+    "display": {
+      "@id": "august:display",
+      "@type": "xsd:string"
+    },
+    "system": {
+      "@id": "august:system",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.medication_orders.v1.DosageInstruction": "august:com.august.api.integrations.models.medication_orders.v1.DosageInstruction",
+    "asNeededBoolean": {
+      "@id": "august:asNeededBoolean",
+      "@type": "xsd:boolean"
+    },
+    "doseAndRate": {
+      "@id": "august:doseAndRate",
+      "@type": "@id"
+    },
+    "route": {
+      "@id": "august:route",
+      "@type": "xsd:string"
+    },
+    "site": {
+      "@id": "august:site",
+      "@type": "xsd:string"
+    },
+    "timing": {
+      "@id": "august:timing",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.medication_orders.v1.DoseAndRate": "august:com.august.api.integrations.models.medication_orders.v1.DoseAndRate",
+    "doseQuantity": {
+      "@id": "august:doseQuantity",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.medication_orders.v1.Medication": "august:com.august.api.integrations.models.medication_orders.v1.Medication",
+    "drugName": {
+      "@id": "august:drugName",
+      "@type": "xsd:string"
+    },
+    "medicationClass": {
+      "@id": "august:medicationClass",
+      "@container": "@list"
+    },
+    "schedule": {
+      "@id": "august:schedule",
+      "@type": "xsd:string"
+    },
+    "strengthAndForm": {
+      "@id": "august:strengthAndForm",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.medication_orders.v1.MedicationOrder": "august:com.august.api.integrations.models.medication_orders.v1.MedicationOrder",
+    "additionalInstructions": {
+      "@id": "august:additionalInstructions",
+      "@container": "@list"
+    },
+    "approvedAt": {
+      "@id": "august:approvedAt",
+      "@type": "xsd:dateTime"
+    },
+    "discontinuedAt": {
+      "@id": "august:discontinuedAt",
+      "@type": "xsd:dateTime"
+    },
+    "dosageInstruction": {
+      "@id": "august:dosageInstruction",
+      "@container": "@list"
+    },
+    "effectivePeriod": {
+      "@id": "august:effectivePeriod",
+      "@type": "@id"
+    },
+    "isTreatment": {
+      "@id": "august:isTreatment",
+      "@type": "xsd:boolean"
+    },
+    "medication": {
+      "@id": "august:medication",
+      "@type": "@id"
+    },
+    "pharmacy": {
+      "@id": "august:pharmacy",
+      "@type": "xsd:string"
+    },
+    "prescriber": {
+      "@id": "august:prescriber",
+      "@type": "xsd:string"
+    },
+    "providerDosageInstructions": {
+      "@id": "august:providerDosageInstructions",
+      "@type": "xsd:string"
+    },
+    "requiredVitals": {
+      "@id": "august:requiredVitals",
+      "@container": "@list"
+    },
+    "requiresControlledCount": {
+      "@id": "august:requiresControlledCount",
+      "@type": "xsd:boolean"
+    },
+    "rxNumber": {
+      "@id": "august:rxNumber",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.medication_orders.v1.MedicationOrderStatus": "august:com.august.api.integrations.models.medication_orders.v1.MedicationOrderStatus",
+    "com.august.api.integrations.models.medication_orders.v1.SimpleQuantity": "august:com.august.api.integrations.models.medication_orders.v1.SimpleQuantity",
+    "com.august.api.integrations.models.medication_orders.v1.TimeOfDay": "august:com.august.api.integrations.models.medication_orders.v1.TimeOfDay",
+    "time": {
+      "@id": "august:time",
+      "@type": "@id"
+    },
+    "when": {
+      "@id": "august:when",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.medication_orders.v1.TimeOfDay.TimeParts": "august:com.august.api.integrations.models.medication_orders.v1.TimeOfDay.TimeParts",
+    "hour": {
+      "@id": "august:hour",
+      "@type": "xsd:integer"
+    },
+    "minute": {
+      "@id": "august:minute",
+      "@type": "xsd:integer"
+    },
+    "com.august.api.integrations.models.medication_orders.v1.TimingInfo": "august:com.august.api.integrations.models.medication_orders.v1.TimingInfo",
+    "dayOfMonth": {
+      "@id": "august:dayOfMonth",
+      "@container": "@list"
+    },
+    "dayOfWeek": {
+      "@id": "august:dayOfWeek",
+      "@container": "@list"
+    },
+    "frequency": {
+      "@id": "august:frequency",
+      "@type": "xsd:integer"
+    },
+    "oneTimeOnly": {
+      "@id": "august:oneTimeOnly",
+      "@type": "xsd:boolean"
+    },
+    "period": {
+      "@id": "august:period",
+      "@type": "xsd:integer"
+    },
+    "periodUnit": {
+      "@id": "august:periodUnit",
+      "@type": "@id"
+    },
+    "timeOfDay": {
+      "@id": "august:timeOfDay",
+      "@container": "@list"
+    },
+    "com.august.protos.codeable_concept.SystemUrl": "august:com.august.protos.codeable_concept.SystemUrl",
+    "com.august.protos.medication.MedicationClass": "august:com.august.protos.medication.MedicationClass",
+    "com.august.protos.medication_statement.AdditionalInstructions": "august:com.august.protos.medication_statement.AdditionalInstructions",
+    "com.august.protos.timing.DayOfWeek": "august:com.august.protos.timing.DayOfWeek",
+    "com.august.protos.timing.EventTiming": "august:com.august.protos.timing.EventTiming",
+    "com.august.protos.timing.UnitOfTime": "august:com.august.protos.timing.UnitOfTime",
+    "com.august.protos.vital.VitalType": "august:com.august.protos.vital.VitalType",
+    "com.august.api.integrations.models.assessments.v1.AssessmentReference": "august:com.august.api.integrations.models.assessments.v1.AssessmentReference",
+    "completedAt": {
+      "@id": "august:completedAt",
+      "@type": "xsd:dateTime"
+    },
+    "com.august.api.integrations.models.common.currency.CurrencyAmount": "august:com.august.api.integrations.models.common.currency.CurrencyAmount",
+    "amount": {
+      "@id": "august:amount",
+      "@type": "xsd:decimal"
+    },
+    "currency": {
+      "@id": "august:currency",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.common.date.DatePeriod": "august:com.august.api.integrations.models.common.date.DatePeriod",
+    "com.august.api.integrations.models.common_metadata.v1.Language": "august:com.august.api.integrations.models.common_metadata.v1.Language",
+    "com.august.api.integrations.models.contacts.v1.Contact": "august:com.august.api.integrations.models.contacts.v1.Contact",
+    "clinicalSpecialty": {
+      "@id": "august:clinicalSpecialty",
+      "@type": "xsd:string"
+    },
+    "organization": {
+      "@id": "august:organization",
+      "@type": "@id"
+    },
+    "relationship": {
+      "@id": "august:relationship",
+      "@container": "@list"
+    },
+    "telecom": {
+      "@id": "august:telecom",
+      "@container": "@list"
+    },
+    "com.august.api.integrations.models.contacts.v1.ContactPoint": "august:com.august.api.integrations.models.contacts.v1.ContactPoint",
+    "rank": {
+      "@id": "august:rank",
+      "@type": "xsd:integer"
+    },
+    "com.august.api.integrations.models.contacts.v1.ExternalFields": "august:com.august.api.integrations.models.contacts.v1.ExternalFields",
+    "yardi": {
+      "@id": "august:yardi",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.contacts.v1.GenericOrganization": "august:com.august.api.integrations.models.contacts.v1.GenericOrganization",
+    "contact": {
+      "@id": "august:contact",
+      "@container": "@list"
+    },
+    "com.august.api.integrations.models.contacts.v1.GenericOrganizationContact": "august:com.august.api.integrations.models.contacts.v1.GenericOrganizationContact",
+    "com.august.api.integrations.models.contacts.v1.YardiFields": "august:com.august.api.integrations.models.contacts.v1.YardiFields",
+    "extRefId": {
+      "@id": "august:extRefId",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.people.v1.AdmissionsInformation": "august:com.august.api.integrations.models.people.v1.AdmissionsInformation",
+    "bedDetails": {
+      "@id": "august:bedDetails",
+      "@type": "@id"
+    },
+    "bedId": {
+      "@id": "august:bedId",
+      "@type": "xsd:string"
+    },
+    "roomDetails": {
+      "@id": "august:roomDetails",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.people.v1.AdmissionsInformationOnCreate": "august:com.august.api.integrations.models.people.v1.AdmissionsInformationOnCreate",
+    "com.august.api.integrations.models.people.v1.AllergiesAndIntolerances": "august:com.august.api.integrations.models.people.v1.AllergiesAndIntolerances",
+    "allergies": {
+      "@id": "august:allergies",
+      "@container": "@list"
+    },
+    "com.august.api.integrations.models.people.v1.AllergyIntolerance": "august:com.august.api.integrations.models.people.v1.AllergyIntolerance",
+    "category": {
+      "@id": "august:category",
+      "@type": "@id"
+    },
+    "summary": {
+      "@id": "august:summary",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.people.v1.AmbulatoryBedStatus": "august:com.august.api.integrations.models.people.v1.AmbulatoryBedStatus",
+    "comment": {
+      "@id": "august:comment",
+      "@type": "xsd:string"
+    },
+    "com.august.api.integrations.models.people.v1.AmbulatoryStatus": "august:com.august.api.integrations.models.people.v1.AmbulatoryStatus",
+    "ambulatoryResult": {
+      "@id": "august:ambulatoryResult",
+      "@type": "@id"
+    },
+    "bedStatus": {
+      "@id": "august:bedStatus",
+      "@type": "@id"
+    },
+    "evacuation": {
+      "@id": "august:evacuation",
+      "@type": "@id"
+    },
+    "safeToLeaveWithoutSupervision": {
+      "@id": "august:safeToLeaveWithoutSupervision",
+      "@type": "xsd:boolean"
+    },
+    "com.august.api.integrations.models.people.v1.AmbulatoryStatusEvacuationAbilities": "august:com.august.api.integrations.models.people.v1.AmbulatoryStatusEvacuationAbilities",
+    "ableToEvacuateReasonablyQuickly": {
+      "@id": "august:ableToEvacuateReasonablyQuickly",
+      "@type": "xsd:boolean"
+    },
+    "ableToFollowInstructions": {
+      "@id": "august:ableToFollowInstructions",
+      "@type": "xsd:boolean"
+    },
+    "com.august.api.integrations.models.people.v1.Bed": "august:com.august.api.integrations.models.people.v1.Bed",
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeBathing": "august:com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeBathing",
+    "capabilityCode": {
+      "@id": "august:capabilityCode",
+      "@type": "@id"
+    },
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeCommunication": "august:com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeCommunication",
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeDressing": "august:com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeDressing",
+    "com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeEating": "august:com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeEating"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "August Health API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects August Health's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-14) from openapi/august-health-integrations-api-openapi.yml.",
+  "dcterms:created": "2026-10-14",
+  "dcterms:source": [
+    "openapi/august-health-integrations-api-openapi.yml"
+  ]
+}

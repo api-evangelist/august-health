@@ -1,6 +1,7 @@
 generated: '2026-07-18'
 method: searched
 source: https://developer.augusthealth.com/docs/rate-limiting.md
+name: August Health API Rate Limits
 docs: https://developer.augusthealth.com/docs/rate-limiting.md
 scope: >-
   Applies across all endpoints and the integration as a whole (per integration,
