@@ -172,19 +172,17 @@ common:
   url: security/august-health-domain-security.yml
 
 apis:
-- name: August Health API
-  description: RESTful v1 API for the August Health EHR platform covering organizations, facilities, rooms, census, residents, contacts, assessments,
-    incidents & notes, medications (orders and administrations), vitals, tasks, billing (statements, transactions, summaries, deposits), admission
-    agreements, visitor logs, and webhooks.
+- aid: august-health:august-health-admission-agreements-v1-api
+  name: August Health Admission Agreements (v1) API
+  description: >-
+    The Admission Agreements (v1) API from August Health — 3 operation(s) for admission agreements (v1).
   humanURL: https://developer.augusthealth.com
   baseURL: https://api.augusthealth.com
   tags:
-  - Healthcare
-  - EHR
-  - Senior Living
+  - Admission Agreements (v1)
   properties:
-  - url: openapi/august-health-integrations-api-openapi.yml
-    type: OpenAPI
+  - type: OpenAPI
+    url: openapi/august-health-admission-agreements-v1-api-openapi.yml
   - type: Documentation
     url: https://developer.augusthealth.com
   - type: APIReference
@@ -200,19 +198,908 @@ apis:
   - type: LLMsTxt
     url: llms/august-health-llms.txt
   - type: JSONSchema
-    url: json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
   - type: JSONSchema
-    url: json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
   - type: JSONSchema
-    url: json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
   - type: JSONSchema
-    url: json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
   - type: JSONSchema
-    url: json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
   - type: JSONSchema
-    url: json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
-  aid: august-health:august-health-api
-
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-assessments-v1-api
+  name: August Health Assessments (v1) API
+  description: The Assessments (v1) API from August Health — 2 operation(s) for assessments (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Assessments (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-assessments-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-billing-v1-api
+  name: August Health Billing (v1) API
+  description: The Billing (v1) API from August Health — 7 operation(s) for billing (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Billing (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-billing-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-care-v1-api
+  name: August Health Care (v1) API
+  description: The Care (v1) API from August Health — 4 operation(s) for care (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Care (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-care-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-census-v1-api
+  name: August Health Census (v1) API
+  description: The Census (v1) API from August Health — 2 operation(s) for census (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Census (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-census-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-contacts-v1-api
+  name: August Health Contacts (v1) API
+  description: The Contacts (v1) API from August Health — 3 operation(s) for contacts (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Contacts (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-contacts-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-facilities-v1-api
+  name: August Health Facilities (v1) API
+  description: The Facilities (v1) API from August Health — 2 operation(s) for facilities (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Facilities (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-facilities-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-immunizations-v1-api
+  name: August Health Immunizations (v1) API
+  description: The Immunizations (v1) API from August Health — 2 operation(s) for immunizations (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Immunizations (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-immunizations-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-incidents-v1-api
+  name: August Health Incidents (v1) API
+  description: The Incidents (v1) API from August Health — 3 operation(s) for incidents (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Incidents (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-incidents-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-med-passes-v1-api
+  name: August Health Med Passes (v1) API
+  description: The Med Passes (v1) API from August Health — 1 operation(s) for med passes (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Med Passes (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-med-passes-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-medication-administrations-v1-api
+  name: August Health Medication Administrations (v1) API
+  description: >-
+    The Medication Administrations (v1) API from August Health — 2 operation(s) for medication administrations
+    (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Medication Administrations (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-medication-administrations-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-medication-orders-v1-api
+  name: August Health Medication Orders (v1) API
+  description: >-
+    The Medication Orders (v1) API from August Health — 2 operation(s) for medication orders (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Medication Orders (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-medication-orders-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-occupancy-v1-api
+  name: August Health Occupancy (v1) API
+  description: The Occupancy (v1) API from August Health — 4 operation(s) for occupancy (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Occupancy (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-occupancy-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-organizations-v1-api
+  name: August Health Organizations (v1) API
+  description: The Organizations (v1) API from August Health — 1 operation(s) for organizations (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Organizations (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-organizations-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-residents-v1-api
+  name: August Health Residents (v1) API
+  description: The Residents (v1) API from August Health — 6 operation(s) for residents (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Residents (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-residents-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-shifts-v1-api
+  name: August Health Shifts (v1) API
+  description: The Shifts (v1) API from August Health — 1 operation(s) for shifts (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Shifts (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-shifts-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-tasks-v1-api
+  name: August Health Tasks (v1) API
+  description: The Tasks (v1) API from August Health — 1 operation(s) for tasks (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Tasks (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-tasks-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-tokens-v1-api
+  name: August Health Tokens (v1) API
+  description: The Tokens (v1) API from August Health — 1 operation(s) for tokens (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Tokens (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-tokens-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-users-v1-api
+  name: August Health Users (v1) API
+  description: The Users (v1) API from August Health — 1 operation(s) for users (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Users (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-users-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-visitor-logs-v1-api
+  name: August Health Visitor Logs (v1) API
+  description: The Visitor Logs (v1) API from August Health — 2 operation(s) for visitor logs (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Visitor Logs (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-visitor-logs-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-vitals-v1-api
+  name: August Health Vitals (v1) API
+  description: The Vitals (v1) API from August Health — 2 operation(s) for vitals (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Vitals (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-vitals-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
+- aid: august-health:august-health-webhooks-v1-api
+  name: August Health Webhooks (v1) API
+  description: The Webhooks (v1) API from August Health — 1 operation(s) for webhooks (v1).
+  humanURL: https://developer.augusthealth.com
+  baseURL: https://api.augusthealth.com
+  tags:
+  - Webhooks (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/august-health-webhooks-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developer.augusthealth.com
+  - type: APIReference
+    url: https://developer.augusthealth.com/reference
+  - type: GettingStarted
+    url: https://developer.augusthealth.com/docs/getting-started
+  - type: Authentication
+    url: authentication/august-health-authentication.yml
+  - type: RateLimits
+    url: rate-limits/august-health-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/august-health-events-asyncapi.yml
+  - type: LLMsTxt
+    url: llms/august-health-llms.txt
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-care-v1-routine-administration-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-census-v1-census-person-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-orders-v1-medication-order-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-people-v1-create-person-request-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/august-health-com-august-api-integrations-models-medication-administrations-v1-medication-administration-schema.json
 x-enrichment:
   date: '2026-07-19'
   status: backfilled

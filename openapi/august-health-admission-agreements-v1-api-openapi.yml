@@ -1,0 +1,340 @@
+openapi: 3.2.0
+info:
+  title: August Health Integrations Admission Agreements (v1) API
+  version: '1.0'
+servers:
+- url: https://integrations.staging.augusthealth.com
+security:
+- BearerAuth: []
+tags:
+- name: Admission Agreements (v1)
+paths:
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/admissionAgreements/latest:
+    get:
+      description: 'Returns the resident''s latest completed admission agreement, regardless of customType.
+
+        Agreements in any other status are skipped, so a resident with a draft in progress still
+
+        resolves to their current completed agreement. Archived agreements are only retrievable
+
+        through the by-ID endpoint.'
+      operationId: getLatestAdmissionAgreementV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.admission_agreements.v1.AdmissionAgreement'
+                type: object
+          description: Successfully retrieved the latest admission agreement.
+        '401':
+          description: No credentials provided
+        '403':
+          description: Not authorized for this resource
+        '404':
+          description: No completed admission agreement found for this resident
+      summary: Get the latest admission agreement
+      tags:
+      - Admission Agreements (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/admissionAgreements/{snapshotId}:
+    get:
+      description: 'Returns a specific admission agreement by snapshot ID.
+
+        The snapshot must belong to the specified resident and have the admission agreement data type;
+
+        requests for snapshots of any other data type return 404.'
+      operationId: getAdmissionAgreementV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: snapshotId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.admission_agreements.v1.AdmissionAgreement'
+                type: object
+          description: Successfully retrieved the admission agreement.
+        '401':
+          description: No credentials provided
+        '403':
+          description: Not authorized for this resource
+        '404':
+          description: Admission agreement not found, or the snapshot belongs to a different data type or resident
+      summary: Get an admission agreement by ID
+      tags:
+      - Admission Agreements (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/admissionAgreements/{snapshotId}.pdf:
+    get:
+      description: 'Returns the PDF for a specific admission agreement snapshot.
+
+        The snapshot must belong to the specified resident and have the admission agreement data type;
+
+        requests for snapshots of any other data type return 404.'
+      operationId: getAdmissionAgreementPdfV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: snapshotId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                format: binary
+                type: string
+          description: Successfully retrieved the admission agreement PDF.
+        '401':
+          description: No credentials provided
+        '403':
+          description: Not authorized for this resource
+        '404':
+          description: Admission agreement not found, or the snapshot belongs to a different data type or resident
+      summary: Download an admission agreement PDF
+      tags:
+      - Admission Agreements (v1)
+components:
+  schemas:
+    com.august.protos.human_name.HumanName.Pronouns:
+      enum:
+      - PRONOUNS_SHE_HER
+      - PRONOUNS_HE_HIM
+      - PRONOUNS_THEY_THEM
+      - PRONOUNS_SHE_THEY
+      - PRONOUNS_HE_THEY
+      - PRONOUNS_ZE_HIR
+      type: string
+    com.august.protos.snapshot.SnapshotStatus:
+      enum:
+      - SNAPSHOT_STATUS_DRAFT
+      - SNAPSHOT_STATUS_COMPLETE
+      - SNAPSHOT_STATUS_ARCHIVED
+      - SNAPSHOT_STATUS_DISCARDED
+      type: string
+    com.august.api.integrations.models.admission_agreements.v1.AdmissionAgreementFieldType:
+      enum:
+      - Boolean
+      - Currency
+      - Date
+      - Encrypted
+      - Number
+      - String
+      type: string
+    com.august.api.integrations.models.admission_agreements.v1.AdmissionAgreementSigner:
+      properties:
+        email:
+          type: string
+        name:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.HumanName'
+        role:
+          $ref: '#/components/schemas/com.august.protos.snapshot.SignerRole'
+        signedAt:
+          format: date-time
+          type: string
+      required:
+      - role
+      - signedAt
+    com.august.api.integrations.models.admission_agreements.v1.AdmissionAgreementField:
+      properties:
+        key:
+          type: string
+        type:
+          $ref: '#/components/schemas/com.august.api.integrations.models.admission_agreements.v1.AdmissionAgreementFieldType'
+        value:
+          oneOf:
+          - type: string
+          - type: boolean
+          - format: int64
+            type: integer
+      required:
+      - key
+      - value
+      - type
+    com.august.api.integrations.models.admission_agreements.v1.AdmissionAgreement:
+      properties:
+        completedAt:
+          format: date-time
+          type: string
+        effectiveCompletionDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        fields:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.admission_agreements.v1.AdmissionAgreementField'
+          type: array
+        id:
+          type: string
+        personId:
+          type: string
+        signers:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.admission_agreements.v1.AdmissionAgreementSigner'
+          type: array
+        status:
+          $ref: '#/components/schemas/com.august.protos.snapshot.SnapshotStatus'
+      required:
+      - id
+      - personId
+      - status
+      - completedAt
+      - signers
+      - fields
+    com.august.protos.snapshot.SignerRole:
+      enum:
+      - SIGNER_ROLE_ADMIN
+      - SIGNER_ROLE_RESPONSIBLE_PARTY
+      - SIGNER_ROLE_RESIDENT
+      - SIGNER_ROLE_EXTERNAL
+      type: string
+    com.august.api.integrations.models.common_metadata.v1.HumanName:
+      properties:
+        family:
+          type: string
+        given:
+          items:
+            type: string
+          type: array
+        maiden:
+          type: string
+        preferredName:
+          type: string
+        prefix:
+          type: string
+        pronouns:
+          $ref: '#/components/schemas/com.august.protos.human_name.HumanName.Pronouns'
+        suffix:
+          type: string
+      required:
+      - given
+  securitySchemes:
+    BearerAuth:
+      scheme: bearer
+      type: http
+x-provenance:
+  method: searched
+  source: https://developer.augusthealth.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.augusthealth.com/reference/bulkchartroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/createcontactv1-1.md
+  - https://developer.augusthealth.com/reference/createincidentv1.md
+  - https://developer.augusthealth.com/reference/createpersonv1-1.md
+  - https://developer.augusthealth.com/reference/createresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/createtokenv1.md
+  - https://developer.augusthealth.com/reference/createvisitorlogv1.md
+  - https://developer.augusthealth.com/reference/createvitalv1.md
+  - https://developer.augusthealth.com/reference/createwebhooksportalaccessurlv1.md
+  - https://developer.augusthealth.com/reference/deletevisitorlogv1.md
+  - https://developer.augusthealth.com/reference/extractresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/getadmissionagreementpdfv1.md
+  - https://developer.augusthealth.com/reference/getadmissionagreementv1.md
+  - https://developer.augusthealth.com/reference/getadmissionhistoryv1.md
+  - https://developer.augusthealth.com/reference/getassessmentv1.md
+  - https://developer.augusthealth.com/reference/getbillingsummaryv1.md
+  - https://developer.augusthealth.com/reference/getcensuspersonv1.md
+  - https://developer.augusthealth.com/reference/getcontactv1-1.md
+  - https://developer.augusthealth.com/reference/getfacilityadmissionhistoryv1.md
+  - https://developer.augusthealth.com/reference/getfacilitybedassignmenthistoryv1.md
+  - https://developer.augusthealth.com/reference/getimmunizationv1.md
+  - https://developer.augusthealth.com/reference/getincidentv1.md
+  - https://developer.augusthealth.com/reference/getlatestadmissionagreementv1.md
+  - https://developer.augusthealth.com/reference/getlatestassessmentv1.md
+  - https://developer.augusthealth.com/reference/getlatestresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/getpersonprofilephotov1.md
+  - https://developer.augusthealth.com/reference/getpersonv1-1.md
+  - https://developer.augusthealth.com/reference/getstatementpdfv1.md
+  - https://developer.augusthealth.com/reference/getvitalv1.md
+  - https://developer.augusthealth.com/reference/listbedassignmentsv1.md
+  - https://developer.augusthealth.com/reference/listcensusv1.md
+  - https://developer.augusthealth.com/reference/listcontactsv1-1.md
+  - https://developer.augusthealth.com/reference/listfacilitiesv1-1.md
+  - https://developer.augusthealth.com/reference/listfacilitybillingsummariesv1.md
+  - https://developer.augusthealth.com/reference/listfacilityincidentsv1.md
+  - https://developer.augusthealth.com/reference/listfacilitymedicationadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listfacilitymedicationordersv1.md
+  - https://developer.augusthealth.com/reference/listfacilityroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listimmunizationsv1.md
+  - https://developer.augusthealth.com/reference/listmedpassesv1.md
+  - https://developer.augusthealth.com/reference/listorganizationsv1.md
+  - https://developer.augusthealth.com/reference/listpeoplev1-1.md
+  - https://developer.augusthealth.com/reference/listpersonincidentsv1.md
+  - https://developer.augusthealth.com/reference/listpersonmedicationadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listpersonmedicationordersv1.md
+  - https://developer.augusthealth.com/reference/listprncarecategoriesv1.md
+  - https://developer.augusthealth.com/reference/listresidentbillingtransactionsv1.md
+  - https://developer.augusthealth.com/reference/listroomsv1.md
+  - https://developer.augusthealth.com/reference/listroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listshiftsv1.md
+  - https://developer.augusthealth.com/reference/listtasksv1.md
+  - https://developer.augusthealth.com/reference/listusersv1.md
+  - https://developer.augusthealth.com/reference/listvisitorlogsv1.md
+  - https://developer.augusthealth.com/reference/listvitalsv1.md
+  - https://developer.augusthealth.com/reference/patchpersonv1.md
+  - https://developer.augusthealth.com/reference/recordchargesv1.md
+  - https://developer.augusthealth.com/reference/recorddepositv1.md
+  - https://developer.augusthealth.com/reference/searchstatementsv1.md
+  - https://developer.augusthealth.com/reference/setresponsiblepersonv1-1.md
+  - https://developer.augusthealth.com/reference/updateincidentv1.md
+  - https://developer.augusthealth.com/reference/updatevitalv1.md
+  merge:
+    pages: 61
+    deduped: 634
+    conflicts_kept_first: 0

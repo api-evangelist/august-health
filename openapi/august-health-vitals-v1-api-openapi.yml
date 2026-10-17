@@ -1,0 +1,573 @@
+openapi: 3.2.0
+info:
+  title: August Health Integrations Vitals (v1) API
+  version: '1.0'
+servers:
+- url: https://integrations.staging.augusthealth.com
+security:
+- BearerAuth: []
+tags:
+- name: Vitals (v1)
+paths:
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/vitals:
+    post:
+      description: Records a new vital measurement for a resident. The request must include at least one vital type in the panel (e.g., weight, temperature, blood pressure). This endpoint is intended for on-demand measurements from sensor devices and API partners.
+      operationId: createVitalV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.CreateVitalRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.VitalResponse'
+                type: object
+          description: Successfully created a new vital measurement.
+        '400':
+          description: Invalid request parameters (e.g., negative values, future timestamp)
+        '401':
+          description: Authentication required
+        '403':
+          description: User lacks permission to create vitals for this person
+        '404':
+          description: Person not found
+      summary: Create a vital measurement
+      tags:
+      - Vitals (v1)
+    get:
+      description: Returns a paginated list of vital measurements for a resident. Results are sorted by recorded time (newest first).
+      operationId: listVitalsV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - description: Comma-separated list of fields to include in the response
+        in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - description: Filter for vitals updated after this timestamp (ISO 8601 format with timezone)
+        in: query
+        name: updatedAfter
+        required: false
+        schema:
+          example: '2024-01-15T10:30:00Z'
+          format: date-time
+          type: string
+      - description: Maximum number of results to return
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 500
+          type: integer
+      - description: Number of results to skip
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.VitalResponse'
+                    type: array
+                  meta:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.common.ApiResponseMetadata'
+                type: object
+          description: Successfully retrieved vital measurements.
+        '400':
+          description: Invalid request parameters (e.g., limit exceeds 500)
+        '401':
+          description: Authentication required
+        '403':
+          description: User lacks permission to read vitals for this person
+      summary: List vital measurements
+      tags:
+      - Vitals (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/vitals/{id}:
+    get:
+      description: Retrieves a single vital measurement by ID for a resident.
+      operationId: getVitalV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.VitalResponse'
+                type: object
+          description: Successfully retrieved the vital measurement.
+        '401':
+          description: Authentication required
+        '403':
+          description: User lacks permission to read vitals for this person
+        '404':
+          description: Vital measurement or person not found
+      summary: Get a vital measurement
+      tags:
+      - Vitals (v1)
+    patch:
+      description: Update selected fields of a vital measurement.
+      operationId: updateVitalV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.PatchVitalRequest'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.PatchVitalRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.VitalResponse'
+                type: object
+          description: Successfully updated the vital measurement.
+        '400':
+          description: Invalid request parameters (e.g., negative values)
+        '401':
+          description: Authentication required
+        '403':
+          description: User lacks permission to update vitals for this person
+        '404':
+          description: Vital measurement or person not found
+        '415':
+          description: Unsupported content type
+      summary: Update a vital measurement
+      tags:
+      - Vitals (v1)
+components:
+  schemas:
+    com.august.api.integrations.models.vitals.v1.Temperature:
+      properties:
+        bodySite:
+          $ref: '#/components/schemas/com.august.protos.vital.TemperatureType'
+          description: The body site where the temperature was measured (e.g. oral, axillary, rectal)
+        unit:
+          $ref: '#/components/schemas/com.august.protos.vital.TemperatureUnit'
+          description: The unit of measurement (e.g. Fahrenheit, Celsius)
+        value:
+          description: The temperature reading
+          format: float
+          type: number
+      required:
+      - value
+      - unit
+    com.august.api.integrations.models.common.ApiResponseMetadata:
+      properties:
+        limit:
+          description: The limit used for a paginated request for the query
+          format: int32
+          type: integer
+        offset:
+          description: The offset used for a paginated request for the query
+          format: int32
+          type: integer
+        total:
+          description: The total number of available items for the query
+          format: int32
+          type: integer
+      required:
+      - total
+      - limit
+      - offset
+    com.august.api.integrations.models.vitals.v1.PatchVitalPanel:
+      properties:
+        bloodPressure:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.BloodPressure'
+          - type: 'null'
+          description: Blood pressure measurement (systolic and diastolic).
+        bloodSugar:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.BloodSugar'
+          - type: 'null'
+          description: Blood sugar (glucose) measurement.
+        heartRate:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.HeartRate'
+          - type: 'null'
+          description: Heart rate measurement.
+        oxygenSaturation:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.OxygenSaturation'
+          - type: 'null'
+          description: Blood oxygen saturation measurement.
+        respiratoryRate:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.RespiratoryRate'
+          - type: 'null'
+          description: Respiratory rate measurement.
+        temperature:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.Temperature'
+          - type: 'null'
+          description: Body temperature measurement.
+        weight:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.Weight'
+          - type: 'null'
+          description: Body weight measurement.
+      required: []
+    com.august.protos.vital.OxygenSaturationUnit:
+      enum:
+      - OXYGEN_SATURATION_UNIT_PERCENT
+      type: string
+    com.august.api.integrations.models.vitals.v1.RespiratoryRate:
+      properties:
+        unit:
+          $ref: '#/components/schemas/com.august.protos.vital.RespiratoryRateUnit'
+        value:
+          format: float
+          type: number
+      required:
+      - value
+      - unit
+    com.august.api.integrations.models.vitals.v1.OxygenSaturation:
+      properties:
+        supplementalOxygen:
+          $ref: '#/components/schemas/com.august.protos.vital.SupplementalOxygen'
+        unit:
+          $ref: '#/components/schemas/com.august.protos.vital.OxygenSaturationUnit'
+        value:
+          format: float
+          type: number
+      required:
+      - value
+      - unit
+    com.august.protos.vital.WeightUnit:
+      enum:
+      - WEIGHT_UNIT_POUNDS
+      - WEIGHT_UNIT_KILOGRAMS
+      type: string
+    com.august.protos.vital.BloodSugarTiming:
+      enum:
+      - BLOOD_SUGAR_TIMING_BEFORE_MEAL
+      - BLOOD_SUGAR_TIMING_AFTER_MEAL
+      - BLOOD_SUGAR_TIMING_FASTING
+      - BLOOD_SUGAR_TIMING_BEDTIME
+      - BLOOD_SUGAR_TIMING_RANDOM
+      type: string
+    com.august.api.integrations.models.vitals.v1.BloodSugar:
+      properties:
+        timing:
+          $ref: '#/components/schemas/com.august.protos.vital.BloodSugarTiming'
+        unit:
+          $ref: '#/components/schemas/com.august.protos.vital.BloodSugarUnit'
+        value:
+          format: float
+          type: number
+      required:
+      - value
+      - unit
+    com.august.protos.vital.BloodSugarUnit:
+      enum:
+      - BLOOD_SUGAR_UNIT_MILLIGRAMS_PER_DECILITER
+      - BLOOD_SUGAR_UNIT_MILLIMOLES_PER_LITER
+      type: string
+    com.august.api.integrations.models.vitals.v1.CreateVitalRequest:
+      properties:
+        panel:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.VitalPanel'
+        recordedAt:
+          format: date-time
+          type: string
+      required:
+      - recordedAt
+      - panel
+    com.august.api.integrations.models.vitals.v1.VitalPanel:
+      properties:
+        bloodPressure:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.BloodPressure'
+        bloodSugar:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.BloodSugar'
+        heartRate:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.HeartRate'
+        oxygenSaturation:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.OxygenSaturation'
+        respiratoryRate:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.RespiratoryRate'
+        temperature:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.Temperature'
+        weight:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.Weight'
+    com.august.api.integrations.models.vitals.v1.PatchVitalRequest:
+      properties:
+        panel:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.PatchVitalPanel'
+          description: The vital measurements to update.
+        recordedAt:
+          description: The timestamp when the vital was recorded.
+          format: date-time
+          type: string
+    com.august.protos.vital.BloodPressureUnit:
+      enum:
+      - BLOOD_PRESSURE_UNIT_MILLIMETERS_OF_MERCURY
+      type: string
+    com.august.protos.vital.SupplementalOxygen:
+      enum:
+      - SUPPLEMENTAL_OXYGEN_0_5_L
+      - SUPPLEMENTAL_OXYGEN_1_0_L
+      - SUPPLEMENTAL_OXYGEN_1_5_L
+      - SUPPLEMENTAL_OXYGEN_2_0_L
+      - SUPPLEMENTAL_OXYGEN_2_5_L
+      - SUPPLEMENTAL_OXYGEN_3_0_L
+      - SUPPLEMENTAL_OXYGEN_3_5_L
+      - SUPPLEMENTAL_OXYGEN_4_0_L
+      - SUPPLEMENTAL_OXYGEN_4_5_L
+      - SUPPLEMENTAL_OXYGEN_5_0_L
+      - SUPPLEMENTAL_OXYGEN_0_0_L
+      type: string
+    com.august.api.integrations.models.vitals.v1.BloodPressure:
+      properties:
+        diastolic:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.BloodPressureMeasurement'
+        position:
+          $ref: '#/components/schemas/com.august.protos.vital.BloodPressurePosition'
+        systolic:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.BloodPressureMeasurement'
+      required:
+      - systolic
+      - diastolic
+    com.august.api.integrations.models.vitals.v1.Weight:
+      properties:
+        unit:
+          $ref: '#/components/schemas/com.august.protos.vital.WeightUnit'
+        value:
+          format: float
+          type: number
+      required:
+      - value
+      - unit
+    com.august.api.integrations.models.vitals.v1.VitalResponse:
+      properties:
+        id:
+          type: string
+        panel:
+          $ref: '#/components/schemas/com.august.api.integrations.models.vitals.v1.VitalPanel'
+        personId:
+          type: string
+        recordedAt:
+          format: date-time
+          type: string
+      required:
+      - id
+      - personId
+      - recordedAt
+      - panel
+    com.august.protos.vital.TemperatureType:
+      enum:
+      - TEMPERATURE_TYPE_AXILLARY
+      - TEMPERATURE_TYPE_EAR
+      - TEMPERATURE_TYPE_FOREHEAD
+      - TEMPERATURE_TYPE_ORAL
+      - TEMPERATURE_TYPE_RECTAL
+      type: string
+    com.august.protos.vital.TemperatureUnit:
+      enum:
+      - TEMPERATURE_UNIT_FAHRENHEIT
+      - TEMPERATURE_UNIT_CELSIUS
+      type: string
+    com.august.api.integrations.models.vitals.v1.HeartRate:
+      properties:
+        unit:
+          $ref: '#/components/schemas/com.august.protos.vital.HeartRateUnit'
+        value:
+          format: float
+          type: number
+      required:
+      - value
+      - unit
+    com.august.protos.vital.BloodPressurePosition:
+      enum:
+      - BLOOD_PRESSURE_POSITION_LYING
+      - BLOOD_PRESSURE_POSITION_SITTING
+      - BLOOD_PRESSURE_POSITION_STANDING
+      type: string
+    com.august.protos.vital.HeartRateUnit:
+      enum:
+      - HEART_RATE_UNIT_BEATS_PER_MINUTE
+      type: string
+    com.august.api.integrations.models.vitals.v1.BloodPressureMeasurement:
+      properties:
+        unit:
+          $ref: '#/components/schemas/com.august.protos.vital.BloodPressureUnit'
+        value:
+          format: float
+          type: number
+      required:
+      - value
+      - unit
+    com.august.protos.vital.RespiratoryRateUnit:
+      enum:
+      - RESPIRATORY_RATE_UNIT_BREATHS_PER_MINUTE
+      type: string
+  securitySchemes:
+    BearerAuth:
+      scheme: bearer
+      type: http
+x-provenance:
+  method: searched
+  source: https://developer.augusthealth.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.augusthealth.com/reference/bulkchartroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/createcontactv1-1.md
+  - https://developer.augusthealth.com/reference/createincidentv1.md
+  - https://developer.augusthealth.com/reference/createpersonv1-1.md
+  - https://developer.augusthealth.com/reference/createresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/createtokenv1.md
+  - https://developer.augusthealth.com/reference/createvisitorlogv1.md
+  - https://developer.augusthealth.com/reference/createvitalv1.md
+  - https://developer.augusthealth.com/reference/createwebhooksportalaccessurlv1.md
+  - https://developer.augusthealth.com/reference/deletevisitorlogv1.md
+  - https://developer.augusthealth.com/reference/extractresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/getadmissionagreementpdfv1.md
+  - https://developer.augusthealth.com/reference/getadmissionagreementv1.md
+  - https://developer.augusthealth.com/reference/getadmissionhistoryv1.md
+  - https://developer.augusthealth.com/reference/getassessmentv1.md
+  - https://developer.augusthealth.com/reference/getbillingsummaryv1.md
+  - https://developer.augusthealth.com/reference/getcensuspersonv1.md
+  - https://developer.augusthealth.com/reference/getcontactv1-1.md
+  - https://developer.augusthealth.com/reference/getfacilityadmissionhistoryv1.md
+  - https://developer.augusthealth.com/reference/getfacilitybedassignmenthistoryv1.md
+  - https://developer.augusthealth.com/reference/getimmunizationv1.md
+  - https://developer.augusthealth.com/reference/getincidentv1.md
+  - https://developer.augusthealth.com/reference/getlatestadmissionagreementv1.md
+  - https://developer.augusthealth.com/reference/getlatestassessmentv1.md
+  - https://developer.augusthealth.com/reference/getlatestresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/getpersonprofilephotov1.md
+  - https://developer.augusthealth.com/reference/getpersonv1-1.md
+  - https://developer.augusthealth.com/reference/getstatementpdfv1.md
+  - https://developer.augusthealth.com/reference/getvitalv1.md
+  - https://developer.augusthealth.com/reference/listbedassignmentsv1.md
+  - https://developer.augusthealth.com/reference/listcensusv1.md
+  - https://developer.augusthealth.com/reference/listcontactsv1-1.md
+  - https://developer.augusthealth.com/reference/listfacilitiesv1-1.md
+  - https://developer.augusthealth.com/reference/listfacilitybillingsummariesv1.md
+  - https://developer.augusthealth.com/reference/listfacilityincidentsv1.md
+  - https://developer.augusthealth.com/reference/listfacilitymedicationadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listfacilitymedicationordersv1.md
+  - https://developer.augusthealth.com/reference/listfacilityroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listimmunizationsv1.md
+  - https://developer.augusthealth.com/reference/listmedpassesv1.md
+  - https://developer.augusthealth.com/reference/listorganizationsv1.md
+  - https://developer.augusthealth.com/reference/listpeoplev1-1.md
+  - https://developer.augusthealth.com/reference/listpersonincidentsv1.md
+  - https://developer.augusthealth.com/reference/listpersonmedicationadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listpersonmedicationordersv1.md
+  - https://developer.augusthealth.com/reference/listprncarecategoriesv1.md
+  - https://developer.augusthealth.com/reference/listresidentbillingtransactionsv1.md
+  - https://developer.augusthealth.com/reference/listroomsv1.md
+  - https://developer.augusthealth.com/reference/listroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listshiftsv1.md
+  - https://developer.augusthealth.com/reference/listtasksv1.md
+  - https://developer.augusthealth.com/reference/listusersv1.md
+  - https://developer.augusthealth.com/reference/listvisitorlogsv1.md
+  - https://developer.augusthealth.com/reference/listvitalsv1.md
+  - https://developer.augusthealth.com/reference/patchpersonv1.md
+  - https://developer.augusthealth.com/reference/recordchargesv1.md
+  - https://developer.augusthealth.com/reference/recorddepositv1.md
+  - https://developer.augusthealth.com/reference/searchstatementsv1.md
+  - https://developer.augusthealth.com/reference/setresponsiblepersonv1-1.md
+  - https://developer.augusthealth.com/reference/updateincidentv1.md
+  - https://developer.augusthealth.com/reference/updatevitalv1.md
+  merge:
+    pages: 61
+    deduped: 634
+    conflicts_kept_first: 0

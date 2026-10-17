@@ -1,0 +1,427 @@
+openapi: 3.2.0
+info:
+  title: August Health Integrations Assessments (v1) API
+  version: '1.0'
+servers:
+- url: https://integrations.staging.augusthealth.com
+security:
+- BearerAuth: []
+tags:
+- name: Assessments (v1)
+paths:
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/assessments/latest:
+    get:
+      description: 'Returns the most recent completed/finalized internal assessment for a person.
+
+        External/imported assessments are excluded from this endpoint.'
+      operationId: getLatestAssessmentV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.assessments.v1.Assessment'
+                type: object
+          description: Successfully retrieved the latest assessment.
+        '401':
+          description: No credentials provided
+        '403':
+          description: Not authorized for this resource
+        '404':
+          description: Resource not found
+      summary: Get the latest assessment
+      tags:
+      - Assessments (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/assessments/{snapshotId}:
+    get:
+      description: 'Returns a specific assessment by snapshot ID.
+
+        The snapshot must belong to the specified person and be an assessment type.'
+      operationId: getAssessmentV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: snapshotId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.assessments.v1.Assessment'
+                type: object
+          description: Successfully retrieved the assessment.
+        '401':
+          description: No credentials provided
+        '403':
+          description: Not authorized for this resource
+        '404':
+          description: Resource not found
+      summary: Get an assessment by ID
+      tags:
+      - Assessments (v1)
+components:
+  schemas:
+    com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentReason:
+      enum:
+      - ASSESSMENT_REASON_PRE_ADMISSION
+      - ASSESSMENT_REASON_ON_ADMISSION
+      - ASSESSMENT_REASON_7_DAY
+      - ASSESSMENT_REASON_30_DAY
+      - ASSESSMENT_REASON_RECURRING
+      - ASSESSMENT_REASON_CHANGE_OF_CONDITION
+      - ASSESSMENT_REASON_OTHER
+      - ASSESSMENT_REASON_90_DAY
+      - ASSESSMENT_REASON_ALIGNMENT
+      - ASSESSMENT_REASON_14_DAY
+      - ASSESSMENT_REASON_6_MONTH
+      type: string
+    com.august.protos.settings.appraisal_settings.AppraisalSettings.Level:
+      enum:
+      - LEVEL_NONE
+      - LEVEL_MINIMAL
+      - LEVEL_MODERATE
+      - LEVEL_MAX
+      type: string
+    com.august.api.integrations.models.assessments.v1.AssessmentScores:
+      properties:
+        additionalScores:
+          description: Other configured score types (e.g., medication score)
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.assessments.v1.AdditionalScore'
+            description: Other configured score types (e.g., medication score)
+          type: array
+        levelOfCare:
+          $ref: '#/components/schemas/com.august.api.integrations.models.assessments.v1.LevelOfCareScore'
+          description: The primary level of care determination
+        totalScore:
+          description: The total points from all selections
+          format: int32
+          type: integer
+      required:
+      - totalScore
+      - additionalScores
+    com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentType:
+      enum:
+      - ASSESSMENT_TYPE_SUPERVISORY_CARE
+      - ASSESSMENT_TYPE_PERSONAL_CARE
+      - ASSESSMENT_TYPE_DIRECTED_CARE
+      - ASSESSMENT_TYPE_DIRECTED_CARE_MEMORY_SERVICES
+      - ASSESSMENT_TYPE_SPECIAL_CARE_RESIDENT
+      - ASSESSMENT_TYPE_TRADITIONAL_RESIDENT
+      type: string
+    com.august.protos.admissions.AdmissionsInformation.AdmissionType:
+      enum:
+      - ADMISSION_TYPE_ASSISTED_LIVING
+      - ADMISSION_TYPE_MEMORY_CARE
+      - ADMISSION_TYPE_INDEPENDENT_LIVING
+      type: string
+    com.august.api.integrations.models.assessments.v1.LevelOfCareScore:
+      properties:
+        level:
+          description: The care level number (1-N based on facility configuration)
+          format: int32
+          type: integer
+        levelName:
+          description: Custom level name if configured (e.g., "Level 3 - Enhanced Care")
+          type: string
+        score:
+          description: The score that determined this level
+          format: int32
+          type: integer
+      required:
+      - level
+      - score
+    com.august.api.integrations.models.assessments.v1.SelectedDetail:
+      properties:
+        detailType:
+          description: 'The source of this detail: "assessment" for assessment-entered data, "resident" for auto-populated resident data (August fields)'
+          type: string
+        fieldType:
+          description: 'The type of field: "boolean" for checkbox/yes-no fields, "text" for text input fields'
+          type: string
+        group:
+          description: Answer group name if this detail belongs to a group
+          type: string
+        id:
+          description: The detail identifier - can be a standard detail enum (e.g., "BATHING_DETAILS_USES_SHOWER_CHAIR"), a custom field UUID, or an August field enum (e.g., "AUGUST_FIELD_TYPE_HAS_DEMENTIA")
+          type: string
+        label:
+          description: Human-readable description of this detail
+          type: string
+        score:
+          description: Points contributed by this detail selection (None for resident-sourced details)
+          format: int32
+          type: integer
+        value:
+          description: 'The value: "true" for boolean fields, text content for text fields'
+          type: string
+      required:
+      - id
+      - detailType
+      - label
+      - fieldType
+      - value
+    com.august.protos.snapshot.SnapshotStatus:
+      enum:
+      - SNAPSHOT_STATUS_DRAFT
+      - SNAPSHOT_STATUS_COMPLETE
+      - SNAPSHOT_STATUS_ARCHIVED
+      - SNAPSHOT_STATUS_DISCARDED
+      type: string
+    com.august.api.integrations.models.assessments.v1.SelectedLevel:
+      properties:
+        label:
+          description: Human-readable description of this level
+          type: string
+        score:
+          description: Points contributed by this level selection
+          format: int32
+          type: integer
+        value:
+          $ref: '#/components/schemas/com.august.protos.settings.appraisal_settings.AppraisalSettings.Level'
+          description: The level enum value (e.g., "LEVEL_MODERATE")
+      required:
+      - value
+      - label
+      - score
+    com.august.api.integrations.models.assessments.v1.AssessmentCategory:
+      properties:
+        customKey:
+          description: For custom categories, the unique identifier
+          type: string
+        key:
+          $ref: '#/components/schemas/com.august.protos.service_plan.ServicePlan.PlanCategoryKey'
+          description: The full category key enum (e.g., "PLAN_CATEGORY_KEY_BATHING")
+        name:
+          description: Human-readable category name (e.g., "Bathing")
+          type: string
+        notes:
+          description: Free-text notes for this category
+          type: string
+        selectedDetails:
+          description: Details/options selected for this category with their labels
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.assessments.v1.SelectedDetail'
+            description: Details/options selected for this category with their labels
+          type: array
+        selectedLevel:
+          $ref: '#/components/schemas/com.august.api.integrations.models.assessments.v1.SelectedLevel'
+          description: The selected assistance level for this category
+      required:
+      - key
+      - name
+      - selectedDetails
+    com.august.api.integrations.models.assessments.v1.Assessment:
+      properties:
+        admissionType:
+          $ref: '#/components/schemas/com.august.protos.admissions.AdmissionsInformation.AdmissionType'
+          description: The admission type at the time of assessment
+        assessmentReason:
+          $ref: '#/components/schemas/com.august.api.integrations.models.assessments.v1.AssessmentReason'
+          description: The reason for this assessment (e.g., Move In, Change of Condition)
+        assessmentType:
+          $ref: '#/components/schemas/com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentType'
+          description: State-specific assessment type (e.g., "ASSESSMENT_TYPE_PERSONAL_CARE")
+        categories:
+          description: All assessment categories with their questions and answers
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.assessments.v1.AssessmentCategory'
+            description: All assessment categories with their questions and answers
+          type: array
+        completedAt:
+          description: When the assessment was finalized
+          format: date-time
+          type: string
+        id:
+          description: The unique identifier for this assessment snapshot
+          type: string
+        personId:
+          description: The ID of the person this assessment belongs to
+          type: string
+        scores:
+          $ref: '#/components/schemas/com.august.api.integrations.models.assessments.v1.AssessmentScores'
+          description: Calculated scores from the assessment
+        status:
+          $ref: '#/components/schemas/com.august.protos.snapshot.SnapshotStatus'
+          description: The assessment status (e.g., "SNAPSHOT_STATUS_COMPLETE", "SNAPSHOT_STATUS_ARCHIVED")
+      required:
+      - id
+      - personId
+      - status
+      - categories
+      - scores
+    com.august.api.integrations.models.assessments.v1.AdditionalScore:
+      properties:
+        level:
+          description: The level if this score type uses levels
+          format: int32
+          type: integer
+        levelName:
+          description: Custom level name if configured
+          type: string
+        name:
+          description: Human-readable name for this score type
+          type: string
+        score:
+          description: The calculated score
+          format: int32
+          type: integer
+        scoreTypeId:
+          description: The score type identifier
+          type: string
+      required:
+      - scoreTypeId
+      - name
+      - score
+    com.august.protos.service_plan.ServicePlan.PlanCategoryKey:
+      enum:
+      - PLAN_CATEGORY_KEY_BATHING
+      - PLAN_CATEGORY_KEY_CARE_COORDINATION
+      - PLAN_CATEGORY_KEY_DRESSING
+      - PLAN_CATEGORY_KEY_GROOMING
+      - PLAN_CATEGORY_KEY_DENTAL
+      - PLAN_CATEGORY_KEY_TOILETING
+      - PLAN_CATEGORY_KEY_TRANSFER_AND_MOBILITY
+      - PLAN_CATEGORY_KEY_HEARING
+      - PLAN_CATEGORY_KEY_VISION
+      - PLAN_CATEGORY_KEY_MEALS_AND_NUTRITION
+      - PLAN_CATEGORY_KEY_SPECIAL_CARE_NEEDS
+      - PLAN_CATEGORY_KEY_COGNITIVE
+      - PLAN_CATEGORY_KEY_WANDERING_AND_ELOPEMENT
+      - PLAN_CATEGORY_KEY_DISPOSITION_AND_BEHAVIORS
+      - PLAN_CATEGORY_KEY_SLEEP
+      - PLAN_CATEGORY_KEY_COMMUNICATION
+      - PLAN_CATEGORY_KEY_PSYCHO_SOCIAL_ENGAGEMENT
+      - PLAN_CATEGORY_KEY_MEDICATION_MANAGEMENT
+      - PLAN_CATEGORY_KEY_TRANSFER
+      - PLAN_CATEGORY_KEY_MOBILITY
+      - PLAN_CATEGORY_KEY_ADDITIONAL_SERVICES
+      - PLAN_CATEGORY_KEY_CUSTOM
+      type: string
+    com.august.api.integrations.models.assessments.v1.AssessmentReason:
+      properties:
+        label:
+          description: Human-readable label (e.g., "Move In")
+          type: string
+        otherReason:
+          description: Free text if reason is "OTHER"
+          type: string
+        value:
+          $ref: '#/components/schemas/com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentReason'
+          description: The reason enum value (e.g., "ASSESSMENT_REASON_ON_ADMISSION")
+      required:
+      - value
+      - label
+  securitySchemes:
+    BearerAuth:
+      scheme: bearer
+      type: http
+x-provenance:
+  method: searched
+  source: https://developer.augusthealth.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.augusthealth.com/reference/bulkchartroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/createcontactv1-1.md
+  - https://developer.augusthealth.com/reference/createincidentv1.md
+  - https://developer.augusthealth.com/reference/createpersonv1-1.md
+  - https://developer.augusthealth.com/reference/createresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/createtokenv1.md
+  - https://developer.augusthealth.com/reference/createvisitorlogv1.md
+  - https://developer.augusthealth.com/reference/createvitalv1.md
+  - https://developer.augusthealth.com/reference/createwebhooksportalaccessurlv1.md
+  - https://developer.augusthealth.com/reference/deletevisitorlogv1.md
+  - https://developer.augusthealth.com/reference/extractresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/getadmissionagreementpdfv1.md
+  - https://developer.augusthealth.com/reference/getadmissionagreementv1.md
+  - https://developer.augusthealth.com/reference/getadmissionhistoryv1.md
+  - https://developer.augusthealth.com/reference/getassessmentv1.md
+  - https://developer.augusthealth.com/reference/getbillingsummaryv1.md
+  - https://developer.augusthealth.com/reference/getcensuspersonv1.md
+  - https://developer.augusthealth.com/reference/getcontactv1-1.md
+  - https://developer.augusthealth.com/reference/getfacilityadmissionhistoryv1.md
+  - https://developer.augusthealth.com/reference/getfacilitybedassignmenthistoryv1.md
+  - https://developer.augusthealth.com/reference/getimmunizationv1.md
+  - https://developer.augusthealth.com/reference/getincidentv1.md
+  - https://developer.augusthealth.com/reference/getlatestadmissionagreementv1.md
+  - https://developer.augusthealth.com/reference/getlatestassessmentv1.md
+  - https://developer.augusthealth.com/reference/getlatestresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/getpersonprofilephotov1.md
+  - https://developer.augusthealth.com/reference/getpersonv1-1.md
+  - https://developer.augusthealth.com/reference/getstatementpdfv1.md
+  - https://developer.augusthealth.com/reference/getvitalv1.md
+  - https://developer.augusthealth.com/reference/listbedassignmentsv1.md
+  - https://developer.augusthealth.com/reference/listcensusv1.md
+  - https://developer.augusthealth.com/reference/listcontactsv1-1.md
+  - https://developer.augusthealth.com/reference/listfacilitiesv1-1.md
+  - https://developer.augusthealth.com/reference/listfacilitybillingsummariesv1.md
+  - https://developer.augusthealth.com/reference/listfacilityincidentsv1.md
+  - https://developer.augusthealth.com/reference/listfacilitymedicationadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listfacilitymedicationordersv1.md
+  - https://developer.augusthealth.com/reference/listfacilityroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listimmunizationsv1.md
+  - https://developer.augusthealth.com/reference/listmedpassesv1.md
+  - https://developer.augusthealth.com/reference/listorganizationsv1.md
+  - https://developer.augusthealth.com/reference/listpeoplev1-1.md
+  - https://developer.augusthealth.com/reference/listpersonincidentsv1.md
+  - https://developer.augusthealth.com/reference/listpersonmedicationadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listpersonmedicationordersv1.md
+  - https://developer.augusthealth.com/reference/listprncarecategoriesv1.md
+  - https://developer.augusthealth.com/reference/listresidentbillingtransactionsv1.md
+  - https://developer.augusthealth.com/reference/listroomsv1.md
+  - https://developer.augusthealth.com/reference/listroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listshiftsv1.md
+  - https://developer.augusthealth.com/reference/listtasksv1.md
+  - https://developer.augusthealth.com/reference/listusersv1.md
+  - https://developer.augusthealth.com/reference/listvisitorlogsv1.md
+  - https://developer.augusthealth.com/reference/listvitalsv1.md
+  - https://developer.augusthealth.com/reference/patchpersonv1.md
+  - https://developer.augusthealth.com/reference/recordchargesv1.md
+  - https://developer.augusthealth.com/reference/recorddepositv1.md
+  - https://developer.augusthealth.com/reference/searchstatementsv1.md
+  - https://developer.augusthealth.com/reference/setresponsiblepersonv1-1.md
+  - https://developer.augusthealth.com/reference/updateincidentv1.md
+  - https://developer.augusthealth.com/reference/updatevitalv1.md
+  merge:
+    pages: 61
+    deduped: 634
+    conflicts_kept_first: 0

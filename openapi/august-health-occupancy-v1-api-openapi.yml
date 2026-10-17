@@ -1,0 +1,434 @@
+openapi: 3.2.0
+info:
+  title: August Health Integrations Occupancy (v1) API
+  version: '1.0'
+servers:
+- url: https://integrations.staging.augusthealth.com
+security:
+- BearerAuth: []
+tags:
+- name: Occupancy (v1)
+paths:
+  /v1/organizations/{orgId}/facilities/{facilityId}/admissions:
+    get:
+      description: Returns paginated admission and discharge history for all residents in the specified facility
+      operationId: getFacilityAdmissionHistoryV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          format: int32
+          type: integer
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/com.august.api.integrations.models.admissions.v1.GetAdmissionHistoryResponse'
+                    type: array
+                  meta:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.common.ApiResponseMetadata'
+                type: object
+          description: Successfully retrieved facility admission history.
+      summary: Get admission history for all residents in a facility
+      tags:
+      - Occupancy (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/bedAssignments:
+    get:
+      description: Returns paginated bed assignment history for all residents in the specified facility
+      operationId: getFacilityBedAssignmentHistoryV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          format: int32
+          type: integer
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/com.august.api.integrations.models.bed_assignments.v1.ListBedAssignmentsResponse'
+                    type: array
+                  meta:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.common.ApiResponseMetadata'
+                type: object
+          description: Successfully retrieved facility bed assignment history.
+      summary: Get bed assignment history for all residents in a facility
+      tags:
+      - Occupancy (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/admissions:
+    get:
+      description: Returns the complete admission and discharge history for a specific resident
+      operationId: getAdmissionHistoryV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.admissions.v1.GetAdmissionHistoryResponse'
+                type: object
+          description: Successfully retrieved admission history.
+      summary: Get admission history for a resident
+      tags:
+      - Occupancy (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/bedAssignments:
+    get:
+      description: Returns the complete bed assignment history for a specific resident
+      operationId: listBedAssignmentsV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.bed_assignments.v1.ListBedAssignmentsResponse'
+                type: object
+          description: Successfully retrieved bed assignment history.
+      summary: List bed assignment history for a resident
+      tags:
+      - Occupancy (v1)
+components:
+  schemas:
+    com.august.api.integrations.models.admissions.v1.AdmissionRecord:
+      properties:
+        admittedByUserId:
+          type: string
+        createdAt:
+          description: Timestamp of the admission record's creation time
+          format: date-time
+          type: string
+        dischargeDetails:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.DischargeDetails'
+          description: Details about the discharge, if the resident was discharged
+        dischargedByUserId:
+          type: string
+        financialMoveInDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        isCurrentAdmission:
+          description: True if this is the current/active admission (i.e. when true, it means there is no moveOutDate)
+          type: boolean
+        modifiedAt:
+          description: Timestamp of the admission record's last modification time
+          format: date-time
+          type: string
+        moveInDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        moveOutDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+      required:
+      - moveInDate
+      - isCurrentAdmission
+      - createdAt
+      - modifiedAt
+    com.august.api.integrations.models.common.ApiResponseMetadata:
+      properties:
+        limit:
+          description: The limit used for a paginated request for the query
+          format: int32
+          type: integer
+        offset:
+          description: The offset used for a paginated request for the query
+          format: int32
+          type: integer
+        total:
+          description: The total number of available items for the query
+          format: int32
+          type: integer
+      required:
+      - total
+      - limit
+      - offset
+    com.august.api.integrations.models.admissions.v1.GetAdmissionHistoryResponse:
+      properties:
+        admissions:
+          description: List of admission records, sorted by move-in date in descending order (most recent first)
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.admissions.v1.AdmissionRecord'
+            description: List of admission records, sorted by move-in date in descending order (most recent first)
+          type: array
+        personId:
+          type: string
+      required:
+      - personId
+      - admissions
+    com.august.api.integrations.models.people.v1.DischargeDetails:
+      properties:
+        financialMoveOutDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        motivation:
+          $ref: '#/components/schemas/com.august.protos.discharge_details.DischargeDetails.DischargeMotivation'
+          description: The underlying reason the resident left (e.g., financial, dissatisfaction, level of care)
+        moveOutDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        notes:
+          description: Free-text notes about the discharge
+          type: string
+        reason:
+          $ref: '#/components/schemas/com.august.protos.discharge_details.DischargeDetails.DischargeReason'
+          description: The discharge destination (e.g., skilled nursing, other assisted living). Despite its name, this field represents where the resident moved to, not why they left.
+      required:
+      - reason
+    com.august.api.integrations.models.bed_assignments.v1.BedAssignmentItem:
+      properties:
+        bed:
+          $ref: '#/components/schemas/com.august.api.integrations.models.bed_assignments.v1.BedInfo'
+        createdAt:
+          format: date-time
+          type: string
+        endDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        id:
+          type: string
+        isCurrentAssignment:
+          type: boolean
+        modifiedAt:
+          format: date-time
+          type: string
+        occupancyType:
+          enum:
+          - PRIVATE
+          - SHARED
+          - SECOND_OCCUPANT
+          type: string
+        replacesAssignmentId:
+          type: string
+        room:
+          $ref: '#/components/schemas/com.august.api.integrations.models.bed_assignments.v1.RoomInfo'
+        startDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+      required:
+      - id
+      - bed
+      - room
+      - occupancyType
+      - isCurrentAssignment
+      - createdAt
+      - modifiedAt
+    com.august.protos.discharge_details.DischargeDetails.DischargeReason:
+      enum:
+      - DISCHARGE_REASON_DECEASED
+      - DISCHARGE_REASON_MOVE_TO_PRIVATE
+      - DISCHARGE_REASON_MOVE_TO_INDEPENDENT_LIVING
+      - DISCHARGE_REASON_MOVE_TO_OTHER_ASSISTED_LIVING
+      - DISCHARGE_REASON_MOVE_TO_SKILLED_NURSING
+      - DISCHARGE_REASON_OTHER
+      type: string
+    com.august.api.integrations.models.bed_assignments.v1.ListBedAssignmentsResponse:
+      properties:
+        assignments:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.bed_assignments.v1.BedAssignmentItem'
+          type: array
+        personId:
+          type: string
+      required:
+      - personId
+      - assignments
+    com.august.api.integrations.models.bed_assignments.v1.BedInfo:
+      properties:
+        externalId:
+          description: The bed's ID in the external system that manages the facility's rooms and beds.
+          type: string
+        id:
+          type: string
+        isPrimary:
+          type: boolean
+        name:
+          type: string
+      required:
+      - id
+      - isPrimary
+    com.august.protos.discharge_details.DischargeDetails.DischargeMotivation:
+      enum:
+      - DISCHARGE_MOTIVATION_DISSATISFACTION
+      - DISCHARGE_MOTIVATION_FINANCIAL
+      - DISCHARGE_MOTIVATION_IMPROVED_HEALTH
+      - DISCHARGE_MOTIVATION_LEVEL_OF_CARE
+      - DISCHARGE_MOTIVATION_RELOCATED
+      - DISCHARGE_MOTIVATION_RETREAT_STAY
+      - DISCHARGE_MOTIVATION_OTHER
+      - DISCHARGE_MOTIVATION_DEATH
+      - DISCHARGE_MOTIVATION_CANCELLED_MOVE_IN
+      type: string
+    com.august.api.integrations.models.bed_assignments.v1.RoomInfo:
+      properties:
+        externalId:
+          description: The room's ID in the external system that manages the facility's rooms.
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      - name
+  securitySchemes:
+    BearerAuth:
+      scheme: bearer
+      type: http
+x-provenance:
+  method: searched
+  source: https://developer.augusthealth.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.augusthealth.com/reference/bulkchartroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/createcontactv1-1.md
+  - https://developer.augusthealth.com/reference/createincidentv1.md
+  - https://developer.augusthealth.com/reference/createpersonv1-1.md
+  - https://developer.augusthealth.com/reference/createresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/createtokenv1.md
+  - https://developer.augusthealth.com/reference/createvisitorlogv1.md
+  - https://developer.augusthealth.com/reference/createvitalv1.md
+  - https://developer.augusthealth.com/reference/createwebhooksportalaccessurlv1.md
+  - https://developer.augusthealth.com/reference/deletevisitorlogv1.md
+  - https://developer.augusthealth.com/reference/extractresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/getadmissionagreementpdfv1.md
+  - https://developer.augusthealth.com/reference/getadmissionagreementv1.md
+  - https://developer.augusthealth.com/reference/getadmissionhistoryv1.md
+  - https://developer.augusthealth.com/reference/getassessmentv1.md
+  - https://developer.augusthealth.com/reference/getbillingsummaryv1.md
+  - https://developer.augusthealth.com/reference/getcensuspersonv1.md
+  - https://developer.augusthealth.com/reference/getcontactv1-1.md
+  - https://developer.augusthealth.com/reference/getfacilityadmissionhistoryv1.md
+  - https://developer.augusthealth.com/reference/getfacilitybedassignmenthistoryv1.md
+  - https://developer.augusthealth.com/reference/getimmunizationv1.md
+  - https://developer.augusthealth.com/reference/getincidentv1.md
+  - https://developer.augusthealth.com/reference/getlatestadmissionagreementv1.md
+  - https://developer.augusthealth.com/reference/getlatestassessmentv1.md
+  - https://developer.augusthealth.com/reference/getlatestresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/getpersonprofilephotov1.md
+  - https://developer.augusthealth.com/reference/getpersonv1-1.md
+  - https://developer.augusthealth.com/reference/getstatementpdfv1.md
+  - https://developer.augusthealth.com/reference/getvitalv1.md
+  - https://developer.augusthealth.com/reference/listbedassignmentsv1.md
+  - https://developer.augusthealth.com/reference/listcensusv1.md
+  - https://developer.augusthealth.com/reference/listcontactsv1-1.md
+  - https://developer.augusthealth.com/reference/listfacilitiesv1-1.md
+  - https://developer.augusthealth.com/reference/listfacilitybillingsummariesv1.md
+  - https://developer.augusthealth.com/reference/listfacilityincidentsv1.md
+  - https://developer.augusthealth.com/reference/listfacilitymedicationadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listfacilitymedicationordersv1.md
+  - https://developer.augusthealth.com/reference/listfacilityroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listimmunizationsv1.md
+  - https://developer.augusthealth.com/reference/listmedpassesv1.md
+  - https://developer.augusthealth.com/reference/listorganizationsv1.md
+  - https://developer.augusthealth.com/reference/listpeoplev1-1.md
+  - https://developer.augusthealth.com/reference/listpersonincidentsv1.md
+  - https://developer.augusthealth.com/reference/listpersonmedicationadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listpersonmedicationordersv1.md
+  - https://developer.augusthealth.com/reference/listprncarecategoriesv1.md
+  - https://developer.augusthealth.com/reference/listresidentbillingtransactionsv1.md
+  - https://developer.augusthealth.com/reference/listroomsv1.md
+  - https://developer.augusthealth.com/reference/listroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listshiftsv1.md
+  - https://developer.augusthealth.com/reference/listtasksv1.md
+  - https://developer.augusthealth.com/reference/listusersv1.md
+  - https://developer.augusthealth.com/reference/listvisitorlogsv1.md
+  - https://developer.augusthealth.com/reference/listvitalsv1.md
+  - https://developer.augusthealth.com/reference/patchpersonv1.md
+  - https://developer.augusthealth.com/reference/recordchargesv1.md
+  - https://developer.augusthealth.com/reference/recorddepositv1.md
+  - https://developer.augusthealth.com/reference/searchstatementsv1.md
+  - https://developer.augusthealth.com/reference/setresponsiblepersonv1-1.md
+  - https://developer.augusthealth.com/reference/updateincidentv1.md
+  - https://developer.augusthealth.com/reference/updatevitalv1.md
+  merge:
+    pages: 61
+    deduped: 634
+    conflicts_kept_first: 0

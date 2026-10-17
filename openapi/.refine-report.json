@@ -1,0 +1,66 @@
+{
+  "provider": "august-health",
+  "sources": [
+    "august-health-integrations-api-openapi.yml"
+  ],
+  "outputs": [
+    "august-health-admission-agreements-v1-api-openapi.yml",
+    "august-health-assessments-v1-api-openapi.yml",
+    "august-health-billing-v1-api-openapi.yml",
+    "august-health-care-v1-api-openapi.yml",
+    "august-health-census-v1-api-openapi.yml",
+    "august-health-contacts-v1-api-openapi.yml",
+    "august-health-facilities-v1-api-openapi.yml",
+    "august-health-immunizations-v1-api-openapi.yml",
+    "august-health-incidents-v1-api-openapi.yml",
+    "august-health-med-passes-v1-api-openapi.yml",
+    "august-health-medication-administrations-v1-api-openapi.yml",
+    "august-health-medication-orders-v1-api-openapi.yml",
+    "august-health-occupancy-v1-api-openapi.yml",
+    "august-health-organizations-v1-api-openapi.yml",
+    "august-health-residents-v1-api-openapi.yml",
+    "august-health-shifts-v1-api-openapi.yml",
+    "august-health-tasks-v1-api-openapi.yml",
+    "august-health-tokens-v1-api-openapi.yml",
+    "august-health-users-v1-api-openapi.yml",
+    "august-health-visitor-logs-v1-api-openapi.yml",
+    "august-health-vitals-v1-api-openapi.yml",
+    "august-health-webhooks-v1-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [
+    "august-health-integrations-api-openapi.yml: previously refined output kept for 61 operation(s) no archived document covers (e.g. /v1/organizations get, /v1/organizations/{orgId}/facilities get, /v1/organizations/{orgId}/facilities/{facilityId}/admissions get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "august-health-integrations-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Admission Agreements (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Assessments (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Billing (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Care (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Census (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Contacts (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Facilities (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Immunizations (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Incidents (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Med Passes (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Medication Administrations (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Medication Orders (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Occupancy (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Organizations (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Residents (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Shifts (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Tasks (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Tokens (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Users (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Visitor Logs (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Vitals (v1)",
+    "august-health-integrations-api-openapi.yml: declared missing tag: Webhooks (v1)",
+    "superseded outputs removed: august-health-integrations-api-openapi.yml",
+    "apis.yml register: written (+22 apis, 22 total)"
+  ],
+  "skipped": []
+}

@@ -1,0 +1,2829 @@
+openapi: 3.2.0
+info:
+  title: August Health Integrations Residents (v1) API
+  version: '1.0'
+servers:
+- url: https://integrations.staging.augusthealth.com
+security:
+- BearerAuth: []
+tags:
+- name: Residents (v1)
+paths:
+  /v1/organizations/{orgId}/facilities/{facilityId}/people:
+    post:
+      description: Create a resident within a specific facility. Supplying an external ID already used in the facility returns a 400 confirmation-required error unless `allowDuplicateExternalIds=true`.
+      operationId: createPersonV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - description: Create the resident even if another prospect or current resident in the same facility already has one of the supplied external IDs.
+        in: query
+        name: allowDuplicateExternalIds
+        required: false
+        schema:
+          default: false
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.CreatePersonRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Person'
+                type: object
+          description: Successfully created a new resident.
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - data:
+                    confirmationRequired: true
+                    conflicts:
+                    - field: yardiResidentId
+                      personIds:
+                      - '4521'
+                      value: t0012345
+                  message: Another prospect or current resident in this facility already has this external ID. Resend the request with allowDuplicateExternalIds=true to proceed anyway.
+          description: Invalid request, or confirmation required (`data.confirmationRequired` is `true`) because a supplied external ID is already in use in this facility. Nothing is created. Resend with `allowDuplicateExternalIds=true` to create the resident anyway.
+        '401':
+          description: Authentication required
+        '403':
+          description: User lacks permission to create residents in this facility
+      summary: Create Person
+      tags:
+      - Residents (v1)
+    get:
+      description: Lists all residents within a facility
+      operationId: listPeopleV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          format: int32
+          type: integer
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+      - in: query
+        name: residentStatus
+        required: false
+        schema:
+          $ref: '#/components/schemas/com.august.protos.person.ResidentStatus'
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Person'
+                    type: array
+                  meta:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.common.ApiResponseMetadata'
+                type: object
+          description: Successfully listed residents.
+      summary: List People
+      tags:
+      - Residents (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}:
+    get:
+      description: Get a specific resident within a facility
+      operationId: getPersonV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                data:
+                  additionalScores:
+                  - level: 2
+                    levelName: Moderate Risk
+                    score: 6
+                    scoreTypeId: fall-risk
+                    scoreTypeName: Fall Risk
+                  address:
+                  - city: Anytown
+                    line:
+                    - 123 Main St
+                    postalCode: '12345'
+                    state: CA
+                    text: 123 Main St, Anytown, CA 12345
+                    use: ADDRESS_USE_OLD
+                  admissionsInformation:
+                    admissionType: ADMISSION_TYPE_ASSISTED_LIVING
+                    bedDetails:
+                      endDate: '2023-10-28'
+                      facilityId: '11223'
+                      id: '1'
+                      name: A
+                      orgId: '67890'
+                      roomId: '101'
+                      startDate: '2023-01-01'
+                    bedId: '1'
+                    financialStartDate: '2023-01-01'
+                    moveInStartDate: '2023-01-01'
+                    roomDetails:
+                      facilityId: '11223'
+                      id: '101'
+                      name: Room 101-A
+                      orgId: '67890'
+                  allergiesAndIntolerances:
+                    allergies:
+                    - category: ALLERGY_INTOLERANCE_CATEGORY_MEDICATION
+                      summary: Penicillin - causes rash
+                    - category: ALLERGY_INTOLERANCE_CATEGORY_FOOD
+                      summary: Peanuts - anaphylaxis
+                  ambulatoryStatus:
+                    ambulatoryResult: AMBULATORY_RESULT_SEMI_AMBULATORY
+                    bedStatus:
+                      code: CODE_OUT_OF_BED_ALL_DAY
+                      comment: Rises and retires at will
+                    code: AMBULATORY_CODE_WALKS_WITH_CANE
+                    evacuation:
+                      ableToEvacuateReasonablyQuickly: true
+                      ableToFollowInstructions: true
+                    safeToLeaveWithoutSupervision: true
+                  assessmentFinalizedAt: '2023-01-01T10:00:00Z'
+                  assessments:
+                  - completedAt: '2023-01-01T10:00:00Z'
+                    id: '98765'
+                    url: https://integrations.staging.augusthealth.com/v1/organizations/67890/facilities/11223/people/12345/assessments/98765
+                  - completedAt: '2022-06-15T14:30:00Z'
+                    id: '87654'
+                    url: https://integrations.staging.augusthealth.com/v1/organizations/67890/facilities/11223/people/12345/assessments/87654
+                  birthdate: '1950-01-15'
+                  communication:
+                  - languageStr: English
+                    preferred: true
+                  conditions:
+                  - code:
+                      coding:
+                      - code: I10
+                        display: Essential (primary) hypertension
+                        systemEnum: SYSTEM_URL_ICD_10
+                      text: Hypertension
+                    isPrimary: true
+                  contact:
+                  - address:
+                      city: Anytown
+                      line:
+                      - 456 Oak Ave
+                      postalCode: '12345'
+                      state: CA
+                      use: ADDRESS_USE_HOME
+                    id: '1'
+                    name:
+                      family: Doe
+                      given:
+                      - Jane
+                    note: Primary emergency contact.
+                    organization:
+                      address:
+                      - city: Anytown
+                        line:
+                        - 789 Legal Lane
+                        postalCode: '12345'
+                        state: CA
+                        use: ADDRESS_USE_WORK
+                      contact: []
+                      name: Jane Doe Law Firm
+                      telecom:
+                      - system: CONTACT_POINT_SYSTEM_PHONE
+                        use: CONTACT_POINT_USE_WORK
+                        value: 555-333-4444
+                    relationship:
+                    - CONTACT_RELATIONSHIP_CHILD
+                    - CONTACT_RELATIONSHIP_MEDICAL_POWER_OF_ATTORNEY
+                    telecom:
+                    - system: CONTACT_POINT_SYSTEM_PHONE
+                      use: CONTACT_POINT_USE_MOBILE
+                      value: 555-111-2222
+                  coverage:
+                  - groupId:
+                      value: U02425
+                    name: Medicare Part A & B
+                    notes: Primary medical coverage
+                    period:
+                      startDate: '2015-01-01'
+                    rxbin:
+                      value: '610502'
+                    rxpcn:
+                      value: MEDDADV
+                    subscriberId: 123456789-A
+                    type: COVERAGE_TYPE_PHARMACY
+                  cprCode: CPR_DO_NOT_ATTEMPT_RESUSCITATION
+                  createdAt: '2023-01-01T09:00:00Z'
+                  diagnosticResults:
+                  - actionTaken: No action required.
+                    additionalDetails: Annual screening.
+                    code: DIAGNOSTIC_REPORT_CODE_TB_SKIN_TEST
+                    conclusionCode: CONCLUSION_CODE_NEGATIVE
+                    effectiveDate: '2022-12-15'
+                  dischargeInformation:
+                    financialMoveOutDate: '2023-10-31'
+                    motivation: DISCHARGE_MOTIVATION_LEVEL_OF_CARE
+                    moveOutDate: '2023-10-28'
+                    notes: Requires a higher level of care.
+                    reason: DISCHARGE_REASON_MOVE_TO_SKILLED_NURSING
+                  externalFields:
+                    eldermarkResidentId: EM456
+                    yardiResidentId: YD123
+                  facilityId: '11223'
+                  functionalStatus:
+                    bathing:
+                    - capabilityCode: CAPABILITY_CODE_BATHING_INDEPENDENT_USES_GRAB_BARS
+                      summary: Can bathe with grab bars
+                    communication:
+                    - capabilityCode: CAPABILITY_CODE_COMMUNICATION_NO_DIFFICULTY
+                    dressing:
+                    - capabilityCode: CAPABILITY_CODE_DRESSING_INDEPENDENT
+                    eating:
+                    - capabilityCode: CAPABILITY_CODE_EATING_INDEPENDENT
+                    grooming:
+                    - capabilityCode: CAPABILITY_CODE_GROOMING_INDEPENDENT
+                    medication:
+                    - capabilityCode: CAPABILITY_CODE_MEDICATION_INDEPENDENT
+                      summary: Manages own medications
+                    mobility:
+                    - capabilityCode: CAPABILITY_CODE_MOBILITY_FACILITY_INDEPENDENT
+                    money:
+                    - capabilityCode: CAPABILITY_CODE_MONEY_MGMT_INDEPENDENT
+                      summary: Manages own finances
+                    toileting:
+                    - capabilityCode: CAPABILITY_CODE_TOILETING_INDEPENDENT
+                    transferring:
+                    - capabilityCode: CAPABILITY_CODE_TRANSFERRING_INDEPENDENT
+                  futureBedAssignment:
+                    bed:
+                      facilityId: '11223'
+                      id: '2'
+                      name: A
+                      orgId: '67890'
+                      roomId: '102'
+                      startDate: '2023-11-01'
+                    effectiveDate: '2023-11-01'
+                    id: '67890'
+                    occupancyType: PRIVATE
+                    room:
+                      facilityId: '11223'
+                      id: '102'
+                      name: Room 102-A
+                      orgId: '67890'
+                  gender: GENDER_MALE
+                  healthQuestionnaire:
+                    admissionSuitabilitySummary:
+                      code: RESPONSE_CODE_YES
+                      summary: Resident is a good fit for the community.
+                    hospitalizations:
+                      inThePastFiveYears: 0
+                      summary: No recent hospitalizations.
+                    medications:
+                    - summary: Lisinopril 10mg daily
+                    mentalHealth:
+                    - code: CONDITION_CODE_CONFUSED_OR_FORGETFUL
+                      severity: SEVERITY_MILD
+                      summary: Occasional short-term memory lapses.
+                    overallConditionCode: OVERALL_CONDITION_GOOD
+                    overallConditionSummary: Generally in good health for his age.
+                    physicalDisabilities:
+                    - code: CONDITION_CODE_MOBILITY_IMPAIRED
+                      severity: SEVERITY_MILD
+                      summary: Uses a cane for stability.
+                    servicesNeeded:
+                    - code: SERVICE_CODE_OTHER
+                      response:
+                        code: RESPONSE_CODE_YES
+                        summary: Assistance with meal reminders.
+                  hospiceStatus:
+                    onHospice: false
+                  hospital:
+                    category:
+                    - SERVICE_CATEGORY_HOSPITAL
+                    location:
+                    - address:
+                        city: Anytown
+                        line:
+                        - 456 Hospital Dr
+                        postalCode: '12345'
+                        state: CA
+                        use: ADDRESS_USE_WORK
+                    name: General Hospital
+                    telecom:
+                    - system: CONTACT_POINT_SYSTEM_PHONE
+                      use: CONTACT_POINT_USE_WORK
+                      value: 555-987-6543
+                  id: '12345'
+                  isOnAlert: false
+                  isOutOfFacility: true
+                  levelOfCare:
+                    assessmentType: ASSESSMENT_TYPE_PERSONAL_CARE
+                    careRate:
+                      amount: 5000
+                      currency: CURRENCY_USD
+                    levelName: Intermediate Care
+                    score: 75
+                    value: 3
+                  maritalStatus: MARITAL_STATUS_WIDOWED
+                  medGroupDetails:
+                    id: '1'
+                    name: Morning Medications
+                  name:
+                    family: Doe
+                    given:
+                    - John
+                    maiden: Smith
+                    preferredName: Johnny
+                    prefix: Mr.
+                    pronouns: PRONOUNS_HE_HIM
+                    suffix: Jr.
+                  orgId: '67890'
+                  outOfFacilityDetail:
+                    end: '2023-10-28T11:00:00'
+                    reason: Went to hospital
+                    reasonType: OUT_OF_FACILITY_REASON_HOSPITALIZATION
+                    start: '2023-10-25T14:00:00'
+                  outOfFacilityHistory:
+                  - end: '2023-09-17T19:00:00'
+                    reason: Weekend with family
+                    reasonType: OUT_OF_FACILITY_REASON_AWAY_WITH_FAMILY_FRIENDS
+                    start: '2023-09-15T17:00:00'
+                  religiousPreference: None
+                  residentStatus: RESIDENT_STATUS_DISCHARGED
+                  respiteStatus:
+                    isRespite: false
+                  shiftCareGroups:
+                  - careGroupId: '1'
+                    shiftId: '1'
+                  socialHistory:
+                    alcoholUse:
+                      effectiveDate: '2023-01-01'
+                      summary: Occasional glass of wine with dinner
+                      value: VALUE_CODE_ALCOHOL_USE_CURRENT_LIGHT
+                    diet:
+                      dietTypeValue:
+                      - Low-sodium
+                      summary: Following a low-sodium diet as per doctor's recommendation.
+                    dislikesAndHardshipsSummary: Dislikes loud noises.
+                    educationSummary: Bachelor's Degree in Engineering
+                    interestsAndActivitiesSummary: Enjoys reading, chess, and walks in the park.
+                    occupationSummary: Retired Civil Engineer
+                    other: Active in local community events.
+                    recentTbExposure:
+                      summary: No known exposure
+                      value: false
+                    tobaccoUse:
+                      effectiveDate: '2003-01-01'
+                      summary: Quit 20 years ago
+                      value: VALUE_CODE_TOBACCO_USE_FORMER
+                  telecom:
+                  - rank: 1
+                    system: CONTACT_POINT_SYSTEM_PHONE
+                    use: CONTACT_POINT_USE_HOME
+                    value: 555-123-4567
+                  - system: CONTACT_POINT_SYSTEM_EMAIL
+                    use: CONTACT_POINT_USE_HOME
+                    value: john.doe@example.com
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Person'
+                type: object
+          description: Successfully retrieved the resident.
+      summary: Get Person
+      tags:
+      - Residents (v1)
+    patch:
+      description: Partially update a resident with a JSON Merge Patch (RFC 7396). Omitted fields are unchanged, `null` clears a field, objects are merged recursively, and arrays are replaced whole. Setting an external ID already used in the facility returns a 400 confirmation-required error unless `allowDuplicateExternalIds=true`.
+      operationId: patchPersonV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - description: Apply the update even if another prospect or current resident in the same facility already has one of the external IDs being set. Does not bypass any other validation.
+        in: query
+        name: allowDuplicateExternalIds
+        required: false
+        schema:
+          default: false
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchPersonRequest'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchPersonRequest'
+        required: true
+      responses:
+        '204':
+          description: Successfully updated the resident. Use Get Person to read the result.
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - data:
+                    confirmationRequired: true
+                    conflicts:
+                    - field: yardiResidentId
+                      personIds:
+                      - '4521'
+                      value: t0012345
+                  message: Another prospect or current resident in this facility already has this external ID. Resend the request with allowDuplicateExternalIds=true to proceed anyway.
+          description: Invalid request, or confirmation required (`data.confirmationRequired` is `true`) because an external ID is already in use in this facility. Resend with `allowDuplicateExternalIds=true` to apply the update anyway.
+        '401':
+          description: Authentication required
+        '403':
+          description: User lacks permission to update this resident
+        '404':
+          description: Resident not found
+        '415':
+          description: Unsupported content type
+      summary: Update Person
+      tags:
+      - Residents (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/profilePhoto:
+    get:
+      description: Returns the profile photo for a resident as a binary image (168x168). Supports ETag-based caching via the If-None-Match header.
+      operationId: getPersonProfilePhotoV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - description: ETag value from a previous response. If the photo has not changed, a 304 Not Modified is returned.
+        in: header
+        name: If-None-Match
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            image/*:
+              schema:
+                format: binary
+                type: string
+          description: Profile photo binary image.
+          headers:
+            Cache-Control:
+              description: Caching directive for the response.
+              schema:
+                type: string
+            ETag:
+              description: Identifier for this version of the photo. Use with If-None-Match on subsequent requests.
+              schema:
+                type: string
+        '304':
+          description: Photo has not changed since the ETag provided in If-None-Match.
+        '404':
+          description: No profile photo exists for this resident.
+      summary: Get Person Profile Photo
+      tags:
+      - Residents (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/residentBiography:
+    post:
+      operationId: createResidentBiographyV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.CreateResidentBiographyRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyResponse'
+                type: object
+          description: Successfully created Resident Biography data
+      summary: Create Resident Biography
+      tags:
+      - Residents (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/residentBiography/extract:
+    post:
+      operationId: extractResidentBiographyV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ExtractResidentBiographyRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.CreateResidentBiographyRequest'
+                type: object
+          description: Successfully extracted structured resident biography data
+      summary: Extract structured resident biography from text
+      tags:
+      - Residents (v1)
+  /v1/organizations/{orgId}/facilities/{facilityId}/people/{personId}/residentBiography/latest:
+    get:
+      operationId: getLatestResidentBiographyV1
+      parameters:
+      - in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: facilityId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyResponse'
+                type: object
+          description: Successfully retrieved Resident Biography data
+      summary: Get latest Resident Biography
+      tags:
+      - Residents (v1)
+components:
+  schemas:
+    com.august.protos.ambulatory_status.AmbulatoryStatus.AmbulatoryResult:
+      enum:
+      - AMBULATORY_RESULT_AMBULATORY
+      - AMBULATORY_RESULT_BEDRIDDEN
+      - AMBULATORY_RESULT_NON_AMBULATORY
+      - AMBULATORY_RESULT_SEMI_AMBULATORY
+      type: string
+    com.august.api.integrations.models.resident_biography.v1.CreateResidentBiographyBasicRequest:
+      properties:
+        bio:
+          description: Free-text biography or additional notes about the resident.
+          type: string
+        family:
+          description: Information about the resident's family.
+          type: string
+        goals:
+          description: The resident's personal goals.
+          type: string
+        important:
+          description: What is most important to the resident.
+          type: string
+        location:
+          description: Where the resident was born or has lived.
+          type: string
+        talents:
+          description: Talents or skills the resident has.
+          type: string
+        topics:
+          description: Topics the resident enjoys talking about.
+          type: string
+        typicalDay:
+          description: Description of what a typical day looks like for the resident.
+          type: string
+    com.august.api.integrations.models.people.v1.PatchAllergiesAndIntolerances:
+      properties:
+        allergies:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.AllergyIntolerance'
+          type:
+          - array
+          - 'null'
+      required: []
+    com.august.api.integrations.models.common.ApiResponseMetadata:
+      properties:
+        limit:
+          description: The limit used for a paginated request for the query
+          format: int32
+          type: integer
+        offset:
+          description: The offset used for a paginated request for the query
+          format: int32
+          type: integer
+        total:
+          description: The total number of available items for the query
+          format: int32
+          type: integer
+      required:
+      - total
+      - limit
+      - offset
+    com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive:
+      properties:
+        aboutYou:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.AboutYou'
+        completedAt:
+          format: date-time
+          type: string
+        familyAndFriends:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.FamilyAndFriends'
+        id:
+          type: string
+        interests:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.Interests'
+        meals:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.Meals'
+        religiousPreferences:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.ReligiousPreferences'
+        routines:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.Routines'
+        status:
+          $ref: '#/components/schemas/com.august.protos.snapshot.SnapshotStatus'
+      required:
+      - id
+      - status
+      - aboutYou
+      - familyAndFriends
+      - religiousPreferences
+      - interests
+      - meals
+      - routines
+    ? com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMedication
+    : properties:
+        capabilityCode:
+          $ref: '#/components/schemas/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMedication'
+        summary:
+          type: string
+      required:
+      - capabilityCode
+    com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMoneyMgmt:
+      enum:
+      - CAPABILITY_CODE_MONEY_MGMT_DEPENDENT
+      - CAPABILITY_CODE_MONEY_MGMT_INDEPENDENT
+      type: string
+    com.august.protos.discharge_details.DischargeDetails.DischargeMotivation:
+      enum:
+      - DISCHARGE_MOTIVATION_DISSATISFACTION
+      - DISCHARGE_MOTIVATION_FINANCIAL
+      - DISCHARGE_MOTIVATION_IMPROVED_HEALTH
+      - DISCHARGE_MOTIVATION_LEVEL_OF_CARE
+      - DISCHARGE_MOTIVATION_RELOCATED
+      - DISCHARGE_MOTIVATION_RETREAT_STAY
+      - DISCHARGE_MOTIVATION_OTHER
+      - DISCHARGE_MOTIVATION_DEATH
+      - DISCHARGE_MOTIVATION_CANCELLED_MOVE_IN
+      type: string
+    com.august.protos.observation.Observation.ValueCode:
+      enum:
+      - VALUE_CODE_TOBACCO_USE_NEVER
+      - VALUE_CODE_TOBACCO_USE_CURRENT_LIGHT
+      - VALUE_CODE_TOBACCO_USE_CURRENT_HEAVY
+      - VALUE_CODE_TOBACCO_USE_FORMER
+      - VALUE_CODE_ALCOHOL_USE_NEVER
+      - VALUE_CODE_ALCOHOL_USE_CURRENT_LIGHT
+      - VALUE_CODE_ALCOHOL_USE_CURRENT_HEAVY
+      - VALUE_CODE_ALCOHOL_USE_FORMER
+      type: string
+    com.august.protos.functional_status.FunctionalStatus.CapabilityCodeDressing:
+      enum:
+      - CAPABILITY_CODE_DRESSING_FULLY_DEPENDENT
+      - CAPABILITY_CODE_DRESSING_PARTIALLY_DEPENDENT
+      - CAPABILITY_CODE_DRESSING_INDEPENDENT
+      type: string
+    com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.Routines:
+      properties:
+        bathingDays:
+          items:
+            $ref: '#/components/schemas/com.august.protos.timing.DayOfWeek'
+          type: array
+        bathingMethod:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.BathingMethod'
+          type: array
+        bathingTime:
+          example: '15:30:00'
+          format: time-local
+          type: string
+        dressingDaytime:
+          type: string
+        dressingNighttime:
+          type: string
+        otherRoutines:
+          type: string
+        typicalDay:
+          type: string
+    com.august.api.integrations.models.people.v1.HospiceStatus:
+      properties:
+        dateStarted:
+          example: '2020-01-01'
+          format: date
+          type: string
+        onHospice:
+          type: boolean
+      required:
+      - onHospice
+    com.august.protos.functional_status.FunctionalStatus.CapabilityCodeCommunication:
+      enum:
+      - CAPABILITY_CODE_COMMUNICATION_UNABLE
+      - CAPABILITY_CODE_COMMUNICATION_PRIMARILY_NON_VERBAL
+      - CAPABILITY_CODE_COMMUNICATION_VERBAL_WITH_DIFFICULTY
+      - CAPABILITY_CODE_COMMUNICATION_NO_DIFFICULTY
+      type: string
+    com.august.api.integrations.models.common_metadata.v1.HumanName:
+      properties:
+        family:
+          type: string
+        given:
+          items:
+            type: string
+          type: array
+        maiden:
+          type: string
+        preferredName:
+          type: string
+        prefix:
+          type: string
+        pronouns:
+          $ref: '#/components/schemas/com.august.protos.human_name.HumanName.Pronouns'
+        suffix:
+          type: string
+      required:
+      - given
+    com.august.api.integrations.models.common_metadata.v1.PatchHumanName:
+      properties:
+        family:
+          type:
+          - string
+          - 'null'
+        given:
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+        maiden:
+          type:
+          - string
+          - 'null'
+        preferredName:
+          type:
+          - string
+          - 'null'
+        prefix:
+          type:
+          - string
+          - 'null'
+        pronouns:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.protos.human_name.HumanName.Pronouns'
+          - type: 'null'
+        suffix:
+          type:
+          - string
+          - 'null'
+      required: []
+    com.august.api.integrations.models.contacts.v1.GenericOrganization:
+      properties:
+        address:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.Address'
+          type: array
+        contact:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.GenericOrganizationContact'
+          type: array
+        name:
+          type: string
+        telecom:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.ContactPoint'
+          type: array
+      required:
+      - telecom
+      - address
+      - contact
+    com.august.api.integrations.models.people.v1.QuestionResponse:
+      properties:
+        code:
+          $ref: '#/components/schemas/com.august.protos.health_questionnaire.HealthQuestionnaire.QuestionResponse.ResponseCode'
+        summary:
+          type: string
+      required:
+      - code
+    com.august.protos.person.OutOfFacilityReason:
+      enum:
+      - OUT_OF_FACILITY_REASON_HOSPITALIZATION
+      - OUT_OF_FACILITY_REASON_EMERGENCY_ROOM
+      - OUT_OF_FACILITY_REASON_AWAY_WITH_FAMILY_FRIENDS
+      - OUT_OF_FACILITY_REASON_REHAB
+      - OUT_OF_FACILITY_REASON_OTHER
+      type: string
+    com.august.api.integrations.models.contacts.v1.ContactPoint:
+      properties:
+        rank:
+          format: int32
+          type: integer
+        system:
+          $ref: '#/components/schemas/com.august.protos.contact_point.ContactPoint.ContactPointSystem'
+        use:
+          $ref: '#/components/schemas/com.august.protos.contact_point.ContactPoint.ContactPointUse'
+        value:
+          type: string
+      required:
+      - system
+      - use
+    com.august.api.integrations.models.people.v1.PatchObservationWithCode:
+      properties:
+        effectiveDate:
+          example: '2020-01-01'
+          format: date
+          type:
+          - string
+          - 'null'
+        summary:
+          type:
+          - string
+          - 'null'
+        value:
+          $ref: '#/components/schemas/com.august.protos.observation.Observation.ValueCode'
+    com.august.api.integrations.models.people.v1.MedGroupDetailsOnCreate:
+      properties:
+        id:
+          type: string
+    com.august.api.integrations.models.people.v1.HealthcareService:
+      properties:
+        category:
+          items:
+            $ref: '#/components/schemas/com.august.protos.healthcare_service.HealthcareService.ServiceCategory'
+          type: array
+        location:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Location'
+          type: array
+        name:
+          type: string
+        telecom:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.ContactPoint'
+          type: array
+      required:
+      - category
+      - telecom
+      - location
+    com.august.api.integrations.models.people.v1.FutureBedAssignment:
+      properties:
+        bed:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Bed'
+          description: The bed the resident will move to
+        effectiveDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        id:
+          description: The scheduled bed assignment's ID
+          type: string
+        occupancyType:
+          description: Whether the destination bed is private or shared
+          enum:
+          - PRIVATE
+          - SHARED
+          - SECOND_OCCUPANT
+          type: string
+        room:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Room'
+          description: The room the resident will move to
+      required:
+      - id
+      - effectiveDate
+      - occupancyType
+      - room
+      - bed
+    com.august.api.integrations.models.common_metadata.v1.Language:
+      enum:
+      - Afrikaans
+      - Albanian
+      - Arabic
+      - Armenian
+      - Basque
+      - Bengali
+      - Bulgarian
+      - Catalan
+      - Cambodian
+      - Chinese
+      - Croatian
+      - Czech
+      - Danish
+      - Dutch
+      - English
+      - Estonian
+      - Fiji
+      - Finnish
+      - French
+      - Georgian
+      - German
+      - Greek
+      - Gujarati
+      - Hebrew
+      - Hindi
+      - Hungarian
+      - Icelandic
+      - Indonesian
+      - Irish
+      - Italian
+      - Japanese
+      - Javanese
+      - Korean
+      - Latin
+      - Latvian
+      - Lithuanian
+      - Macedonian
+      - Malay
+      - Malayalam
+      - Maltese
+      - Maori
+      - Marathi
+      - Mongolian
+      - Nepali
+      - Norwegian
+      - Persian
+      - Polish
+      - Portuguese
+      - Punjabi
+      - Quechua
+      - Romanian
+      - Russian
+      - Samoan
+      - Serbian
+      - Slovak
+      - Slovenian
+      - Spanish
+      - Swahili
+      - Swedish
+      - Tamil
+      - Tatar
+      - Tagalog
+      - Telugu
+      - Thai
+      - Tibetan
+      - Tonga
+      - Turkish
+      - Ukrainian
+      - Urdu
+      - Uzbek
+      - Vietnamese
+      - Welsh
+      - Xhosa
+      type: string
+    com.august.api.integrations.models.resident_biography.v1.BathingMethod:
+      enum:
+      - SHOWER
+      - BATH
+      - SPONGE_BATH
+      type: string
+    com.august.protos.functional_status.FunctionalStatus.CapabilityCodeGrooming:
+      enum:
+      - CAPABILITY_CODE_GROOMING_FULLY_DEPENDENT
+      - CAPABILITY_CODE_GROOMING_PARTIALLY_DEPENDENT
+      - CAPABILITY_CODE_GROOMING_INDEPENDENT
+      type: string
+    com.august.protos.health_questionnaire.HealthQuestionnaire.ServiceNeeded.ServiceCode:
+      enum:
+      - SERVICE_CODE_OBSERVATION_DUE_TO_CONFUSION
+      - SERVICE_CODE_OBSERVATION_DUE_TO_HARM
+      - SERVICE_CODE_SPECIAL_MEDICAL_ATTENTION
+      - SERVICE_CODE_OTHER
+      type: string
+    com.august.api.integrations.models.people.v1.RespiteStatus:
+      properties:
+        isRespite:
+          type: boolean
+      required:
+      - isRespite
+    com.august.api.integrations.models.people.v1.AmbulatoryBedStatus:
+      properties:
+        code:
+          $ref: '#/components/schemas/com.august.protos.ambulatory_status.AmbulatoryStatus.BedStatus.Code'
+        comment:
+          type: string
+      required:
+      - code
+    com.august.api.integrations.models.resident_biography.v1.ActivityPreference:
+      enum:
+      - LIKE
+      - WANT_TO_TRY
+      type: string
+    com.august.api.integrations.models.people.v1.CreatePersonRequest:
+      properties:
+        address:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.Address'
+          type: array
+        admissionsInformation:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.AdmissionsInformationOnCreate'
+        allergiesAndIntolerances:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.AllergiesAndIntolerances'
+        ambulatoryStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.AmbulatoryStatus'
+        birthdate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        communication:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Communication'
+          type: array
+        conditions:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Condition'
+          type: array
+        coverage:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Coverage'
+          type: array
+        cprCode:
+          $ref: '#/components/schemas/com.august.protos.snapshot.Polst.CPR'
+        diagnosticResults:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.DiagnosticReport'
+          type: array
+        dischargeInformation:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.DischargeDetails'
+        externalFields:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.ExternalFields'
+        functionalStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.FunctionalStatus'
+        gender:
+          $ref: '#/components/schemas/com.august.protos.gender.Gender'
+        healthQuestionnaire:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.HealthQuestionnaire'
+        hospiceStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.HospiceStatus'
+        hospital:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.HealthcareService'
+        levelOfCare:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.LevelOfCare'
+        maritalStatus:
+          $ref: '#/components/schemas/com.august.protos.person.Person.MaritalStatus'
+        medGroupDetails:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.MedGroupDetailsOnCreate'
+        name:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.HumanName'
+        outOfFacilityDetail:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.OutOfFacilityDetail'
+        religiousPreference:
+          type: string
+        residentStatus:
+          $ref: '#/components/schemas/com.august.protos.person.ResidentStatus'
+        respiteStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.RespiteStatus'
+        socialHistory:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.SocialHistory'
+        telecom:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.ContactPoint'
+          type: array
+      required:
+      - name
+      - residentStatus
+    com.august.protos.health_questionnaire.HealthQuestionnaire.QuestionResponse.ResponseCode:
+      enum:
+      - RESPONSE_CODE_YES
+      - RESPONSE_CODE_NO
+      type: string
+    com.august.protos.snapshot.SnapshotStatus:
+      enum:
+      - SNAPSHOT_STATUS_DRAFT
+      - SNAPSHOT_STATUS_COMPLETE
+      - SNAPSHOT_STATUS_ARCHIVED
+      - SNAPSHOT_STATUS_DISCARDED
+      type: string
+    com.august.api.integrations.models.contacts.v1.YardiFields:
+      properties:
+        extRefId:
+          type: string
+    com.august.api.integrations.models.contacts.v1.Contact:
+      properties:
+        address:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.Address'
+        clinicalSpecialty:
+          type: string
+        externalFields:
+          $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.ExternalFields'
+        id:
+          type: string
+        name:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.HumanName'
+        note:
+          type: string
+        organization:
+          $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.GenericOrganization'
+        relationship:
+          items:
+            $ref: '#/components/schemas/com.august.protos.contact.Contact.ContactRelationship'
+          type: array
+        telecom:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.ContactPoint'
+          type: array
+      required:
+      - id
+      - relationship
+      - name
+      - telecom
+    com.august.api.integrations.models.people.v1.DiagnosticReport:
+      properties:
+        actionTaken:
+          type: string
+        additionalDetails:
+          type: string
+        code:
+          $ref: '#/components/schemas/com.august.protos.diagnostic_report.DiagnosticReport.DiagnosticReportCode'
+        conclusionCode:
+          $ref: '#/components/schemas/com.august.protos.diagnostic_report.DiagnosticReport.ConclusionCode'
+        effectiveDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+      required:
+      - code
+    com.august.api.integrations.models.people.v1.AmbulatoryStatusEvacuationAbilities:
+      properties:
+        ableToEvacuateReasonablyQuickly:
+          type: boolean
+        ableToFollowInstructions:
+          type: boolean
+    com.august.api.integrations.models.common.currency.CurrencyAmount:
+      properties:
+        amount:
+          format: double
+          type: number
+        currency:
+          $ref: '#/components/schemas/com.august.protos.currency_amount.Currency'
+      required:
+      - amount
+      - currency
+    com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.FamilyAndFriends:
+      properties:
+        children:
+          type: string
+        grandchildren:
+          type: string
+        maritalHistory:
+          type: string
+        otherFamily:
+          type: string
+        otherFriends:
+          type: string
+    com.august.api.integrations.models.people.v1.SocialHistory:
+      properties:
+        alcoholUse:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.ObservationWithCode'
+        diet:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.SocialHistoryDiet'
+        dislikesAndHardshipsSummary:
+          type: string
+        educationSummary:
+          type: string
+        interestsAndActivitiesSummary:
+          type: string
+        occupationSummary:
+          type: string
+        other:
+          type: string
+        recentTbExposure:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.ObservationWithBoolean'
+        tobaccoUse:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.ObservationWithCode'
+    com.august.api.integrations.models.resident_biography.v1.ResidentBiographyBasic:
+      properties:
+        bio:
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        family:
+          type: string
+        goals:
+          type: string
+        id:
+          type: string
+        important:
+          type: string
+        location:
+          type: string
+        status:
+          $ref: '#/components/schemas/com.august.protos.snapshot.SnapshotStatus'
+        talents:
+          type: string
+        topics:
+          type: string
+        typicalDay:
+          type: string
+      required:
+      - id
+      - status
+    com.august.api.integrations.models.people.v1.Hospitalizations:
+      properties:
+        inThePastFiveYears:
+          format: int32
+          type: integer
+        summary:
+          type: string
+    com.august.protos.discharge_details.DischargeDetails.DischargeReason:
+      enum:
+      - DISCHARGE_REASON_DECEASED
+      - DISCHARGE_REASON_MOVE_TO_PRIVATE
+      - DISCHARGE_REASON_MOVE_TO_INDEPENDENT_LIVING
+      - DISCHARGE_REASON_MOVE_TO_OTHER_ASSISTED_LIVING
+      - DISCHARGE_REASON_MOVE_TO_SKILLED_NURSING
+      - DISCHARGE_REASON_OTHER
+      type: string
+    com.august.api.integrations.models.people.v1.PatchHospiceStatus:
+      properties:
+        dateStarted:
+          example: '2020-01-01'
+          format: date
+          type:
+          - string
+          - 'null'
+        onHospice:
+          description: Cannot be cleared.
+          type: boolean
+      required: []
+    ? com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeTransferring
+    : properties:
+        capabilityCode:
+          $ref: '#/components/schemas/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeTransferring'
+        summary:
+          type: string
+      required:
+      - capabilityCode
+    com.august.protos.ambulatory_status.AmbulatoryStatus.AmbulatoryCode:
+      enum:
+      - AMBULATORY_CODE_WALKS_WITHOUT_SUPPORT
+      - AMBULATORY_CODE_WALKS_WITH_CANE
+      - AMBULATORY_CODE_WALKS_WITH_WALKER_OR_OTHER_SUPPORT
+      - AMBULATORY_CODE_USES_WHEELCHAIR
+      - AMBULATORY_CODE_BEDRIDDEN_ABLE_TO_TURN
+      - AMBULATORY_CODE_BEDRIDDEN_UNABLE_TO_TURN
+      type: string
+    com.august.protos.currency_amount.Currency:
+      enum:
+      - CURRENCY_USD
+      type: string
+    com.august.protos.address.Address.AddressUse:
+      enum:
+      - ADDRESS_USE_HOME
+      - ADDRESS_USE_WORK
+      - ADDRESS_USE_TEMP
+      - ADDRESS_USE_OLD
+      - ADDRESS_USE_BILLING
+      type: string
+    com.august.protos.functional_status.FunctionalStatus.CapabilityCodeBathing:
+      enum:
+      - CAPABILITY_CODE_BATHING_FULLY_DEPENDENT
+      - CAPABILITY_CODE_BATHING_PARTIALLY_DEPENDENT
+      - CAPABILITY_CODE_BATHING_INDEPENDENT_USES_GRAB_BARS
+      - CAPABILITY_CODE_BATHING_INDEPENDENT
+      type: string
+    com.august.protos.timing.DayOfWeek:
+      enum:
+      - DAY_OF_WEEK_MONDAY
+      - DAY_OF_WEEK_TUESDAY
+      - DAY_OF_WEEK_WEDNESDAY
+      - DAY_OF_WEEK_THURSDAY
+      - DAY_OF_WEEK_FRIDAY
+      - DAY_OF_WEEK_SATURDAY
+      - DAY_OF_WEEK_SUNDAY
+      type: string
+    com.august.api.integrations.models.people.v1.PatchAmbulatoryBedStatus:
+      properties:
+        code:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.protos.ambulatory_status.AmbulatoryStatus.BedStatus.Code'
+          - type: 'null'
+        comment:
+          type:
+          - string
+          - 'null'
+      required: []
+    com.august.protos.diagnostic_report.DiagnosticReport.DiagnosticReportCode:
+      enum:
+      - DIAGNOSTIC_REPORT_CODE_TB_SKIN_TEST
+      - DIAGNOSTIC_REPORT_CODE_TB_BLOOD_TEST
+      - DIAGNOSTIC_REPORT_CODE_TB_UNSPECIFIED_TEST
+      type: string
+    com.august.api.integrations.models.people.v1.PatchExternalFields:
+      properties:
+        caregroveResidentId:
+          type:
+          - string
+          - 'null'
+        eldermarkResidentId:
+          type:
+          - string
+          - 'null'
+        realpageResidentId:
+          type:
+          - string
+          - 'null'
+        welcomeHomeResidentId:
+          type:
+          - string
+          - 'null'
+        yardiResidentId:
+          type:
+          - string
+          - 'null'
+    com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.AboutYou:
+      properties:
+        accomplishments:
+          type: string
+        bornAndLived:
+          type: string
+        describeYourself:
+          type: string
+        militaryBranch:
+          type: string
+        militaryService:
+          type: boolean
+        pets:
+          type: string
+        volunteering:
+          type: string
+    com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.ReligiousPreferences:
+      properties:
+        daysOfWorship:
+          items:
+            $ref: '#/components/schemas/com.august.protos.timing.DayOfWeek'
+          type: array
+        religiousAdvisor:
+          items:
+            type: string
+          type: array
+        religiousPreference:
+          type: string
+        religiousServiceLocation:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ReligiousServiceLocation'
+    com.august.protos.gender.Gender:
+      enum:
+      - GENDER_NON_BINARY
+      - GENDER_FEMALE
+      - GENDER_MALE
+      type: string
+    com.august.api.integrations.models.people.v1.HealthQuestionnaire:
+      properties:
+        admissionSuitabilitySummary:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.QuestionResponse'
+        hospitalizations:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Hospitalizations'
+        medications:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.UnstructuredMedication'
+          type: array
+        mentalHealth:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.QuestionnaireCondition'
+          type: array
+        overallConditionCode:
+          $ref: '#/components/schemas/com.august.protos.health_questionnaire.HealthQuestionnaire.OverallCondition'
+        overallConditionSummary:
+          type: string
+        physicalDisabilities:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.QuestionnaireCondition'
+          type: array
+        servicesNeeded:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.ServiceNeeded'
+          type: array
+      required:
+      - overallConditionCode
+      - physicalDisabilities
+      - mentalHealth
+      - servicesNeeded
+      - medications
+    com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.Interests:
+      properties:
+        booksAndGenres:
+          type: string
+        clubsAndOrganizations:
+          type: string
+        movies:
+          type: string
+        music:
+          type: string
+        otherActivities:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.OtherActivities'
+        sports:
+          type: string
+        television:
+          type: string
+    ? com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeDressing
+    : properties:
+        capabilityCode:
+          $ref: '#/components/schemas/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeDressing'
+        summary:
+          type: string
+      required:
+      - capabilityCode
+    com.august.api.integrations.models.people.v1.ScoreLevel:
+      properties:
+        level:
+          format: int32
+          type: integer
+        levelName:
+          type: string
+        score:
+          format: int32
+          type: integer
+        scoreTypeId:
+          type: string
+        scoreTypeName:
+          type: string
+      required:
+      - scoreTypeId
+      - scoreTypeName
+      - score
+      - level
+      - levelName
+    com.august.protos.health_questionnaire.HealthQuestionnaire.OverallCondition:
+      enum:
+      - OVERALL_CONDITION_POOR
+      - OVERALL_CONDITION_FAIR
+      - OVERALL_CONDITION_GOOD
+      type: string
+    com.august.protos.human_name.HumanName.Pronouns:
+      enum:
+      - PRONOUNS_SHE_HER
+      - PRONOUNS_HE_HIM
+      - PRONOUNS_THEY_THEM
+      - PRONOUNS_SHE_THEY
+      - PRONOUNS_HE_THEY
+      - PRONOUNS_ZE_HIR
+      type: string
+    com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.Meals:
+      properties:
+        foodDislikes:
+          type: string
+        foodFavorites:
+          type: string
+        foodSnacks:
+          type: string
+        timeBreakfast:
+          type: string
+        timeDinner:
+          type: string
+        timeLunch:
+          type: string
+    com.august.api.integrations.models.people.v1.ObservationWithCode:
+      properties:
+        effectiveDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        summary:
+          type: string
+        value:
+          $ref: '#/components/schemas/com.august.protos.observation.Observation.ValueCode'
+      required:
+      - value
+    com.august.protos.snapshot.Polst.CPR:
+      enum:
+      - CPR_ATTEMPT_RESUSCITATION
+      - CPR_DO_NOT_ATTEMPT_RESUSCITATION
+      type: string
+    com.august.api.integrations.models.people.v1.LevelOfCare:
+      properties:
+        assessmentType:
+          $ref: '#/components/schemas/com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentType'
+        careRate:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common.currency.CurrencyAmount'
+        levelName:
+          type: string
+        score:
+          format: int32
+          type: integer
+        value:
+          format: int32
+          type: integer
+    com.august.protos.contact_point.ContactPoint.ContactPointSystem:
+      enum:
+      - CONTACT_POINT_SYSTEM_PHONE
+      - CONTACT_POINT_SYSTEM_FAX
+      - CONTACT_POINT_SYSTEM_EMAIL
+      type: string
+    com.august.api.integrations.models.resident_biography.v1.ExtractResidentBiographyRequest:
+      properties:
+        text:
+          type: string
+      required:
+      - text
+    com.august.api.integrations.models.people.v1.PatchAmbulatoryStatus:
+      properties:
+        ambulatoryResult:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.protos.ambulatory_status.AmbulatoryStatus.AmbulatoryResult'
+          - type: 'null'
+        bedStatus:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchAmbulatoryBedStatus'
+          - type: 'null'
+        code:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.protos.ambulatory_status.AmbulatoryStatus.AmbulatoryCode'
+          - type: 'null'
+        evacuation:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchAmbulatoryStatusEvacuationAbilities'
+          - type: 'null'
+        safeToLeaveWithoutSupervision:
+          type:
+          - boolean
+          - 'null'
+      required: []
+    ? com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMoneyMgmt
+    : properties:
+        capabilityCode:
+          $ref: '#/components/schemas/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMoneyMgmt'
+        summary:
+          type: string
+      required:
+      - capabilityCode
+    com.august.api.integrations.models.people.v1.Coding:
+      properties:
+        code:
+          type: string
+        display:
+          type: string
+        systemEnum:
+          $ref: '#/components/schemas/com.august.protos.codeable_concept.SystemUrl'
+      required:
+      - systemEnum
+    com.august.protos.ambulatory_status.AmbulatoryStatus.BedStatus.Code:
+      enum:
+      - CODE_OUT_OF_BED_ALL_DAY
+      - CODE_IN_BED_PART_OF_DAY
+      - CODE_IN_BED_ALL_OR_MOST_OF_DAY
+      type: string
+    com.august.api.integrations.models.resident_biography.v1.ReligiousServiceLocation:
+      enum:
+      - IN_COMMUNITY
+      - OUTSIDE
+      - IN_AND_OUTSIDE_COMMUNITY
+      type: string
+    com.august.api.integrations.models.resident_biography.v1.OtherActivities:
+      properties:
+        bingo:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        bowling:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        bridgeCards:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        checkersChess:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        collections:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        cookingBaking:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        crosswords:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        dancing:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        fixingThings:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        floralArranging:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        gardening:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        golf:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        groupExercise:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        individualExercise:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        interactingWithChildren:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        jigsawPuzzles:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        knitting:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        movies:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        musicSinging:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        paintingArts:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        playingAnInstrument:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        playsTheater:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        pottery:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        readingBooks:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        reminiscing:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        sewing:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        shopping:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        swimming:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        trivia:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        visitingMuseums:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        visitingWithAnimals:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        visitingWithOthers:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        walks:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        woodworking:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+        workingOnCars:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ActivityPreference'
+    com.august.api.integrations.models.people.v1.Communication:
+      properties:
+        languageStr:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.Language'
+        preferred:
+          type: boolean
+      required:
+      - preferred
+    com.august.api.integrations.models.people.v1.CodeableConcept:
+      properties:
+        coding:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Coding'
+          type: array
+        text:
+          type: string
+      required:
+      - coding
+      - text
+    com.august.api.integrations.models.people.v1.ExternalFields:
+      properties:
+        caregroveResidentId:
+          description: The person's resident ID in CareGrove
+          type: string
+        eldermarkResidentId:
+          description: The person's resident ID in Eldermark
+          type: string
+        realpageResidentId:
+          description: The person's resident ID in RealPage
+          type: string
+        welcomeHomeResidentId:
+          description: The person's resident ID in WelcomeHome
+          type: string
+        yardiResidentId:
+          description: The person's resident ID in Yardi
+          type: string
+    com.august.api.integrations.models.people.v1.AdmissionsInformationOnCreate:
+      properties:
+        admissionType:
+          $ref: '#/components/schemas/com.august.protos.admissions.AdmissionsInformation.AdmissionType'
+        bedId:
+          type: string
+        financialStartDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        moveInStartDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+      required:
+      - admissionType
+    com.august.protos.settings.appraisal_settings.AppraisalSettings.AssessmentType:
+      enum:
+      - ASSESSMENT_TYPE_SUPERVISORY_CARE
+      - ASSESSMENT_TYPE_PERSONAL_CARE
+      - ASSESSMENT_TYPE_DIRECTED_CARE
+      - ASSESSMENT_TYPE_DIRECTED_CARE_MEMORY_SERVICES
+      - ASSESSMENT_TYPE_SPECIAL_CARE_RESIDENT
+      - ASSESSMENT_TYPE_TRADITIONAL_RESIDENT
+      type: string
+    com.august.api.integrations.models.people.v1.Room:
+      properties:
+        externalId:
+          type: string
+        facilityId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        orgId:
+          type: string
+      required:
+      - id
+      - facilityId
+      - orgId
+    com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMobility:
+      enum:
+      - CAPABILITY_CODE_MOBILITY_ROOM_FULLY_DEPENDENT
+      - CAPABILITY_CODE_MOBILITY_ROOM_INDEPENDENT
+      - CAPABILITY_CODE_MOBILITY_FACILITY_INDEPENDENT
+      type: string
+    com.august.api.integrations.models.people.v1.OutOfFacilityDetail:
+      properties:
+        end:
+          format: date-time
+          type: string
+        reason:
+          type: string
+        reasonType:
+          $ref: '#/components/schemas/com.august.protos.person.OutOfFacilityReason'
+        start:
+          format: date-time
+          type: string
+      required:
+      - start
+      - reasonType
+    com.august.api.integrations.models.common.date.DatePeriod:
+      properties:
+        endDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        startDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+    com.august.protos.functional_status.FunctionalStatus.CapabilityCodeTransferring:
+      enum:
+      - CAPABILITY_CODE_TRANSFERRING_FULLY_DEPENDENT
+      - CAPABILITY_CODE_TRANSFERRING_PARTIALLY_DEPENDENT
+      - CAPABILITY_CODE_TRANSFERRING_INDEPENDENT
+      type: string
+    ? com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeEating
+    : properties:
+        capabilityCode:
+          $ref: '#/components/schemas/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeEating'
+        summary:
+          type: string
+      required:
+      - capabilityCode
+    com.august.protos.functional_status.FunctionalStatus.CapabilityCodeToileting:
+      enum:
+      - CAPABILITY_CODE_TOILETING_FULLY_DEPENDENT
+      - CAPABILITY_CODE_TOILETING_PARTIALLY_DEPENDENT
+      - CAPABILITY_CODE_TOILETING_INDEPENDENT
+      type: string
+    com.august.api.integrations.models.contacts.v1.GenericOrganizationContact:
+      properties:
+        address:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.Address'
+        name:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.HumanName'
+        telecom:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.ContactPoint'
+          type: array
+      required:
+      - telecom
+    com.august.api.integrations.models.people.v1.Bed:
+      properties:
+        endDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        externalId:
+          type: string
+        facilityId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        orgId:
+          type: string
+        roomId:
+          type: string
+        startDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+    com.august.api.integrations.models.people.v1.PatchObservationWithBoolean:
+      properties:
+        effectiveDate:
+          example: '2020-01-01'
+          format: date
+          type:
+          - string
+          - 'null'
+        summary:
+          type:
+          - string
+          - 'null'
+        value:
+          type: boolean
+    com.august.api.integrations.models.people.v1.Coverage:
+      properties:
+        groupId:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.CoverageClass'
+        name:
+          type: string
+        notes:
+          type: string
+        period:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common.date.DatePeriod'
+        rxbin:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.CoverageClass'
+        rxpcn:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.CoverageClass'
+        subscriberId:
+          type: string
+        type:
+          $ref: '#/components/schemas/com.august.protos.coverage.Coverage.CoverageType'
+      required:
+      - type
+    com.august.api.integrations.models.people.v1.SocialHistoryDiet:
+      properties:
+        dietTypeValue:
+          items:
+            type: string
+          type: array
+        summary:
+          type: string
+      required:
+      - dietTypeValue
+    com.august.api.integrations.models.people.v1.AdmissionsInformation:
+      properties:
+        admissionType:
+          $ref: '#/components/schemas/com.august.protos.admissions.AdmissionsInformation.AdmissionType'
+        bedDetails:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Bed'
+        bedId:
+          type: string
+        financialStartDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        moveInStartDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        roomDetails:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Room'
+    com.august.api.integrations.models.people.v1.CoverageClass:
+      properties:
+        value:
+          type: string
+      required:
+      - value
+    com.august.api.integrations.models.people.v1.MedGroupDetails:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    com.august.protos.contact_point.ContactPoint.ContactPointUse:
+      enum:
+      - CONTACT_POINT_USE_HOME
+      - CONTACT_POINT_USE_WORK
+      - CONTACT_POINT_USE_MOBILE
+      - CONTACT_POINT_USE_PAGER
+      - CONTACT_POINT_USE_EMERGENCY
+      type: string
+    com.august.api.integrations.models.people.v1.PatchRespiteStatus:
+      properties:
+        isRespite:
+          description: Cannot be cleared.
+          type: boolean
+    com.august.api.integrations.models.people.v1.Person:
+      properties:
+        additionalScores:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.ScoreLevel'
+          type: array
+        address:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.Address'
+          type: array
+        admissionsInformation:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.AdmissionsInformation'
+        allergiesAndIntolerances:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.AllergiesAndIntolerances'
+        ambulatoryStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.AmbulatoryStatus'
+        assessmentFinalizedAt:
+          format: date-time
+          type: string
+        assessments:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.assessments.v1.AssessmentReference'
+          type: array
+        birthdate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        communication:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Communication'
+          type: array
+        conditions:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Condition'
+          type: array
+        contact:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.Contact'
+          type: array
+        coverage:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Coverage'
+          type: array
+        cprCode:
+          $ref: '#/components/schemas/com.august.protos.snapshot.Polst.CPR'
+        createdAt:
+          format: date-time
+          type: string
+        diagnosticResults:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.DiagnosticReport'
+          type: array
+        dischargeInformation:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.DischargeDetails'
+        externalFields:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.ExternalFields'
+        facilityId:
+          type: string
+        functionalStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.FunctionalStatus'
+        futureBedAssignment:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.FutureBedAssignment'
+        gender:
+          $ref: '#/components/schemas/com.august.protos.gender.Gender'
+        healthQuestionnaire:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.HealthQuestionnaire'
+        hospiceStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.HospiceStatus'
+        hospital:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.HealthcareService'
+        id:
+          type: string
+        isOnAlert:
+          type: boolean
+        isOutOfFacility:
+          type: boolean
+        levelOfCare:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.LevelOfCare'
+        maritalStatus:
+          $ref: '#/components/schemas/com.august.protos.person.Person.MaritalStatus'
+        medGroupDetails:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.MedGroupDetails'
+        name:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.HumanName'
+        orgId:
+          type: string
+        outOfFacilityDetail:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.OutOfFacilityDetail'
+        outOfFacilityHistory:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.OutOfFacilityDetail'
+          type: array
+        profilePhotoUrl:
+          example: https://integrations.staging.augusthealth.com/v1/organizations/12345/facilities/67890/people/11111/assessments/99999
+          format: uri
+          type: string
+        religiousPreference:
+          type: string
+        residentStatus:
+          $ref: '#/components/schemas/com.august.protos.person.ResidentStatus'
+        respiteStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.RespiteStatus'
+        shiftCareGroups:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.ShiftCareGroupDetails'
+          type: array
+        socialHistory:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.SocialHistory'
+        telecom:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.ContactPoint'
+          type: array
+      required:
+      - id
+      - orgId
+      - facilityId
+      - additionalScores
+      - address
+      - assessments
+      - communication
+      - conditions
+      - contact
+      - coverage
+      - diagnosticResults
+      - hospiceStatus
+      - isOnAlert
+      - isOutOfFacility
+      - outOfFacilityHistory
+      - name
+      - residentStatus
+      - respiteStatus
+      - shiftCareGroups
+      - telecom
+    com.august.api.integrations.models.people.v1.AmbulatoryStatus:
+      properties:
+        ambulatoryResult:
+          $ref: '#/components/schemas/com.august.protos.ambulatory_status.AmbulatoryStatus.AmbulatoryResult'
+        bedStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.AmbulatoryBedStatus'
+        code:
+          $ref: '#/components/schemas/com.august.protos.ambulatory_status.AmbulatoryStatus.AmbulatoryCode'
+        evacuation:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.AmbulatoryStatusEvacuationAbilities'
+        safeToLeaveWithoutSupervision:
+          type: boolean
+      required:
+      - code
+      - ambulatoryResult
+    com.august.api.integrations.models.contacts.v1.ExternalFields:
+      properties:
+        yardi:
+          $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.YardiFields'
+    com.august.api.integrations.models.people.v1.PatchMedGroupDetails:
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+    com.august.protos.person.Person.MaritalStatus:
+      enum:
+      - MARITAL_STATUS_MARRIED
+      - MARITAL_STATUS_DIVORCED
+      - MARITAL_STATUS_WIDOWED
+      - MARITAL_STATUS_SINGLE
+      - MARITAL_STATUS_SEPARATED
+      - MARITAL_STATUS_DOMESTIC_PARTNER
+      type: string
+    com.august.protos.coverage.Coverage.CoverageType:
+      enum:
+      - COVERAGE_TYPE_MEDICAL
+      - COVERAGE_TYPE_DENTAL
+      - COVERAGE_TYPE_PHARMACY
+      - COVERAGE_TYPE_MEDICARE
+      - COVERAGE_TYPE_PUBLIC_POLICY
+      - COVERAGE_TYPE_MEDICAID
+      type: string
+    com.august.protos.health_questionnaire.HealthQuestionnaire.Severity:
+      enum:
+      - SEVERITY_MILD
+      - SEVERITY_MODERATE
+      - SEVERITY_SEVERE
+      - SEVERITY_ABSENT
+      - SEVERITY_PRESENT
+      type: string
+    com.august.api.integrations.models.people.v1.AllergyIntolerance:
+      properties:
+        category:
+          $ref: '#/components/schemas/com.august.protos.allergy_intolerance.AllergyIntolerance.AllergyIntoleranceCategory'
+        summary:
+          type: string
+      required:
+      - category
+    ? com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeGrooming
+    : properties:
+        capabilityCode:
+          $ref: '#/components/schemas/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeGrooming'
+        summary:
+          type: string
+      required:
+      - capabilityCode
+    com.august.api.integrations.models.people.v1.PatchAmbulatoryStatusEvacuationAbilities:
+      properties:
+        ableToEvacuateReasonablyQuickly:
+          type:
+          - boolean
+          - 'null'
+        ableToFollowInstructions:
+          type:
+          - boolean
+          - 'null'
+    ? com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMobility
+    : properties:
+        capabilityCode:
+          $ref: '#/components/schemas/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMobility'
+        summary:
+          type: string
+      required:
+      - capabilityCode
+    com.august.protos.admissions.AdmissionsInformation.AdmissionType:
+      enum:
+      - ADMISSION_TYPE_ASSISTED_LIVING
+      - ADMISSION_TYPE_MEMORY_CARE
+      - ADMISSION_TYPE_INDEPENDENT_LIVING
+      type: string
+    com.august.api.integrations.models.people.v1.DischargeDetails:
+      properties:
+        financialMoveOutDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        motivation:
+          $ref: '#/components/schemas/com.august.protos.discharge_details.DischargeDetails.DischargeMotivation'
+          description: The underlying reason the resident left (e.g., financial, dissatisfaction, level of care)
+        moveOutDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        notes:
+          description: Free-text notes about the discharge
+          type: string
+        reason:
+          $ref: '#/components/schemas/com.august.protos.discharge_details.DischargeDetails.DischargeReason'
+          description: The discharge destination (e.g., skilled nursing, other assisted living). Despite its name, this field represents where the resident moved to, not why they left.
+      required:
+      - reason
+    com.august.api.integrations.models.resident_biography.v1.CreateResidentBiographyComprehensiveRequest:
+      properties:
+        aboutYou:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.AboutYou'
+          description: Personal background including birthplace, military service, pets, and accomplishments.
+        familyAndFriends:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.FamilyAndFriends'
+          description: Marital history, children, grandchildren, and other important relationships.
+        interests:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.Interests'
+          description: Hobbies and interests including clubs, music, movies, sports, and activities.
+        meals:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.Meals'
+          description: Meal timing preferences, favorite foods, dislikes, and snack preferences.
+        religiousPreferences:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.ReligiousPreferences'
+          description: Religious affiliation, advisor, service location, and days of worship.
+        routines:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive.Routines'
+          description: Daily routines including bathing schedule, dressing preferences, and typical day.
+      required:
+      - aboutYou
+      - familyAndFriends
+      - religiousPreferences
+      - interests
+      - meals
+      - routines
+    com.august.api.integrations.models.people.v1.Location:
+      properties:
+        address:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.Address'
+    com.august.protos.healthcare_service.HealthcareService.ServiceCategory:
+      enum:
+      - SERVICE_CATEGORY_HOSPITAL
+      - SERVICE_CATEGORY_DENTAL
+      type: string
+    com.august.api.integrations.models.resident_biography.v1.ResidentBiographyResponse:
+      properties:
+        basic:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyBasic'
+        comprehensive:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.ResidentBiographyComprehensive'
+        personId:
+          type: string
+      required:
+      - personId
+    ? com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeBathing
+    : properties:
+        capabilityCode:
+          $ref: '#/components/schemas/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeBathing'
+        summary:
+          type: string
+      required:
+      - capabilityCode
+    ? com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeToileting
+    : properties:
+        capabilityCode:
+          $ref: '#/components/schemas/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeToileting'
+        summary:
+          type: string
+      required:
+      - capabilityCode
+    com.august.protos.diagnostic_report.DiagnosticReport.ConclusionCode:
+      enum:
+      - CONCLUSION_CODE_POSITIVE
+      - CONCLUSION_CODE_NEGATIVE
+      type: string
+    com.august.protos.contact.Contact.ContactRelationship:
+      enum:
+      - CONTACT_RELATIONSHIP_PERSONAL
+      - CONTACT_RELATIONSHIP_FAMMEMB
+      - CONTACT_RELATIONSHIP_CHILD
+      - CONTACT_RELATIONSHIP_GRNDCHILD
+      - CONTACT_RELATIONSHIP_SPS
+      - CONTACT_RELATIONSHIP_SIB
+      - CONTACT_RELATIONSHIP_NIENEPH
+      - CONTACT_RELATIONSHIP_GRNIENEPH
+      - CONTACT_RELATIONSHIP_COUSN
+      - CONTACT_RELATIONSHIP_FRND
+      - CONTACT_RELATIONSHIP_CHILD_INLAW
+      - CONTACT_RELATIONSHIP_CLINICIAN
+      - CONTACT_RELATIONSHIP_PHYSICIAN
+      - CONTACT_RELATIONSHIP_NURSE_PRACTITIONER
+      - CONTACT_RELATIONSHIP_PHYSICIAN_ASSISTANT
+      - CONTACT_RELATIONSHIP_PHARMACIST
+      - CONTACT_RELATIONSHIP_NURSE
+      - CONTACT_RELATIONSHIP_SKILLED_THERAPIST
+      - CONTACT_RELATIONSHIP_PSYCHOLOGIST
+      - CONTACT_RELATIONSHIP_DIETICIAN
+      - CONTACT_RELATIONSHIP_SOCIAL_WORKER
+      - CONTACT_RELATIONSHIP_DENTIST
+      - CONTACT_RELATIONSHIP_PODIATRIST
+      - CONTACT_RELATIONSHIP_PROFESSIONAL
+      - CONTACT_RELATIONSHIP_REFERRAL_AGENT
+      - CONTACT_RELATIONSHIP_PLACEMENT_AGENT
+      - CONTACT_RELATIONSHIP_CONSERVATOR
+      - CONTACT_RELATIONSHIP_LEGALLY_RESPONSIBLE
+      - CONTACT_RELATIONSHIP_CASE_MANAGER
+      - CONTACT_RELATIONSHIP_RELIGIOUS_ADVISOR
+      - CONTACT_RELATIONSHIP_THIRD_PARTY_PAYER
+      - CONTACT_RELATIONSHIP_FIDUCIARY
+      - CONTACT_RELATIONSHIP_FUNERAL_HOME
+      - CONTACT_RELATIONSHIP_VETERINARIAN
+      - CONTACT_RELATIONSHIP_GENERAL_PRACTITIONER
+      - CONTACT_RELATIONSHIP_MENTAL_HEALTH_PROVIDER
+      - CONTACT_RELATIONSHIP_HOSPICE_PROVIDER
+      - CONTACT_RELATIONSHIP_RESPONSIBLE_PERSON
+      - CONTACT_RELATIONSHIP_FINANCIAL_PAYMENT_OF_CARE
+      - CONTACT_RELATIONSHIP_FINANCIAL_POWER_OF_ATTORNEY
+      - CONTACT_RELATIONSHIP_MEDICAL_POWER_OF_ATTORNEY
+      - CONTACT_RELATIONSHIP_C
+      - CONTACT_RELATIONSHIP_FORM_CONTRIBUTOR
+      - CONTACT_RELATIONSHIP_RELEASE_OF_INFORMATION
+      - CONTACT_RELATIONSHIP_PERSONAL_PROPERTY
+      - CONTACT_RELATIONSHIP_OTHER
+      - CONTACT_RELATIONSHIP_SELF
+      - CONTACT_RELATIONSHIP_N
+      type: string
+    com.august.api.integrations.models.people.v1.ShiftCareGroupDetails:
+      properties:
+        careGroupId:
+          type: string
+        shiftId:
+          type: string
+    com.august.api.integrations.models.people.v1.PatchSocialHistory:
+      properties:
+        alcoholUse:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchObservationWithCode'
+          - type: 'null'
+        diet:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchSocialHistoryDiet'
+          - type: 'null'
+        dislikesAndHardshipsSummary:
+          type:
+          - string
+          - 'null'
+        educationSummary:
+          type:
+          - string
+          - 'null'
+        interestsAndActivitiesSummary:
+          type:
+          - string
+          - 'null'
+        occupationSummary:
+          type:
+          - string
+          - 'null'
+        other:
+          type:
+          - string
+          - 'null'
+        recentTbExposure:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchObservationWithBoolean'
+          - type: 'null'
+        tobaccoUse:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchObservationWithCode'
+          - type: 'null'
+      required: []
+    com.august.api.integrations.models.people.v1.PatchHealthcareService:
+      properties:
+        category:
+          items:
+            $ref: '#/components/schemas/com.august.protos.healthcare_service.HealthcareService.ServiceCategory'
+          type:
+          - array
+          - 'null'
+        location:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Location'
+          type:
+          - array
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        telecom:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.ContactPoint'
+          type:
+          - array
+          - 'null'
+      required: []
+    com.august.api.integrations.models.people.v1.AllergiesAndIntolerances:
+      properties:
+        allergies:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.AllergyIntolerance'
+          type: array
+      required:
+      - allergies
+    com.august.protos.allergy_intolerance.AllergyIntolerance.AllergyIntoleranceCategory:
+      enum:
+      - ALLERGY_INTOLERANCE_CATEGORY_FOOD
+      - ALLERGY_INTOLERANCE_CATEGORY_MEDICATION
+      type: string
+    com.august.api.integrations.models.people.v1.ServiceNeeded:
+      properties:
+        code:
+          $ref: '#/components/schemas/com.august.protos.health_questionnaire.HealthQuestionnaire.ServiceNeeded.ServiceCode'
+        response:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.QuestionResponse'
+      required:
+      - code
+    com.august.protos.person.ResidentStatus:
+      enum:
+      - RESIDENT_STATUS_PROSPECT
+      - RESIDENT_STATUS_CURRENT_RESIDENT
+      - RESIDENT_STATUS_CLOSED
+      - RESIDENT_STATUS_DISCHARGED
+      - RESIDENT_STATUS_ENTERED_IN_ERROR
+      type: string
+    com.august.api.integrations.models.people.v1.Condition:
+      properties:
+        code:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.CodeableConcept'
+        isPrimary:
+          type: boolean
+      required:
+      - code
+    com.august.protos.codeable_concept.SystemUrl:
+      enum:
+      - SYSTEM_URL_RXNORM
+      - SYSTEM_URL_SNOMED_CT
+      - SYSTEM_URL_NDC
+      - SYSTEM_URL_ICD_10
+      - SYSTEM_URL_DEA
+      - SYSTEM_URL_EDQM
+      - SYSTEM_URL_GPI
+      - SYSTEM_URL_NPI
+      - SYSTEM_URL_UPC
+      type: string
+    com.august.api.integrations.models.people.v1.QuestionnaireCondition:
+      properties:
+        code:
+          $ref: '#/components/schemas/com.august.protos.condition.ConditionCode'
+        severity:
+          $ref: '#/components/schemas/com.august.protos.health_questionnaire.HealthQuestionnaire.Severity'
+        summary:
+          type: string
+      required:
+      - severity
+      - code
+    com.august.api.integrations.models.common_metadata.v1.Address:
+      properties:
+        city:
+          type: string
+        line:
+          items:
+            type: string
+          type: array
+        postalCode:
+          type: string
+        state:
+          type: string
+        text:
+          type: string
+        use:
+          $ref: '#/components/schemas/com.august.protos.address.Address.AddressUse'
+      required:
+      - line
+    com.august.api.integrations.models.people.v1.ObservationWithBoolean:
+      properties:
+        effectiveDate:
+          example: '2020-01-01'
+          format: date
+          type: string
+        summary:
+          type: string
+        value:
+          type: boolean
+      required:
+      - value
+    com.august.api.integrations.models.assessments.v1.AssessmentReference:
+      properties:
+        completedAt:
+          description: When the assessment was finalized
+          format: date-time
+          type: string
+        id:
+          description: The snapshot ID
+          type: string
+        url:
+          example: https://integrations.staging.augusthealth.com/v1/organizations/12345/facilities/67890/people/11111/assessments/99999
+          format: uri
+          type: string
+      required:
+      - id
+      - completedAt
+      - url
+    com.august.api.integrations.models.resident_biography.v1.CreateResidentBiographyRequest:
+      properties:
+        basic:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.CreateResidentBiographyBasicRequest'
+          description: Basic "Getting to Know You" biography with free-text fields.
+        comprehensive:
+          $ref: '#/components/schemas/com.august.api.integrations.models.resident_biography.v1.CreateResidentBiographyComprehensiveRequest'
+          description: Comprehensive biography with structured sections covering personal background, family, religion, interests, meals, and routines.
+    com.august.api.integrations.models.people.v1.UnstructuredMedication:
+      properties:
+        summary:
+          type: string
+    com.august.api.integrations.models.people.v1.PatchPersonRequest:
+      properties:
+        address:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.Address'
+          type:
+          - array
+          - 'null'
+        allergiesAndIntolerances:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchAllergiesAndIntolerances'
+          - type: 'null'
+        ambulatoryStatus:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchAmbulatoryStatus'
+          - type: 'null'
+        birthdate:
+          example: '2020-01-01'
+          format: date
+          type:
+          - string
+          - 'null'
+        communication:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Communication'
+          type:
+          - array
+          - 'null'
+        conditions:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Condition'
+          type:
+          - array
+          - 'null'
+        coverage:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Coverage'
+          type:
+          - array
+          - 'null'
+        externalFields:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchExternalFields'
+          - type: 'null'
+        gender:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.protos.gender.Gender'
+          - type: 'null'
+        hospiceStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchHospiceStatus'
+          description: Cannot be cleared.
+        hospital:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchHealthcareService'
+          - type: 'null'
+        maritalStatus:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.protos.person.Person.MaritalStatus'
+          - type: 'null'
+        medGroupDetails:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchMedGroupDetails'
+          - type: 'null'
+        name:
+          $ref: '#/components/schemas/com.august.api.integrations.models.common_metadata.v1.PatchHumanName'
+          description: Cannot be cleared.
+        religiousPreference:
+          type:
+          - string
+          - 'null'
+        respiteStatus:
+          $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchRespiteStatus'
+          description: Cannot be cleared.
+        socialHistory:
+          anyOf:
+          - $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.PatchSocialHistory'
+          - type: 'null'
+        telecom:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.contacts.v1.ContactPoint'
+          type:
+          - array
+          - 'null'
+      required: []
+    com.august.api.integrations.models.people.v1.FunctionalStatus:
+      properties:
+        bathing:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeBathing'
+          type: array
+        communication:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeCommunication'
+          type: array
+        dressing:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeDressing'
+          type: array
+        eating:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeEating'
+          type: array
+        grooming:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeGrooming'
+          type: array
+        medication:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMedication'
+          type: array
+        mobility:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMobility'
+          type: array
+        money:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMoneyMgmt'
+          type: array
+        toileting:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeToileting'
+          type: array
+        transferring:
+          items:
+            $ref: '#/components/schemas/com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeTransferring'
+          type: array
+      required:
+      - bathing
+      - dressing
+      - grooming
+      - toileting
+      - transferring
+      - mobility
+      - eating
+      - communication
+      - medication
+      - money
+    com.august.protos.functional_status.FunctionalStatus.CapabilityCodeMedication:
+      enum:
+      - CAPABILITY_CODE_MEDICATION_DEPENDENT
+      - CAPABILITY_CODE_MEDICATION_INDEPENDENT
+      type: string
+    ? com.august.api.integrations.models.people.v1.Capability-com.august.protos.functional_status.FunctionalStatus.CapabilityCodeCommunication
+    : properties:
+        capabilityCode:
+          $ref: '#/components/schemas/com.august.protos.functional_status.FunctionalStatus.CapabilityCodeCommunication'
+        summary:
+          type: string
+      required:
+      - capabilityCode
+    com.august.api.integrations.models.people.v1.PatchSocialHistoryDiet:
+      properties:
+        dietTypeValue:
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+        summary:
+          type:
+          - string
+          - 'null'
+      required: []
+    com.august.protos.condition.ConditionCode:
+      enum:
+      - CONDITION_CODE_TB
+      - CONDITION_CODE_VISION_IMPAIRED
+      - CONDITION_CODE_HEARING_IMPAIRED
+      - CONDITION_CODE_SPEECH_IMPAIRED
+      - CONDITION_CODE_MOBILITY_IMPAIRED
+      - CONDITION_CODE_BOWEL_IMPAIRED
+      - CONDITION_CODE_BLADDER_IMPAIRED
+      - CONDITION_CODE_PROSTHESIS
+      - CONDITION_CODE_OTHER_PHYSICAL
+      - CONDITION_CODE_CONFUSED_OR_FORGETFUL
+      - CONDITION_CODE_DEPRESSED_OR_HOPELESS
+      - CONDITION_CODE_NERVOUS_OR_ANXIOUS
+      - CONDITION_CODE_WITHDRAWN_FROM_ACTIVITIES
+      - CONDITION_CODE_SOCIAL_ISOLATION
+      - CONDITION_CODE_AGGRESSIVE_BEHAVIOR
+      - CONDITION_CODE_ADDICTION
+      - CONDITION_CODE_OTHER_MENTAL
+      type: string
+    com.august.protos.functional_status.FunctionalStatus.CapabilityCodeEating:
+      enum:
+      - CAPABILITY_CODE_EATING_FULLY_DEPENDENT
+      - CAPABILITY_CODE_EATING_PARTIALLY_DEPENDENT_ON_PERSON
+      - CAPABILITY_CODE_EATING_PARTIALLY_DEPENDENT_ON_DEVICE
+      - CAPABILITY_CODE_EATING_INDEPENDENT
+      type: string
+  securitySchemes:
+    BearerAuth:
+      scheme: bearer
+      type: http
+x-provenance:
+  method: searched
+  source: https://developer.augusthealth.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.augusthealth.com/reference/bulkchartroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/createcontactv1-1.md
+  - https://developer.augusthealth.com/reference/createincidentv1.md
+  - https://developer.augusthealth.com/reference/createpersonv1-1.md
+  - https://developer.augusthealth.com/reference/createresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/createtokenv1.md
+  - https://developer.augusthealth.com/reference/createvisitorlogv1.md
+  - https://developer.augusthealth.com/reference/createvitalv1.md
+  - https://developer.augusthealth.com/reference/createwebhooksportalaccessurlv1.md
+  - https://developer.augusthealth.com/reference/deletevisitorlogv1.md
+  - https://developer.augusthealth.com/reference/extractresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/getadmissionagreementpdfv1.md
+  - https://developer.augusthealth.com/reference/getadmissionagreementv1.md
+  - https://developer.augusthealth.com/reference/getadmissionhistoryv1.md
+  - https://developer.augusthealth.com/reference/getassessmentv1.md
+  - https://developer.augusthealth.com/reference/getbillingsummaryv1.md
+  - https://developer.augusthealth.com/reference/getcensuspersonv1.md
+  - https://developer.augusthealth.com/reference/getcontactv1-1.md
+  - https://developer.augusthealth.com/reference/getfacilityadmissionhistoryv1.md
+  - https://developer.augusthealth.com/reference/getfacilitybedassignmenthistoryv1.md
+  - https://developer.augusthealth.com/reference/getimmunizationv1.md
+  - https://developer.augusthealth.com/reference/getincidentv1.md
+  - https://developer.augusthealth.com/reference/getlatestadmissionagreementv1.md
+  - https://developer.augusthealth.com/reference/getlatestassessmentv1.md
+  - https://developer.augusthealth.com/reference/getlatestresidentbiographyv1.md
+  - https://developer.augusthealth.com/reference/getpersonprofilephotov1.md
+  - https://developer.augusthealth.com/reference/getpersonv1-1.md
+  - https://developer.augusthealth.com/reference/getstatementpdfv1.md
+  - https://developer.augusthealth.com/reference/getvitalv1.md
+  - https://developer.augusthealth.com/reference/listbedassignmentsv1.md
+  - https://developer.augusthealth.com/reference/listcensusv1.md
+  - https://developer.augusthealth.com/reference/listcontactsv1-1.md
+  - https://developer.augusthealth.com/reference/listfacilitiesv1-1.md
+  - https://developer.augusthealth.com/reference/listfacilitybillingsummariesv1.md
+  - https://developer.augusthealth.com/reference/listfacilityincidentsv1.md
+  - https://developer.augusthealth.com/reference/listfacilitymedicationadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listfacilitymedicationordersv1.md
+  - https://developer.augusthealth.com/reference/listfacilityroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listimmunizationsv1.md
+  - https://developer.augusthealth.com/reference/listmedpassesv1.md
+  - https://developer.augusthealth.com/reference/listorganizationsv1.md
+  - https://developer.augusthealth.com/reference/listpeoplev1-1.md
+  - https://developer.augusthealth.com/reference/listpersonincidentsv1.md
+  - https://developer.augusthealth.com/reference/listpersonmedicationadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listpersonmedicationordersv1.md
+  - https://developer.augusthealth.com/reference/listprncarecategoriesv1.md
+  - https://developer.augusthealth.com/reference/listresidentbillingtransactionsv1.md
+  - https://developer.augusthealth.com/reference/listroomsv1.md
+  - https://developer.augusthealth.com/reference/listroutineadministrationsv1.md
+  - https://developer.augusthealth.com/reference/listshiftsv1.md
+  - https://developer.augusthealth.com/reference/listtasksv1.md
+  - https://developer.augusthealth.com/reference/listusersv1.md
+  - https://developer.augusthealth.com/reference/listvisitorlogsv1.md
+  - https://developer.augusthealth.com/reference/listvitalsv1.md
+  - https://developer.augusthealth.com/reference/patchpersonv1.md
+  - https://developer.augusthealth.com/reference/recordchargesv1.md
+  - https://developer.augusthealth.com/reference/recorddepositv1.md
+  - https://developer.augusthealth.com/reference/searchstatementsv1.md
+  - https://developer.augusthealth.com/reference/setresponsiblepersonv1-1.md
+  - https://developer.augusthealth.com/reference/updateincidentv1.md
+  - https://developer.augusthealth.com/reference/updatevitalv1.md
+  merge:
+    pages: 61
+    deduped: 634
+    conflicts_kept_first: 0
