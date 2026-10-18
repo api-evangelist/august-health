@@ -66,6 +66,15 @@ x-docs-platform-checked: 2026-09-19
 tags:
 - Company
 - Healthcare
+- Electronic Health Records
+- Senior Living
+- Elder Care
+- eMAR
+- Billing
+- Webhook
+tags_raw:
+- Company
+- Healthcare
 - EHR
 - Senior Living
 - Elder Care
@@ -938,6 +947,8 @@ apis:
   humanURL: https://developer.augusthealth.com
   baseURL: https://api.augusthealth.com
   tags:
+  - Users V1
+  tags_raw:
   - Users (v1)
   properties:
   - type: OpenAPI
